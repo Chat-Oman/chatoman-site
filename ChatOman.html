@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatOman | Interactive Pricing Plans</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Harmony - A warm neutral palette (Stone) with a professional Teal accent for calls to action and highlights. -->
+    <!-- Application Structure Plan: The SPA is designed as a conversion-focused landing page. It starts with a Hero section to establish value, followed by the core "Interactive Calculator" to engage users personally. A "Visual Comparison" chart provides a quick, data-driven overview. New "Detailed Pricing Overview" sections present comprehensive monthly, yearly, and setup fee tables. "Feature Explanations" and "Plan Suitability" sections educate the user and help them self-qualify. This structure guides the user from awareness to consideration and finally to a decision, ending with a clear CTA. This is more effective than a static table as it involves the user in the discovery process. -->
+    <!-- Visualization & Content Choices: 1. Pricing Tiers -> Interactive Calculator (HTML/JS) -> Goal: Allow users to create a custom quote, making the price feel tangible and personalized. Interaction: Radio buttons for base plans and checkboxes for add-ons dynamically update the total. Justification: Increases engagement and ownership over the selection process. 2. Price vs. Credits -> Bar Chart (Chart.js/Canvas) -> Goal: Visually compare the core value proposition of each plan. Interaction: Static visual for quick comparison. Justification: Bar charts are excellent for comparing discrete categories, making it easy to see which plan offers more 'bang for the buck'. 3. Detailed Pricing Tables -> Static HTML Tables with Tailwind -> Goal: Provide comprehensive, at-a- glance information for all pricing structures (monthly, yearly, setup). Interaction: None, purely informational. Justification: Caters to users who prefer detailed tabular data for direct comparison. 4. Feature Details -> Accordion (HTML/JS) -> Goal: Explain technical terms simply without cluttering the UI. Interaction: Click to reveal. Justification: Progressive disclosure makes information more digestible for non-tech-savvy users. 5. FAQ Content Generator -> Text Input & Button with LLM Call (HTML/JS with Gemini API) -> Goal: Demonstrate the practical application of AI chatbots by generating example FAQ content, helping potential clients visualize the initial setup. Interaction: User inputs business type, clicks button, and receives AI-generated FAQs. Justification: Directly showcases the value proposition of a chatbot service and reduces a common friction point in chatbot adoption (content creation). -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Add padding to the bottom of the body to prevent content from being hidden behind the sticky button */
+            padding-bottom: 80px; /* Adjust as needed based on button height + margin */
+        }
+        .chart-container { position: relative; width: 100%; max-width: 800px; margin-left: auto; margin-right: auto; height: 350px; max-height: 450px; }
+        @media (min-width: 768px) { .chart-container { height: 400px; } }
+        .plan-card { transition: all 0.3s ease-in-out; }
+        .plan-card.selected { border-color: #0d9488; box-shadow: 0 10px 15px -3px rgb(13 148 136 / 0.1), 0 4px 6px -4px rgb(13 148 136 / 0.1); transform: translateY(-5px); }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+        /* Table specific styles for better readability */
+        .table-auto { border-collapse: collapse; width: 100%; }
+        .table-auto th, .table-auto td { padding: 0.75rem; text-align: left; border-bottom: 1px solid #e2e8f0; } /* stone-200 */
+        .table-auto th { background-color: #f8fafc; font-weight: 600; text-transform: uppercase; font-size: 0.875rem; } /* slate-50 */
+        .table-auto tbody tr:last-child td { border-bottom: none; }
+        /* Sticky button styles for mobile (centered) */
+        .sticky-get-started {
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 2rem); /* Full width minus padding */
+            max-width: 300px; /* Limit width on larger mobiles */
+        }
+        /* Sticky button styles for desktop (bottom-left) */
+        @media (min-width: 768px) {
+            .sticky-get-started {
+                left: 2rem; /* Adjusted to left: 2rem */
+                right: auto; /* Removed right positioning */
+                transform: none;
+                width: auto;
+                max-width: none;
+            }
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800">
+
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <header class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-bold text-teal-700">ChatOman</h1>
+            <p class="mt-4 text-lg text-stone-600 max-w-2xl mx-auto">Empower your Omani business with 24/7 AI-powered customer support. Save time, delight customers, and grow your brand.</p>
+            <p class="mt-2 text-sm text-stone-500">Omani-built. Locally focused. Globally inspired.</p>
+        </header>
+
+        <main>
+            <section id="calculator" class="mb-20">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold">Find Your Perfect Plan</h2>
+                    <p class="mt-2 text-md text-stone-600">Start by selecting a base plan, then add any extras you need. Your total updates instantly.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+                    <div id="plan-selection" class="lg:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-6">
+                    </div>
+
+                    <div class="lg:col-span-1 bg-white p-6 rounded-2xl shadow-lg sticky top-8">
+                        <h3 class="text-xl font-bold border-b pb-3 mb-4">Add-ons</h3>
+                        <div id="addons-selection" class="space-y-4 mb-6">
+                        </div>
+                        <div class="bg-teal-50 border-t border-teal-200 mt-6 pt-4 rounded-b-xl -mx-6 -mb-6 px-6 pb-6">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-stone-600">One-time Setup Fee:</span>
+                                <span id="setup-fee-display" class="font-bold text-lg">0 OMR</span>
+                            </div>
+                            <div class="flex justify-between items-center text-2xl font-bold">
+                                <span class="text-teal-800">Monthly Total:</span>
+                                <span id="total-price-display" class="text-teal-600">0 OMR</span>
+                            </div>
+                            <!-- Original Get Started button -->
+                            <button id="get-started-btn-static" class="w-full bg-teal-600 text-white font-bold py-3 px-4 rounded-lg mt-6 hover:bg-teal-700 transition-colors">
+                                Get Started
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="comparison" class="mb-20">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold">Visual Comparison</h2>
+                    <p class="mt-2 text-md text-stone-600">Quickly see how our plans stack up on key features.</p>
+                </div>
+                <div class="bg-white p-4 sm:p-6 rounded-2xl shadow-lg">
+                    <div class="chart-container">
+                        <canvas id="planComparisonChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Detailed Pricing Overview Start -->
+            <section id="detailed-pricing" class="mb-20">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold">Detailed Pricing Overview</h2>
+                    <p class="mt-2 text-md text-stone-600">A comprehensive look at our monthly, yearly, and setup fees.</p>
+                </div>
+
+                <div class="bg-white p-4 sm:p-6 rounded-2xl shadow-lg mb-12">
+                    <h3 class="text-xl font-bold mb-4">Monthly Pricing Plans</h3>
+                    <div class="overflow-x-auto">
+                        <table class="table-auto w-full text-sm sm:text-base">
+                            <thead>
+                                <tr class="bg-stone-50">
+                                    <th class="py-3 px-2 sm:px-4">Plan</th>
+                                    <th class="py-3 px-2 sm:px-4">Best For</th>
+                                    <th class="py-3 px-2 sm:px-4">Price (OMR/month)</th>
+                                    <th class="py-3 px-2 sm:px-4">Included Features</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="py-3 px-2 sm:px-4 font-semibold text-teal-700">Starter</td>
+                                    <td class="py-3 px-2 sm:px-4">Small Instagram Shops, Startups</td>
+                                    <td class="py-3 px-2 sm:px-4">25 OMR</td>
+                                    <td class="py-3 px-2 sm:px-4">1 AI Agent, 1,000 msgs, Basic FAQ Support, Response Updates 2x/month</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 px-2 sm:px-4 font-semibold text-teal-700">Pro</td>
+                                    <td class="py-3 px-2 sm:px-4">Cafes, Clinics, Mid-sized Retail</td>
+                                    <td class="py-3 px-2 sm:px-4">45 OMR</td>
+                                    <td class="py-3 px-2 sm:px-4">1 AI Agent, 2,000 msgs, Chat Updates Weekly, Light Customization, FAQ + Flow</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 px-2 sm:px-4 font-semibold text-teal-700">Elite</td>
+                                    <td class="py-3 px-2 sm:px-4">Hotels, Medical, Multi-location Brands</td>
+                                    <td class="py-3 px-2 sm:px-4">90 OMR</td>
+                                    <td class="py-3 px-2 sm:px-4">2 AI Agents, 3,000 msgs, Custom Domain, Branding Removed, Full Personalization</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 sm:p-6 rounded-2xl shadow-lg mb-12">
+                    <h3 class="text-xl font-bold mb-4">Yearly Pricing Plans</h3>
+                    <div class="overflow-x-auto">
+                        <table class="table-auto w-full text-sm sm:text-base">
+                            <thead>
+                                <tr class="bg-stone-50">
+                                    <th class="py-3 px-2 sm:px-4">Plan</th>
+                                    <th class="py-3 px-2 sm:px-4">Monthly Rate</th>
+                                    <th class="py-3 px-2 sm:px-4">Annual (No Discount)</th>
+                                    <th class="py-3 px-2 sm:px-4">Annual (Discounted – Paid Upfront)</th>
+                                    <th class="py-3 px-2 sm:px-4">Avg. per Month (Yearly)</th>
+                                    <th class="py-3 px-2 sm:px-4">Annual Savings</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="py-3 px-2 sm:px-4 font-semibold text-teal-700">Starter</td>
+                                    <td class="py-3 px-2 sm:px-4">25 OMR</td>
+                                    <td class="py-3 px-2 sm:px-4">300 OMR</td>
+                                    <td class="py-3 px-2 sm:px-4">275 OMR</td>
+                                    <td class="py-3 px-2 sm:px-4">~22.9 OMR</td>
+                                    <td class="py-3 px-2 sm:px-4">25 OMR</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 px-2 sm:px-4 font-semibold text-teal-700">Pro</td>
+                                    <td class="py-3 px-2 sm:px-4">45 OMR</td>
+                                    <td class="py-3 px-2 sm:px-4">540 OMR</td>
+                                    <td class="py-3 px-2 sm:px-4">495 OMR</td>
+                                    <td class="py-3 px-2 sm:px-4">~41.25 OMR</td>
+                                    <td class="py-3 px-2 sm:px-4">45 OMR</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 px-2 sm:px-4 font-semibold text-teal-700">Elite</td>
+                                    <td class="py-3 px-2 sm:px-4">90 OMR</td>
+                                    <td class="py-3 px-2 sm:px-4">1,080 OMR</td>
+                                    <td class="py-3 px-2 sm:px-4">1,000 OMR</td>
+                                    <td class="py-3 px-2 sm:px-4">~83.3 OMR</td>
+                                    <td class="py-3 px-2 sm:px-4">80 OMR</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 sm:p-6 rounded-2xl shadow-lg mb-12">
+                    <h3 class="text-xl font-bold mb-4">Setup Fees</h3>
+                    <div class="overflow-x-auto">
+                        <table class="table-auto w-full text-sm sm:text-base">
+                            <thead>
+                                <tr class="bg-stone-50">
+                                    <th class="py-3 px-2 sm:px-4">Plan Name</th>
+                                    <th class="py-3 px-2 sm:px-4">Setup Fee (Monthly Clients)</th>
+                                    <th class="py-3 px-2 sm:px-4">Setup Fee (Annual Clients)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="py-3 px-2 sm:px-4 font-semibold text-teal-700">Starter</td>
+                                    <td class="py-3 px-2 sm:px-4">0 OMR</td>
+                                    <td class="py-3 px-2 sm:px-4">0 OMR</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 px-2 sm:px-4 font-semibold text-teal-700">Pro</td>
+                                    <td class="py-3 px-2 sm:px-4">15 OMR</td>
+                                    <td class="py-3 px-2 sm:px-4">Free</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 px-2 sm:px-4 font-semibold text-teal-700">Elite</td>
+                                    <td class="py-3 px-2 sm:px-4">25 OMR</td>
+                                    <td class="py-3 px-2 sm:px-4">Free</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            <!-- Detailed Pricing Overview End -->
+
+            <!-- Tiered Add-On Bundles Start -->
+            <section id="addon-bundles" class="mb-20">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold">Tiered Add-On Bundles</h2>
+                    <p class="mt-2 text-md text-stone-600">Maximize value with our pre-packaged add-on bundles.</p>
+                </div>
+                <div class="bg-white p-4 sm:p-6 rounded-2xl shadow-lg">
+                    <div class="overflow-x-auto">
+                        <table class="table-auto w-full text-sm sm:text-base">
+                            <thead>
+                                <tr class="bg-stone-50">
+                                    <th class="py-3 px-2 sm:px-4">Bundle</th>
+                                    <th class="py-3 px-2 sm:px-4">What's Included</th>
+                                    <th class="py-3 px-2 sm:px-4">Regular Price (OMR/month)</th>
+                                    <th class="py-3 px-2 sm:px-4">Bundle Price (OMR/month)</th>
+                                    <th class="py-3 px-2 sm:px-4">Discount</th>
+                                    <th class="py-3 px-2 sm:px-4">You Save (OMR/month)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="py-3 px-2 sm:px-4 font-semibold text-teal-700">Pro Insights Pack</td>
+                                    <td class="py-3 px-2 sm:px-4">Performance Report + Branding Removal</td>
+                                    <td class="py-3 px-2 sm:px-4">35 OMR</td>
+                                    <td class="py-3 px-2 sm:px-4">30 OMR</td>
+                                    <td class="py-3 px-2 sm:px-4">~14.3%</td>
+                                    <td class="py-3 px-2 sm:px-4">5 OMR</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 px-2 sm:px-4 font-semibold text-teal-700">Elite Brand & Scale Kit</td>
+                                    <td class="py-3 px-2 sm:px-4">+1,000 Messages + Branding Removal + Custom Domain</td>
+                                    <td class="py-3 px-2 sm:px-4">68 OMR</td>
+                                    <td class="py-3 px-2 sm:px-4">55 OMR</td>
+                                    <td class="py-3 px-2 sm:px-4">~19.1%</td>
+                                    <td class="py-3 px-2 sm:px-4">13 OMR</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            <!-- Tiered Add-On Bundles End -->
+
+            <section id="features" class="mb-20">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold">Understanding The Features</h2>
+                    <p class="mt-2 text-md text-stone-600">Here's what our key features mean for your business.</p>
+                </div>
+                <div id="accordion-container" class="max-w-3xl mx-auto space-y-4">
+                </div>
+            </section>
+
+            <!-- New LLM-powered section -->
+            <section id="faq-generator" class="mb-20">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold">Generate ✨ Suggested FAQs to Train Your Chatbot</h2>
+                    <p class="mt-2 text-md text-stone-600">Not sure what your bot should say? Enter your business type below, and our built-in AI will suggest example FAQs you can include in your sign-up form. We'll use these to train your custom chatbot for your business.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-lg max-w-xl mx-auto">
+                    <div class="mb-4">
+                        <label for="business-type-input" class="block text-stone-700 text-sm font-bold mb-2">Your Business Type (e.g., "Cafe", "Clinic", "Retail Shop"):</label>
+                        <input type="text" id="business-type-input" placeholder="e.g., Restaurant" class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-stone-700 leading-tight focus:outline-none focus:shadow-outline focus:border-teal-500 transition-colors">
+                    </div>
+                    <button id="generate-faq-btn" class="w-full bg-teal-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-teal-700 transition-colors flex items-center justify-center">
+                        Generate ✨ Suggested FAQs
+                    </button>
+                    <div id="faq-loading-indicator" class="mt-4 text-center text-teal-600 hidden">
+                        Generating FAQs...
+                    </div>
+                    <div id="generated-faqs" class="mt-6 p-4 bg-stone-50 rounded-lg border border-stone-200 min-h-[100px] text-stone-700 whitespace-pre-wrap">
+                        Your generated FAQs will appear here.
+                    </div>
+                </div>
+            </section>
+            <!-- End New LLM-powered section -->
+
+            <section id="suitability" class="text-center">
+                 <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold">Who Is This For?</h2>
+                    <p class="mt-2 text-md text-stone-600">We've designed our plans to match the needs of local businesses.</p>
+                </div>
+                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-2xl shadow-md">
+                        <h3 class="font-bold text-teal-700 text-lg">Starter</h3>
+                        <p class="text-stone-600 mt-2">Perfect for small Instagram shops and startups who need a simple, automated way to answer common questions.</p>
+                    </div>
+                     <div class="bg-white p-6 rounded-2xl shadow-md">
+                        <h3 class="font-bold text-teal-700 text-lg">Pro</h3>
+                        <p class="text-stone-600 mt-2">Ideal for physical stores like cafes, clinics, and mid-sized retail that handle frequent inquiries about appointments, menus, or services.</p>
+                    </div>
+                     <div class="bg-white p-6 rounded-2xl shadow-md">
+                        <h3 class="font-bold text-teal-700 text-lg">Elite</h3>
+                        <p class="text-stone-600 mt-2">The ultimate solution for hotels, medical facilities, and multi-location brands that require professional, branded, high-volume support.</p>
+                    </div >
+                </div >
+            </section>
+
+            <!-- Contact Us Section -->
+            <section id="contact-us" class="text-center mt-20 mb-12">
+                <div class="bg-white p-6 rounded-2xl shadow-lg max-w-xl mx-auto">
+                    <h2 class="text-3xl font-bold text-teal-700 mb-4">Contact Us</h2>
+                    <p class="text-lg text-stone-600 mb-2">
+                        Instagram: <a href="https://www.instagram.com/chatoman.co?igsh=MWd5Z3g5NDNmYjBlbQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" class="text-teal-600 hover:underline">@chatoman.co</a>
+                    </p>
+                    <p class="text-lg text-stone-600">
+                        Email: <a href="mailto:info@chatoman.co" class="text-teal-600 hover:underline">info@chatoman.co</a>
+                    </p>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-20 border-t pt-8">
+            <p class="text-stone-600">&copy; 2025 ChatOman. All rights reserved.</p>
+            <p class="text-sm text-stone-500 mt-2">
+                <a href="https://drive.google.com/file/d/1SAvfegTPfldVI6_paFjiljJFgmBLA3lv/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="text-stone-500 hover:underline px-2">Terms of Service</a> | 
+                <a href="https://drive.google.com/file/d/1SIblYVGlIoIclA454ZtvmXwR4esFlllV/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="text-stone-500 hover:underline px-2">Privacy Policy</a>
+            </p>
+            <p class="text-sm text-stone-500 mt-2">Bilingual AI Chatbots for Omani Businesses. info@chatoman.co</p>
+        </footer>
+
+    </div>
+
+    <!-- Sticky Get Started Button -->
+    <div id="sticky-get-started" class="fixed bottom-4 z-50 rounded-lg shadow-lg bg-teal-600 hover:bg-teal-700 transition-colors p-3 text-white font-bold text-center sticky-get-started">
+        <button class="w-full h-full">Get Started</button>
+    </div>
+
+
+    <script>
+        const plans = [
+            { id: 'starter', name: 'Starter', priceOMR: 25, credits: 1000, agents: 1, setupFeeMonthly: 0, setupFeeAnnual: 0, brandingRemoved: false, customDomain: false },
+            { id: 'pro', name: 'Pro', priceOMR: 45, credits: 2000, agents: 1, setupFeeMonthly: 15, setupFeeAnnual: 0, brandingRemoved: false, customDomain: false },
+            { id: 'elite', name: 'Elite', priceOMR: 90, credits: 3000, agents: 2, setupFeeMonthly: 25, setupFeeAnnual: 0, brandingRemoved: true, customDomain: true }
+        ];
+
+        const addOns = [
+            { id: 'extraCredits', name: 'Extra 1,000 Messages', priceOMR: 8 },
+            { id: 'brandingRemoval', name: 'Branding Removal', priceOMR: 25 },
+            { id: 'customDomain', name: 'Custom Domain', priceOMR: 35 },
+            { id: 'whatsappIntegration', name: 'WhatsApp Integration', priceOMR: 25 },
+            { id: 'performanceReport', name: 'Performance Report', priceOMR: 10 },
+            { id: 'extraAIAgent', name: 'Extra AI Agent', priceOMR: 9 } // New Add-on
+        ];
+
+        const featureExplanations = [
+            { title: 'Message Credits', content: 'Each time the AI chatbot sends a reply to a user, it consumes one message credit. Our plans come with a monthly allowance, and you can add more if needed. Unused credits do not roll over.' },
+            { title: 'AI Agents', content: 'An AI Agent is like a distinct chatbot with its own unique knowledge base and personality. You might use one agent for customer support and a separate one for sales inquiries, each trained on different information.' },
+            { title: 'Branding Removed', content: 'By default, the chatbot footer includes a "Powered by Chatbase" message. This feature removes it, providing a completely white-label experience that looks like a native part of your website.' },
+            { title: 'Custom Domain', content: 'Instead of a generic link, your chatbot can live on a subdomain of your website (e.g., bot.yourbusiness.com). This enhances professionalism and trust with your customers.' },
+            { title: 'Basic FAQ Support', content: 'This includes initial setup of fundamental FAQs based on your provided information, ensuring your chatbot can answer common customer questions right away.' },
+            { title: 'Response Updates 2x/month', content: 'We\'ll review and update your chatbot\'s responses twice a month to ensure accuracy and relevance, keeping your bot\'s information fresh.' },
+            { title: 'Chat Updates Weekly', content: 'For businesses with more dynamic needs, we provide weekly reviews and updates to your chatbot\'s chat flows and responses, ensuring it stays current with your offerings.' },
+            { title: 'Light Customization, FAQ + Flow', content: 'Beyond basic FAQs, this includes light customization of your chatbot\'s personality and basic conversational flows to guide users through common interactions.' },
+            { title: 'Full Personalization', content: 'Our Elite plan offers comprehensive personalization, which includes deep customization of your chatbot\'s persona, advanced conversational flows, regular performance reviews, and dedicated updates to ensure it perfectly aligns with your business goals.' },
+            { title: 'WhatsApp Integration', content: 'Seamlessly integrate your AI chatbot with WhatsApp, allowing your customers to interact with your bot directly on the platform they use most. Note: Third-party WhatsApp API costs may apply.'},
+            { title: 'Performance Report', content: 'Receive a monthly report detailing your chatbot\'s performance, including message volume, common queries, and user satisfaction, helping you understand its impact and identify areas for improvement.' }
+        ];
+
+        let selectedPlanId = null;
+        let selectedAddOnIds = new Set();
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const planSelectionContainer = document.getElementById('plan-selection');
+            plans.forEach(plan => {
+                const card = document.createElement('div');
+                card.className = 'plan-card bg-white p-6 rounded-2xl shadow-md border-2 border-transparent cursor-pointer';
+                card.dataset.planId = plan.id;
+                card.innerHTML = `
+                    <h3 class="text-xl font-bold text-teal-700">${plan.name}</h3>
+                    <div class="text-3xl font-bold my-4">${plan.priceOMR} <span class="text-lg font-normal text-stone-500">OMR/mo</span></div>
+                    <ul class="space-y-2 text-stone-600">
+                        <li class="flex items-center"><span class="text-teal-500 mr-2">✔</span> ${plan.credits.toLocaleString()} credits/mo</li>
+                        <li class="flex items-center"><span class="text-teal-500 mr-2">✔</span> ${plan.agents} AI Agent(s)</li>
+                        <li class="flex items-center"><span class="${plan.brandingRemoved ? 'text-teal-500' : 'text-stone-400'} mr-2">${plan.brandingRemoved ? '✔' : '✖'}</span> Branding Removed</li>
+                        <li class="flex items-center"><span class="${plan.customDomain ? 'text-teal-500' : 'text-stone-400'} mr-2">${plan.customDomain ? '✔' : '✖'}</span> Custom Domain</li>
+                    </ul>
+                `;
+                card.addEventListener('click', () => handlePlanSelection(plan.id));
+                planSelectionContainer.appendChild(card);
+            });
+
+            const addonsSelectionContainer = document.getElementById('addons-selection');
+            addOns.forEach(addOn => {
+                const addOnElement = document.createElement('label');
+                addOnElement.className = 'flex items-center justify-between bg-stone-100 p-3 rounded-lg';
+                addOnElement.innerHTML = `
+                    <div>
+                        <span class="font-semibold">${addOn.name}</span>
+                        <div class="text-sm text-stone-500">+${addOn.priceOMR} OMR/mo</div>
+                    </div>
+                    <input type="checkbox" data-addon-id="${addOn.id}" class="h-5 w-5 rounded text-teal-600 focus:ring-teal-500 border-stone-300">
+                `;
+                addOnElement.querySelector('input').addEventListener('change', (e) => handleAddOnSelection(addOn.id, e.target.checked));
+                addonsSelectionContainer.appendChild(addOnElement);
+            });
+            
+            const accordionContainer = document.getElementById('accordion-container');
+            featureExplanations.forEach((item, index) => {
+                const accordionItem = document.createElement('div');
+                accordionItem.className = 'bg-white rounded-xl shadow-sm';
+                accordionItem.innerHTML = `
+                    <button class="accordion-toggle flex justify-between items-center w-full p-5 font-semibold text-left">
+                        <span>${item.title}</span>
+                        <span class="transform transition-transform duration-300">▼</span>
+                    </button>
+                    <div class="accordion-content px-5 pb-5 text-stone-600">
+                        <p>${item.content}</p>
+                    </div>
+                `;
+                const toggle = accordionItem.querySelector('.accordion-toggle');
+                const content = accordionItem.querySelector('.accordion-content');
+                const arrow = accordionItem.querySelector('span:last-child');
+                
+                toggle.addEventListener('click', () => {
+                    const isOpen = content.style.maxHeight;
+                    if (isOpen && isOpen !== '0px') {
+                        content.style.maxHeight = '0px';
+                        arrow.style.transform = 'rotate(0deg)';
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                        arrow.style.transform = 'rotate(180deg)';
+                    }
+                });
+
+                accordionContainer.appendChild(accordionItem);
+            });
+
+            updateDisplay();
+            createCharts();
+
+            // LLM Feature Logic
+            const businessTypeInput = document.getElementById('business-type-input');
+            const generateFaqBtn = document.getElementById('generate-faq-btn');
+            const faqLoadingIndicator = document.getElementById('faq-loading-indicator');
+            const generatedFaqsDiv = document.getElementById('generated-faqs');
+
+            generateFaqBtn.addEventListener('click', async () => {
+                const businessType = businessTypeInput.value.trim();
+                if (!businessType) {
+                    generatedFaqsDiv.textContent = "Please enter a business type to generate FAQs.";
+                    return;
+                }
+
+                faqLoadingIndicator.classList.remove('hidden');
+                generatedFaqsDiv.textContent = ""; // Clear previous FAQs
+
+                const prompt = `Generate a list of 8-10 common Frequently Asked Questions (FAQs) for a business that is a ${businessType}. Format them as a numbered list with a question followed by a short, concise answer.`;
+                
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+
+                const payload = { contents: chatHistory };
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    const result = await response.json();
+
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        generatedFaqsDiv.textContent = text;
+                    } else {
+                        generatedFaqsDiv.textContent = "Could not generate FAQs. Please try again or refine your business type.";
+                    }
+                } catch (error) {
+                    console.error("Error generating FAQs:", error);
+                    generatedFaqsDiv.textContent = "An error occurred while generating FAQs. Please try again.";
+                } finally {
+                    faqLoadingIndicator.classList.add('hidden');
+                }
+            });
+
+            // Get Started Button Logic for both buttons
+            const googleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSdH72A9D2bouVJwVk09PEQrVM4B15pW4kcoN3gB6scBCEQ6LA/viewform?usp=header"; 
+
+            document.getElementById('get-started-btn-static').addEventListener('click', () => {
+                if (!googleFormURL) { 
+                    console.error("Google Form URL is not set. Please provide a valid Google Form URL.");
+                    return;
+                }
+                window.open(googleFormURL, '_blank');
+            });
+
+            document.getElementById('sticky-get-started').addEventListener('click', () => {
+                if (!googleFormURL) { 
+                    console.error("Google Form URL is not set. Please provide a valid Google Form URL.");
+                    return;
+                }
+                window.open(googleFormURL, '_blank');
+            });
+        });
+
+        function handlePlanSelection(planId) {
+            selectedPlanId = planId;
+            document.querySelectorAll('.plan-card').forEach(card => {
+                card.classList.toggle('selected', card.dataset.planId === planId);
+            });
+            updateDisplay();
+        }
+
+        function handleAddOnSelection(addOnId, isSelected) {
+            if (isSelected) {
+                selectedAddOnIds.add(addOnId);
+            } else {
+                selectedAddOnIds.delete(addOnId);
+            }
+            updateDisplay();
+        }
+
+        function updateDisplay() {
+            let total = 0;
+            let setupFee = 0;
+            if (selectedPlanId) {
+                const plan = plans.find(p => p.id === selectedPlanId);
+                total += plan.priceOMR;
+                setupFee = plan.setupFeeMonthly; 
+            }
+
+            selectedAddOnIds.forEach(addOnId => {
+                const addOn = addOns.find(a => a.id === addOnId);
+                total += addOn.priceOMR;
+            });
+
+            document.getElementById('total-price-display').textContent = `${total} OMR`;
+            document.getElementById('setup-fee-display').textContent = `${setupFee} OMR`;
+        }
+        
+        function createCharts() {
+            const ctx = document.getElementById('planComparisonChart').getContext('2d');
+            const chartLabels = plans.map(p => p.name);
+            const priceData = plans.map(p => p.priceOMR);
+            const creditData = plans.map(p => p.credits);
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: chartLabels,
+                    datasets: [
+                        {
+                            label: 'Monthly Price (OMR)',
+                            data: priceData,
+                            backgroundColor: 'rgba(13, 148, 136, 0.6)', 
+                            borderColor: 'rgba(13, 148, 136, 1)',
+                            borderWidth: 1,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: 'Message Credits',
+                            data: creditData,
+                            backgroundColor: 'rgba(241, 245, 249, 0.8)', 
+                            borderColor: 'rgba(100, 116, 139, 1)', 
+                            borderWidth: 1,
+                            yAxisID: 'y1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            title: {
+                                display: true,
+                                text: 'Monthly Price (OMR)',
+                                color: '#0d9488'
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            title: {
+                                display: true,
+                                text: 'Message Credits',
+                                color: '#64748b'
+                            },
+                            grid: {
+                                drawOnChartArea: false
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+    <!-- Chatbase chatbot integration script -->
+    <script>
+        (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="Qnz7C2BIzWuvbfBOx_maY";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+    </script>
+</body>
+</html>
