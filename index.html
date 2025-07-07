@@ -402,7 +402,7 @@
                 </div>
             </section>
 
-            <!-- New LLM-powered section -->
+            <!-- LLM-powered FAQ Generator -->
             <section id="faq-generator" class="mb-20">
                 <div class="text-center mb-12">
                     <h2 class="text-3xl font-bold">Generate ✨ Suggested FAQs to Train Your Chatbot | أنشئ أسئلة شائعة مقترحة لتدريب روبوت الدردشة الخاص بك</h2>
@@ -425,33 +425,7 @@
                     </div>
                 </div>
             </section>
-            <!-- End New LLM-powered section -->
-
-            <!-- New LLM-powered Marketing Blurb Generator -->
-            <section id="marketing-blurb-generator" class="mb-20">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl font-bold">Generate ✨ Your Chatbot's Marketing Blurb | أنشئ وصفًا تسويقيًا لروبوت الدردشة الخاص بك</h2>
-                    <p class="mt-2 text-md text-stone-600">Want to see how your ChatOman bot can be marketed? Enter your business type below, and our AI will generate a short marketing blurb highlighting the benefits of your new chatbot.</p>
-                    <p class="font-tajawal text-md text-stone-600">هل ترغب في معرفة كيف يمكن تسويق روبوت الدردشة الخاص بك من تشات عُمان؟ أدخل نوع عملك أدناه، وسيقوم الذكاء الاصطناعي لدينا بإنشاء وصف تسويقي قصير يسلط الضوء على فوائد روبوت الدردشة الجديد الخاص بك</p>
-                </div>
-                <div class="bg-white p-6 rounded-2xl shadow-lg max-w-xl mx-auto">
-                    <div class="mb-4">
-                        <label for="marketing-business-type-input" class="block text-stone-700 text-sm font-bold mb-2">Your Business Type (e.g., "Cafe", "Clinic", "Retail Shop"): | نوع عملك (على سبيل المثال، "مقهى"، "عيادة"، "متجر بيع بالتجزئة"):</label>
-                        <input type="text" id="marketing-business-type-input" placeholder="e.g., Boutique" class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-stone-700 leading-tight focus:outline-none focus:shadow-outline focus:border-teal-500 transition-colors">
-                    </div>
-                    <button id="generate-blurb-btn" class="w-full bg-teal-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-teal-700 transition-colors flex items-center justify-center">
-                        Generate ✨ Marketing Blurb | أنشئ وصفًا تسويقيًا
-                    </button>
-                    <div id="blurb-loading-indicator" class="mt-4 text-center text-teal-600 hidden">
-                        Generating blurb... | جاري إنشاء الوصف...
-                    </div>
-                    <div id="generated-blurb" class="mt-6 p-4 bg-stone-50 rounded-lg border border-stone-200 min-h-[100px] text-stone-700 whitespace-pre-wrap">
-                        Your generated marketing blurb will appear here | سيظهر وصفك التسويقي هنا
-                    </div>
-                </div>
-            </section>
-            <!-- End New LLM-powered Marketing Blurb Generator -->
-
+            <!-- End LLM-powered FAQ Generator -->
 
             <section id="suitability" class="text-center">
                  <div class="text-center mb-12">
@@ -541,7 +515,7 @@
         const featureExplanations = [
             { title: 'Message Credits', content: 'Each time the AI chatbot sends a reply to a user, it consumes one message credit. Our plans come with a monthly allowance, and you can add more if needed. Unused credits do not roll over.', arabicContent: 'كل مرة يرد فيها روبوت الدردشة على المستخدم، يتم استخدام رصيد واحد. تأتي خططنا مع رصيد شهري، ويمكنك إضافة المزيد إذا لزم الأمر. الأرصدة غير المستخدمة لا ترحل للشهر التالي' },
             { title: 'AI Agents', content: 'An AI Agent is like a distinct chatbot with its own unique knowledge base and personality. You might use one agent for customer support and a separate one for sales inquiries, each trained on different information.', arabicContent: 'الوكيل الذكي هو روبوت دردشة منفصل بقاعدة معرفة وشخصية فريدة خاصة به. يمكنك استخدام وكيل واحد لدعم العملاء وآخر منفصل لاستفسارات المبيعات، وكل منهما مدرب على معلومات مختلفة' },
-            { title: 'Branding Removed', content: 'This removes both the Powered by Chatbase label and any ChatOman branding (e.g., footer logo or name) from your chatbot.', arabicContent: 'يزيل هذا كلاً من تسمية "مدعوم من Chatbase" وأي علامة تجارية لـ ChatOman (مثل شعار التذييل أو الاسم) من روبوت الدردشة الخاص بك' },
+            { title: 'Branding Removed', content: 'This removes both the Powered by Chatbase label and any ChatOman branding (e.g., footer logo or name) from your chatbot.', arabicContent: 'يزيل عبارة "مدعوم من شاتبَيس" وأي علامة تجارية لتشات عُمان مثل الشعار أو الاسم.' },
             { title: 'Custom Domain', content: 'Instead of a generic link, your chatbot can live on a subdomain of your website (e.g., bot.yourbusiness.com). This enhances professionalism and trust with your customers.', arabicContent: 'بدلاً من الرابط العام، يمكن لروبوت الدردشة الخاص بك أن يتواجد على نطاق فرعي لموقعك الإلكتروني (مثال: bot.yourbusiness.com). هذا يعزز الاحترافية والثقة مع عملائك' },
             { title: 'Basic FAQ Support', content: 'This includes initial setup of fundamental FAQs based on your provided information, ensuring your chatbot can answer common customer questions right away.', arabicContent: 'يتضمن ذلك الإعداد الأولي للأسئلة الشائعة الأساسية بناءً على المعلومات التي تقدمها، مما يضمن أن روبوت الدردشة الخاص بك يمكنه الإجابة على أسئلة العملاء الشائعة فورًا' },
             { title: 'Response Updates 2x/month', content: 'We\'ll review and update your chatbot\'s responses twice a month to ensure accuracy and relevance, keeping your bot\'s information fresh.', arabicContent: 'سنقوم بمراجعة وتحديث ردود روبوت الدردشة الخاص بك مرتين شهريًا لضمان الدقة والأهمية، مما يحافظ على تحديث معلومات الروبوت الخاص بك' },
@@ -878,56 +852,6 @@
                     faqLoadingIndicator.classList.add('hidden');
                 }
             });
-
-            // LLM Feature Logic for Marketing Blurb Generator
-            const marketingBusinessTypeInput = document.getElementById('marketing-business-type-input');
-            const generateBlurbBtn = document.getElementById('generate-blurb-btn');
-            const blurbLoadingIndicator = document.getElementById('blurb-loading-indicator');
-            const generatedBlurbDiv = document.getElementById('generated-blurb');
-
-            generateBlurbBtn.addEventListener('click', async () => {
-                const businessType = marketingBusinessTypeInput.value.trim();
-                if (!businessType) {
-                    generatedBlurbDiv.textContent = "Please enter a business type to generate a marketing blurb.";
-                    return;
-                }
-
-                blurbLoadingIndicator.classList.remove('hidden');
-                generatedBlurbDiv.textContent = ""; // Clear previous blurb
-
-                const prompt = `Write a short, engaging marketing blurb (2-3 sentences) for a ${businessType} business, highlighting how an AI chatbot from ChatOman can specifically benefit them by improving customer service, saving time, and boosting sales. Focus on the value proposition.`;
-                
-                let chatHistory = [];
-                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
-
-                const payload = { contents: chatHistory };
-                const apiKey = "";
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-                try {
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-                    const result = await response.json();
-
-                    if (result.candidates && result.candidates.length > 0 &&
-                        result.candidates[0].content && result.candidates[0].content.parts &&
-                        result.candidates[0].content.parts.length > 0) {
-                        const text = result.candidates[0].content.parts[0].text;
-                        generatedBlurbDiv.textContent = text;
-                    } else {
-                        generatedBlurbDiv.textContent = "Could not generate marketing blurb. Please try again or refine your business type.";
-                    }
-                } catch (error) {
-                    console.error("Error generating marketing blurb:", error);
-                    generatedBlurbDiv.textContent = "An error occurred while generating the marketing blurb. Please try again.";
-                } finally {
-                    blurbLoadingIndicator.classList.add('hidden');
-                }
-            });
-
 
             // Link "Get Started" buttons to Google Form
             document.getElementById('get-started-btn-static').addEventListener('click', () => {
