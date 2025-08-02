@@ -15,10 +15,229 @@
     <!-- Visualization & Content Choices: 1. Pricing Tiers -> Interactive Calculator (HTML/JS) -> Goal: Allow users to create a custom quote, making the price feel tangible and personalized. Interaction: Radio buttons for base plans and checkboxes for add-ons dynamically update the total. Justification: Increases engagement and ownership over the selection process. 2. Price vs. Credits -> Doughnut Charts (HTML/JS Canvas) -> Goal: Visually compare the feature distribution of each plan. Interaction: Static visual for quick comparison. Justification: Doughnut charts are excellent for showing parts of a whole, making it easy to see the focus of each plan. 3. Detailed Pricing Tables -> Static HTML Tables with Tailwind -> Goal: Provide comprehensive, at-a- glance information for all pricing structures (monthly, yearly, setup). Interaction: None, purely informational. Justification: Caters to users who prefer detailed tabular data for direct comparison. 4. Feature Details -> Accordion (HTML/JS) -> Goal: Explain technical terms simply without cluttering the UI. Interaction: Click to reveal. Justification: Progressive disclosure makes information more digestible for non-tech-savvy users. 5. FAQ Content Generator -> Text Input & Button with LLM Call (HTML/JS with Gemini API) -> Goal: Demonstrate the practical application of AI chatbots by generating example FAQ content, helping potential clients visualize the initial setup. Interaction: User inputs business type, clicks button, and receives AI-generated FAQs. Justification: Directly showcases the value proposition of a chatbot service and reduces a common friction point in chatbot adoption (content creation). -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
+        :root {
+            --c-primary: #12bfb4;
+            --c-dark: #070909;
+            --c-light: #f1f1f2;
+        }
+        
         body {
             font-family: 'Inter', sans-serif;
             /* Add padding to the bottom of the body to prevent content from being hidden behind the sticky button */
             padding-bottom: 80px; /* Adjust as needed based on button height + margin */
+        }
+        
+        /* Hero Section Styles */
+        .hero-section {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            padding: 4rem 2rem;
+            margin-bottom: 4rem;
+            border-radius: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(18, 191, 180, 0.05) 0%, rgba(241, 241, 242, 0.1) 100%);
+            pointer-events: none;
+        }
+        
+        .hero-content {
+            text-align: center;
+            max-width: 56rem;
+            margin: 0 auto 3rem auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-content-ar {
+            direction: rtl;
+        }
+        
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 700;
+            color: var(--c-dark);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+        
+        .lang-ar .hero-title {
+            line-height: 1.2;
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1.125rem, 2.5vw, 1.25rem);
+            font-weight: 400;
+            color: #4b5563;
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+            max-width: 42rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.875rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            gap: 0.5rem;
+            min-width: 10rem;
+        }
+        
+        .btn-primary {
+            background-color: var(--c-primary);
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(18, 191, 180, 0.25);
+        }
+        
+        .btn-primary:hover {
+            background-color: #0e9a8f;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 12px -1px rgba(18, 191, 180, 0.35);
+        }
+        
+        .btn-secondary {
+            background-color: white;
+            color: var(--c-dark);
+            border: 2px solid #e2e8f0;
+            box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--c-primary);
+            color: var(--c-primary);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px -1px rgba(0, 0, 0, 0.15);
+        }
+        
+        .feature-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+            gap: 2rem;
+            max-width: 72rem;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .feature-cards-ar {
+            direction: rtl;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(226, 232, 240, 0.5);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
+            border-color: rgba(18, 191, 180, 0.3);
+        }
+        
+        .feature-icon {
+            width: 4rem;
+            height: 4rem;
+            margin: 0 auto 1.5rem auto;
+            background: linear-gradient(135deg, rgba(18, 191, 180, 0.1) 0%, rgba(18, 191, 180, 0.05) 100%);
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover .feature-icon {
+            background: linear-gradient(135deg, rgba(18, 191, 180, 0.2) 0%, rgba(18, 191, 180, 0.1) 100%);
+            transform: scale(1.05);
+        }
+        
+        .feature-icon img {
+            width: 2rem;
+            height: 2rem;
+            filter: brightness(0) saturate(100%) invert(70%) sepia(89%) saturate(448%) hue-rotate(130deg) brightness(92%) contrast(89%);
+        }
+        
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--c-dark);
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+        }
+        
+        .feature-description {
+            font-size: 0.95rem;
+            color: #6b7280;
+            line-height: 1.6;
+            margin: 0;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 3rem 1.5rem;
+                margin-bottom: 3rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 16rem;
+            }
+            
+            .feature-cards {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .feature-card {
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-section {
+                padding: 2rem 1rem;
+                border-radius: 1rem;
+            }
+            
+            .hero-content {
+                margin-bottom: 2rem;
+            }
         }
         /* Custom font family for Arabic text */
         .font-tajawal {
@@ -118,21 +337,400 @@
                 max-width: none;
             }
         }
-        /* How It Works Card Hover Effect */
-        .how-it-works-card {
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+        /* YouTube Video Modal Styles */
+        .video-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
         }
-        .how-it-works-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+
+        /* Show state for modal overlay */
+        .video-modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
         }
-        /* Why ChatOman Card Styling */
+
+        /* Modal content container */
+        .video-modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 800px;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        /* Show state for modal content */
+        .video-modal-overlay.show .video-modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        /* Close button styling */
+        .video-modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s ease;
+        }
+
+        .video-modal-close:hover {
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        /* YouTube iframe container for responsive aspect ratio */
+        .youtube-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+        }
+
+        .youtube-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Mobile responsiveness for video modal */
+        @media (max-width: 768px) {
+            .video-modal-content {
+                width: 95%;
+                margin: 20px;
+            }
+            
+            .video-modal-close {
+                top: 10px;
+                right: 10px;
+                width: 35px;
+                height: 35px;
+                font-size: 18px;
+            }
+        }
+        /* Timeline Styles */
+        .timeline-container {
+            max-width: 60rem;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .timeline-container::before {
+            display: none;
+        }
+        
+        .timeline-container-ar::before {
+            display: none;
+        }
+        
+        .timeline-item {
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+            transform: translateY(2rem);
+            gap: 2rem;
+        }
+        
+        .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.4s; }
+        
+        .timeline-item-last {
+            margin-bottom: 0;
+        }
+        
+        .timeline-item-ar {
+            direction: rtl;
+            text-align: right;
+            flex-direction: row-reverse;
+        }
+        
+        .timeline-number {
+            position: relative;
+            z-index: 2;
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+            background: var(--c-primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.25rem;
+            box-shadow: 0 4px 8px rgba(18, 191, 180, 0.3);
+            flex-shrink: 0;
+        }
+        
+        .timeline-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            flex: 1;
+            border: 1px solid rgba(226, 232, 240, 0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-card-ar {
+            text-align: right;
+            direction: rtl;
+        }
+        
+        .timeline-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
+            border-color: rgba(18, 191, 180, 0.3);
+        }
+        
+        .timeline-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--c-dark);
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+        }
+        
+        .timeline-description {
+            font-size: 1rem;
+            color: #6b7280;
+            line-height: 1.6;
+            margin: 0;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive timeline adjustments */
+        @media (max-width: 768px) {
+            .timeline-container {
+                max-width: 100%;
+                padding: 0 1rem;
+            }
+            
+            .timeline-container::before {
+                left: 2rem;
+            }
+            
+            .timeline-container-ar::before {
+                left: auto;
+                right: 2rem;
+            }
+            
+            .timeline-item {
+                flex-direction: column;
+                align-items: center;
+                margin-bottom: 3rem;
+                gap: 1rem;
+            }
+            
+            .timeline-item-ar {
+                align-items: center;
+                flex-direction: column;
+            }
+            
+            .timeline-card {
+                width: 100%;
+            }
+            
+            .timeline-card-ar {
+                width: 100%;
+            }
+        }
+        /* Why ChatOman Section Styles */
+        .why-chatoman-section {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            padding: 4rem 2rem;
+            margin-bottom: 4rem;
+            border-radius: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .why-chatoman-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(18, 191, 180, 0.05) 0%, rgba(241, 241, 242, 0.1) 100%);
+            pointer-events: none;
+        }
+        
+        .why-chatoman-content {
+            text-align: center;
+            max-width: 56rem;
+            margin: 0 auto 3rem auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .why-chatoman-content-ar {
+            direction: rtl;
+        }
+        
+        .why-chatoman-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            color: var(--c-dark);
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+        
+        .why-chatoman-subtitle {
+            font-size: clamp(1rem, 2vw, 1.125rem);
+            font-weight: 400;
+            color: #6b7280;
+            line-height: 1.6;
+            margin: 0;
+            max-width: 42rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .why-chatoman-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+            gap: 2rem;
+            max-width: 72rem;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .why-chatoman-cards-ar {
+            direction: rtl;
+        }
+        
         .why-chatoman-card {
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(226, 232, 240, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
+        
+        .why-chatoman-card-ar {
+            direction: rtl;
+            text-align: center;
+        }
+        
         .why-chatoman-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
+            border-color: rgba(18, 191, 180, 0.3);
+        }
+        
+        .why-chatoman-icon {
+            width: 4rem;
+            height: 4rem;
+            margin: 0 auto 1.5rem auto;
+            background: linear-gradient(135deg, rgba(18, 191, 180, 0.1) 0%, rgba(18, 191, 180, 0.05) 100%);
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+        
+        .why-chatoman-card:hover .why-chatoman-icon {
+            background: linear-gradient(135deg, rgba(18, 191, 180, 0.2) 0%, rgba(18, 191, 180, 0.1) 100%);
+            transform: scale(1.05);
+        }
+        
+        .why-chatoman-icon img {
+            width: 2rem;
+            height: 2rem;
+            filter: brightness(0) saturate(100%) invert(70%) sepia(89%) saturate(448%) hue-rotate(130deg) brightness(92%) contrast(89%);
+        }
+        
+        .why-chatoman-card-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--c-dark);
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+        }
+        
+        .why-chatoman-card-description {
+            font-size: 0.95rem;
+            color: #6b7280;
+            line-height: 1.6;
+            margin: 0;
+            text-align: center;
+        }
+        
+        /* Responsive adjustments for Why ChatOman */
+        @media (max-width: 768px) {
+            .why-chatoman-section {
+                padding: 3rem 1.5rem;
+                margin-bottom: 3rem;
+            }
+            
+            .why-chatoman-cards {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .why-chatoman-card {
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .why-chatoman-section {
+                padding: 2rem 1rem;
+                border-radius: 1rem;
+            }
+            
+            .why-chatoman-content {
+                margin-bottom: 2rem;
+            }
         }
         /* Toggle Switch Styling */
         .toggle-switch {
@@ -275,274 +873,281 @@
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
         <!-- Hero Banner Section Start -->
-        <section id="hero-banner" class="text-center py-16 px-4 rounded-2xl mb-16" style="background-color: #f1f1f2;">
+        <section id="hero-banner" class="hero-section">
             <!-- English Version -->
             <div class="lang-en">
-                <h1 class="text-4xl md:text-5xl font-bold mb-2" style="color: #070909;">
-                    Smart Bilingual Chatbots for Omani Businesses
-                </h1>
-                <p class="text-lg md:text-xl text-stone-700 max-w-3xl mx-auto mb-6">
-                    Instantly answer customer questions, show menus and services, and handle bookings — in Arabic and English.
-                </p>
-                <p class="text-md text-stone-600 max-w-2xl mx-auto mb-8">
-                    ChatOman builds AI chatbots that save time, provide 24/7 customer support, and help your business grow.
-                </p>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-10 text-stone-700">
-                    <div class="p-4 bg-white rounded-lg shadow-sm">
-                        <div class="w-12 h-12 mx-auto mb-3">
-                            <img src="https://img.icons8.com/ios/50/12bfb4/restaurant-menu.png" alt="Restaurant icon" class="w-full h-full">
-                        </div>
-                        <h3 class="font-semibold text-lg">Restaurants & Cafés</h3>
-                        <p class="text-sm">Share menu, guide customers to order links, handle FAQs</p>
-                    </div>
-                    <div class="p-4 bg-white rounded-lg shadow-sm">
-                        <div class="w-12 h-12 mx-auto mb-3">
-                            <img src="https://img.icons8.com/ios/50/12bfb4/shop.png" alt="Retail store icon" class="w-full h-full">
-                        </div>
-                        <h3 class="font-semibold text-lg">Retail Stores</h3>
-                        <p class="text-sm">Answer product questions, show locations, guide to offers</p>
-                    </div>
-                    <div class="p-4 bg-white rounded-lg shadow-sm">
-                        <div class="w-12 h-12 mx-auto mb-3">
-                            <img src="https://img.icons8.com/ios/50/12bfb4/hospital-room.png" alt="Medical clinic icon" class="w-full h-full">
-                        </div>
-                        <h3 class="font-semibold text-lg">Clinics & Salons</h3>
-                        <p class="text-sm">Assist with booking questions, explain services, answer common questions</p>
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        Smart Bilingual Chatbots for Omani Businesses
+                    </h1>
+                    <p class="hero-subtitle">
+                        Instantly answer customer questions, showcase your services, and handle bookings in Arabic and English — 24/7 automated support that grows your business.
+                    </p>
+                    
+                    <div class="hero-buttons">
+                        <button id="hero-get-started-btn" class="btn btn-primary">
+                            <span>▶</span> See Demo
+                        </button>
+                        <button id="get-free-setup-btn" class="btn btn-secondary">
+                            Get Free Setup
+                        </button>
                     </div>
                 </div>
 
-                <button id="hero-get-started-btn" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white transition-colors mt-8" style="background-color: #12bfb4; hover-bg-color: #0e9a8f;">
-                    See How It Works
-                </button>
+                <div class="feature-cards">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <img src="https://img.icons8.com/ios/50/12bfb4/restaurant-menu.png" alt="Restaurant icon">
+                        </div>
+                        <h3 class="feature-title">Restaurants & Cafés</h3>
+                        <p class="feature-description">Share menus, guide customers to ordering platforms, and answer common questions about hours, location, and specialties.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <img src="https://img.icons8.com/ios/50/12bfb4/shop.png" alt="Retail store icon">
+                        </div>
+                        <h3 class="feature-title">Retail Stores</h3>
+                        <p class="feature-description">Help customers find products, check availability, get directions to your store, and learn about current promotions.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <img src="https://img.icons8.com/ios/50/12bfb4/hospital-room.png" alt="Medical clinic icon">
+                        </div>
+                        <h3 class="feature-title">Clinics & Salons</h3>
+                        <p class="feature-description">Assist with appointment inquiries, explain services and pricing, and provide essential clinic information.</p>
+                    </div>
+                </div>
             </div>
 
             <!-- Arabic Version -->
-            <div class="lang-ar text-center">
-                <h1 class="text-4xl md:text-5xl font-bold mb-2" style="color: #070909;">
-                    روبوتات دردشة ذكية ثنائية اللغة للشركات العُمانية
-                </h1>
-                <p class="text-lg md:text-xl text-stone-700 max-w-3xl mx-auto mb-6">
-                    الرد الفوري على استفسارات العملاء، عرض القوائم والخدمات، وإدارة الحجوزات — بالعربية والإنجليزية
-                </p>
-                <p class="text-md text-stone-600 max-w-2xl mx-auto mb-8">
-                    تشات عُمان تصمّم روبوتات دردشة تعمل بالذكاء الاصطناعي لتوفير الوقت، ودعم العملاء على مدار الساعة، ومساعدة عملك على النمو
-                </p>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-10 text-stone-700">
-                    <div class="p-4 bg-white rounded-lg shadow-sm">
-                        <div class="w-12 h-12 mx-auto mb-3">
-                            <img src="https://img.icons8.com/ios/50/12bfb4/restaurant-menu.png" alt="أيقونة مطعم" class="w-full h-full">
-                        </div>
-                        <h3 class="font-semibold text-lg">المطاعم والمقاهي</h3>
-                        <p class="text-sm">عرض القائمة، توجيه العملاء لروابط الطلب، الرد على الأسئلة الشائعة</p>
-                    </div>
-                    <div class="p-4 bg-white rounded-lg shadow-sm">
-                        <div class="w-12 h-12 mx-auto mb-3">
-                            <img src="https://img.icons8.com/ios/50/12bfb4/shop.png" alt="أيقونة متجر" class="w-full h-full">
-                        </div>
-                        <h3 class="font-semibold text-lg">متاجر التجزئة</h3>
-                        <p class="text-sm">الرد على استفسارات المنتجات، عرض المواقع، وتوجيههم للعروض المتاحة</p>
-                    </div>
-                    <div class="p-4 bg-white rounded-lg shadow-sm">
-                        <div class="w-12 h-12 mx-auto mb-3">
-                            <img src="https://img.icons8.com/ios/50/12bfb4/hospital-room.png" alt="أيقونة عيادة طبية" class="w-full h-full">
-                        </div>
-                        <h3 class="font-semibold text-lg">العيادات والصالونات</h3>
-                        <p class="text-sm">المساعدة في أسئلة الحجوزات، شرح الخدمات، والإجابة على الاستفسارات المتكررة</p>
+            <div class="lang-ar">
+                <div class="hero-content hero-content-ar">
+                    <h1 class="hero-title">
+                        روبوتات دردشة ذكية ثنائية اللغة للشركات العُمانية
+                    </h1>
+                    <p class="hero-subtitle">
+                        الرد الفوري على استفسارات العملاء، عرض خدماتك، وإدارة الحجوزات بالعربية والإنجليزية — دعم آلي على مدار الساعة ينمي عملك.
+                    </p>
+                    
+                    <div class="hero-buttons">
+                        <button id="hero-get-started-btn-ar" class="btn btn-primary">
+                            <span>▶</span> شاهد العرض التوضيحي
+                        </button>
+                        <button id="get-free-setup-btn-ar" class="btn btn-secondary">
+                            احصل على إعداد مجاني
+                        </button>
                     </div>
                 </div>
 
-                <button id="hero-get-started-btn-ar" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white transition-colors mt-8" style="background-color: #12bfb4; hover-bg-color: #0e9a8f;">
-                    شاهد كيف يعمل
-                </button>
+                <div class="feature-cards feature-cards-ar">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <img src="https://img.icons8.com/ios/50/12bfb4/restaurant-menu.png" alt="أيقونة مطعم">
+                        </div>
+                        <h3 class="feature-title">المطاعم والمقاهي</h3>
+                        <p class="feature-description">مشاركة القوائم، توجيه العملاء إلى منصات الطلب، والإجابة على الأسئلة الشائعة حول الساعات والموقع والتخصصات.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <img src="https://img.icons8.com/ios/50/12bfb4/shop.png" alt="أيقونة متجر">
+                        </div>
+                        <h3 class="feature-title">متاجر التجزئة</h3>
+                        <p class="feature-description">مساعدة العملاء في العثور على المنتجات، والتحقق من التوفر، والحصول على الاتجاهات إلى متجرك، والتعرف على العروض الحالية.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <img src="https://img.icons8.com/ios/50/12bfb4/hospital-room.png" alt="أيقونة عيادة طبية">
+                        </div>
+                        <h3 class="feature-title">العيادات والصالونات</h3>
+                        <p class="feature-description">المساعدة في استفسارات المواعيد، وشرح الخدمات والأسعار، وتقديم معلومات العيادة الأساسية.</p>
+                    </div>
+                </div>
             </div>
         </section>
         <!-- Hero Banner Section End -->
 
         <main>
             <!-- How It Works Section Start -->
-            <section id="how-it-works" class="mb-20 text-center">
+            <section id="how-it-works" class="mb-20">
                 <!-- English Version -->
                 <div class="lang-en">
-                    <div class="text-center mb-12">
-                        <h2 class="text-3xl font-bold">How It Works</h2>
-                        <p class="mt-2 text-md text-stone-600">Getting started with ChatOman is simple and straightforward</p>
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl font-bold text-stone-800">How It Works</h2>
+                        <p class="mt-3 text-lg text-stone-600 max-w-2xl mx-auto">Get your smart bilingual chatbot up and running in just four simple steps</p>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+                    <div class="timeline-container">
                         <!-- Step 1 -->
-                        <div class="how-it-works-card bg-white p-6 rounded-2xl shadow-md flex flex-col items-center">
-                            <div class="w-16 h-16 mb-4">
-                                <img src="https://img.icons8.com/ios-filled/50/12bfb4/document--v1.png" alt="Form submission icon" class="w-full h-full">
+                        <div class="timeline-item">
+                            <div class="timeline-number">1</div>
+                            <div class="timeline-card">
+                                <h3 class="timeline-title">Submit Your Business Details</h3>
+                                <p class="timeline-description">Complete our simple onboarding form with your business information, services, and frequently asked questions.</p>
                             </div>
-                            <h3 class="font-semibold text-lg mb-2">Step 1: Submit Your Info</h3>
-                            <p class="text-sm text-stone-600">Fill out our simple onboarding form with your business details</p>
                         </div>
+                        
                         <!-- Step 2 -->
-                        <div class="how-it-works-card bg-white p-6 rounded-2xl shadow-md flex flex-col items-center">
-                            <div class="w-16 h-16 mb-4">
-                                <img src="https://img.icons8.com/fluency-systems-filled/48/12bfb4/chatbot.png" alt="Chatbot building icon" class="w-full h-full">
+                        <div class="timeline-item">
+                            <div class="timeline-number">2</div>
+                            <div class="timeline-card">
+                                <h3 class="timeline-title">We Build Your Custom Chatbot</h3>
+                                <p class="timeline-description">Our team creates a tailored chatbot using your content, trained to communicate naturally in both Arabic and English.</p>
                             </div>
-                            <h3 class="font-semibold text-lg mb-2">Step 2: We Build Your Chatbot</h3>
-                            <p class="text-sm text-stone-600">Our team creates a custom chatbot in English and Arabic using your content</p>
                         </div>
+                        
                         <!-- Step 3 -->
-                        <div class="how-it-works-card bg-white p-6 rounded-2xl shadow-md flex flex-col items-center">
-                            <div class="w-16 h-16 mb-4">
-                                <img src="https://img.icons8.com/ios-filled/50/12bfb4/ok.png" alt="Approval check icon" class="w-full h-full">
+                        <div class="timeline-item">
+                            <div class="timeline-number">3</div>
+                            <div class="timeline-card">
+                                <h3 class="timeline-title">Test & Perfect</h3>
+                                <p class="timeline-description">Preview your chatbot, provide feedback, and request any adjustments to ensure it works exactly how you want.</p>
                             </div>
-                            <h3 class="font-semibold text-lg mb-2">Step 3: Test & Approve</h3>
-                            <p class="text-sm text-stone-600">You preview the chatbot, give feedback, and request edits if needed</p>
                         </div>
+                        
                         <!-- Step 4 -->
-                        <div class="how-it-works-card bg-white p-6 rounded-2xl shadow-md flex flex-col items-center">
-                            <div class="w-16 h-16 mb-4">
-                                <img src="https://img.icons8.com/ios-filled/50/12bfb4/rocket--v1.png" alt="Launch rocket icon" class="w-full h-full">
+                        <div class="timeline-item timeline-item-last">
+                            <div class="timeline-number">4</div>
+                            <div class="timeline-card">
+                                <h3 class="timeline-title">Go Live on Your Website</h3>
+                                <p class="timeline-description">We'll connect the chatbot to your site — you're ready to go live!</p>
                             </div>
-                            <h3 class="font-semibold text-lg mb-2">Step 4: Go Live on Your Website</h3>
-                            <p class="text-sm text-stone-600">We connect the chatbot to your site and you're ready to go!</p>
                         </div>
                     </div>
 
-                    <button id="how-it-works-get-started-btn" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white transition-colors mt-12" style="background-color: #12bfb4; hover-bg-color: #0e9a8f;">
-                        Get Started
-                    </button>
-                </div>
+                    </div>
 
                 <!-- Arabic Version -->
                 <div class="lang-ar">
-                    <div class="text-center mb-12">
-                        <h2 class="text-3xl font-bold">طريقة العمل</h2>
-                        <p class="mt-2 text-md text-stone-600">البدء مع تشات عُمان سهل ومباشر</p>
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl font-bold text-stone-800">طريقة العمل</h2>
+                        <p class="mt-3 text-lg text-stone-600 max-w-2xl mx-auto">احصل على روبوت الدردشة الذكي ثنائي اللغة وقم بتشغيله في أربع خطوات بسيطة فقط</p>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+                    <div class="timeline-container timeline-container-ar">
                         <!-- Step 1 -->
-                        <div class="how-it-works-card bg-white p-6 rounded-2xl shadow-md flex flex-col items-center">
-                            <div class="w-16 h-16 mb-4">
-                                <img src="https://img.icons8.com/ios-filled/50/12bfb4/document--v1.png" alt="أيقونة إرسال النموذج" class="w-full h-full">
+                        <div class="timeline-item timeline-item-ar">
+                            <div class="timeline-number">١</div>
+                            <div class="timeline-card timeline-card-ar">
+                                <h3 class="timeline-title">أرسل تفاصيل عملك</h3>
+                                <p class="timeline-description">أكمل نموذج الانضمام البسيط بمعلومات عملك وخدماتك والأسئلة الشائعة.</p>
                             </div>
-                            <h3 class="font-semibold text-lg mb-2">الخطوة ١: أرسل معلوماتك</h3>
-                            <p class="text-sm text-stone-600">املأ نموذج التسجيل بمعلومات عملك</p>
                         </div>
+                        
                         <!-- Step 2 -->
-                        <div class="how-it-works-card bg-white p-6 rounded-2xl shadow-md flex flex-col items-center">
-                            <div class="w-16 h-16 mb-4">
-                                <img src="https://img.icons8.com/fluency-systems-filled/48/12bfb4/chatbot.png" alt="أيقونة بناء روبوت الدردشة" class="w-full h-full">
+                        <div class="timeline-item timeline-item-ar">
+                            <div class="timeline-number">٢</div>
+                            <div class="timeline-card timeline-card-ar">
+                                <h3 class="timeline-title">نقوم ببناء روبوت الدردشة المخصص</h3>
+                                <p class="timeline-description">يقوم فريقنا بإنشاء روبوت دردشة مخصص باستخدام محتواك، مدرب للتواصل بطبيعية بالعربية والإنجليزية.</p>
                             </div>
-                            <h3 class="font-semibold text-lg mb-2">الخطوة ٢: نقوم ببناء روبوت الدردشة</h3>
-                            <p class="text-sm text-stone-600">نقوم ببناء روبوت دردشة مخصص بلغتين باستخدام محتوى عملك</p>
                         </div>
+                        
                         <!-- Step 3 -->
-                        <div class="how-it-works-card bg-white p-6 rounded-2xl shadow-md flex flex-col items-center">
-                            <div class="w-16 h-16 mb-4">
-                                <img src="https://img.icons8.com/ios-filled/50/12bfb4/ok.png" alt="أيقونة الموافقة" class="w-full h-full">
+                        <div class="timeline-item timeline-item-ar">
+                            <div class="timeline-number">٣</div>
+                            <div class="timeline-card timeline-card-ar">
+                                <h3 class="timeline-title">اختبر وأتقن</h3>
+                                <p class="timeline-description">اطلع على روبوت الدردشة، وقدم الملاحظات، واطلب أي تعديلات لضمان عمله بالطريقة التي تريدها تماماً.</p>
                             </div>
-                            <h3 class="font-semibold text-lg mb-2">الخطوة ٣: جرب ووافق</h3>
-                            <p class="text-sm text-stone-600">جرب الروبوت، وأرسل ملاحظاتك، واطلب التعديلات إن وجدت</p>
                         </div>
+                        
                         <!-- Step 4 -->
-                        <div class="how-it-works-card bg-white p-6 rounded-2xl shadow-md flex flex-col items-center">
-                            <div class="w-16 h-16 mb-4">
-                                <img src="https://img.icons8.com/ios-filled/50/12bfb4/rocket--v1.png" alt="أيقونة الإطلاق" class="w-full h-full">
+                        <div class="timeline-item timeline-item-last timeline-item-ar">
+                            <div class="timeline-number">٤</div>
+                            <div class="timeline-card timeline-card-ar">
+                                <h3 class="timeline-title">انطلق على موقعك الإلكتروني</h3>
+                                <p class="timeline-description">سنقوم بربط روبوت الدردشة بموقعك — أنت جاهز للانطلاق!</p>
                             </div>
-                            <h3 class="font-semibold text-lg mb-2">الخطوة ٤: أطلقه على موقعك</h3>
-                            <p class="text-sm text-stone-600">نقوم بربط الروبوت بموقعك الإلكتروني — وانطلق</p>
                         </div>
                     </div>
-
-                    <button id="how-it-works-get-started-btn-ar" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white transition-colors mt-12" style="background-color: #12bfb4; hover-bg-color: #0e9a8f;">
-                        ابدأ الآن
-                    </button>
                 </div>
             </section>
             <!-- How It Works Section End -->
 
             <!-- Why ChatOman Section Start -->
-            <section id="why-chatoman" class="py-16 px-4 rounded-2xl mb-16" style="background-color: #f8fafc;">
+            <section id="why-chatoman" class="why-chatoman-section">
                 <!-- English Version -->
                 <div class="lang-en">
-                    <div class="text-center mb-12">
-                        <h2 class="text-3xl font-bold">Why ChatOman?</h2>
-                        <p class="mt-2 text-md text-stone-600">What makes our service unique and trusted by local businesses</p>
+                    <div class="why-chatoman-content">
+                        <h2 class="why-chatoman-title">Why ChatOman?</h2>
+                        <p class="why-chatoman-subtitle">What makes our service unique and trusted by local businesses</p>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+                    <div class="why-chatoman-cards">
                         <!-- Card 1: Locally Trained AI -->
-                        <div class="why-chatoman-card bg-white p-6 rounded-2xl shadow-md flex flex-col items-center text-center">
-                            <div class="w-16 h-16 mb-4">
-                                <img src="https://img.icons8.com/ios/50/12bfb4/artificial-intelligence.png" alt="Oman location icon" class="w-full h-full">
+                        <div class="why-chatoman-card">
+                            <div class="why-chatoman-icon">
+                                <img src="https://img.icons8.com/ios/50/12bfb4/artificial-intelligence.png" alt="Locally trained AI icon">
                             </div>
-                            <h3 class="font-semibold text-lg mb-2">Locally Trained AI</h3>
-                            <p class="text-sm text-stone-600">Our chatbots understand local business needs and speak Arabic and English fluently</p>
+                            <h3 class="why-chatoman-card-title">Locally Trained AI</h3>
+                            <p class="why-chatoman-card-description">Our chatbots understand local business needs and speak Arabic and English fluently</p>
                         </div>
                         <!-- Card 2: Human Touch Setup -->
-                        <div class="why-chatoman-card bg-white p-6 rounded-2xl shadow-md flex flex-col items-center text-center">
-                            <div class="w-16 h-16 mb-4">
-                                <img src="https://img.icons8.com/ios-filled/50/12bfb4/handshake--v1.png" alt="Human touch icon" class="w-full h-full">
+                        <div class="why-chatoman-card">
+                            <div class="why-chatoman-icon">
+                                <img src="https://img.icons8.com/ios-filled/50/12bfb4/handshake--v1.png" alt="Human touch setup icon">
                             </div>
-                            <h3 class="font-semibold text-lg mb-2">Human Touch Setup</h3>
-                            <p class="text-sm text-stone-600">We personally train every chatbot based on your info – no templates</p>
+                            <h3 class="why-chatoman-card-title">Human Touch Setup</h3>
+                            <p class="why-chatoman-card-description">We personally train every chatbot based on your info – no templates</p>
                         </div>
                         <!-- Card 3: Mobile-Friendly + Easy to Use -->
-                        <div class="why-chatoman-card bg-white p-6 rounded-2xl shadow-md flex flex-col items-center text-center">
-                            <div class="w-16 h-16 mb-4">
-                                <img src="https://img.icons8.com/ios/50/12bfb4/smartphone.png" alt="Mobile device icon" class="w-full h-full">
+                        <div class="why-chatoman-card">
+                            <div class="why-chatoman-icon">
+                                <img src="https://img.icons8.com/ios/50/12bfb4/smartphone.png" alt="Mobile friendly icon">
                             </div>
-                            <h3 class="font-semibold text-lg mb-2">Mobile-Friendly + Easy to Use</h3>
-                            <p class="text-sm text-stone-600">Works great on websites and phones, no app needed</p>
+                            <h3 class="why-chatoman-card-title">Mobile-Friendly + Easy to Use</h3>
+                            <p class="why-chatoman-card-description">Works great on websites and phones, no app needed</p>
                         </div>
                         <!-- Card 4: Performance Tracking & Updates -->
-                        <div class="why-chatoman-card bg-white p-6 rounded-2xl shadow-md flex flex-col items-center text-center">
-                            <div class="w-16 h-16 mb-4">
-                                <img src="https://img.icons8.com/ios/50/12bfb4/combo-chart--v1.png" alt="Performance chart icon" class="w-full h-full">
+                        <div class="why-chatoman-card">
+                            <div class="why-chatoman-icon">
+                                <img src="https://img.icons8.com/ios/50/12bfb4/combo-chart--v1.png" alt="Performance tracking icon">
                             </div>
-                            <h3 class="font-semibold text-lg mb-2">Performance Tracking & Updates</h3>
-                            <p class="text-sm text-stone-600">We monitor performance and update your chatbot regularly to keep it effective</p>
+                            <h3 class="why-chatoman-card-title">Performance Tracking & Updates</h3>
+                            <p class="why-chatoman-card-description">We monitor performance and update your chatbot regularly to keep it effective</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Arabic Version -->
                 <div class="lang-ar">
-                    <div class="text-center mb-12">
-                        <h2 class="text-3xl font-bold">لماذا تشات عمان؟</h2>
-                        <p class="mt-2 text-md text-stone-600">ما الذي يجعل خدمتنا مميزة وموثوقة من قبل الشركات المحلية؟</p>
+                    <div class="why-chatoman-content why-chatoman-content-ar">
+                        <h2 class="why-chatoman-title">لماذا تشات عمان؟</h2>
+                        <p class="why-chatoman-subtitle">ما الذي يجعل خدمتنا مميزة وموثوقة من قبل الشركات المحلية؟</p>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+                    <div class="why-chatoman-cards why-chatoman-cards-ar">
                         <!-- Card 1: Locally Trained AI -->
-                        <div class="why-chatoman-card bg-white p-6 rounded-2xl shadow-md flex flex-col items-center text-center">
-                            <div class="w-16 h-16 mb-4">
-                                <img src="https://img.icons8.com/ios/50/12bfb4/artificial-intelligence.png" alt="أيقونة موقع عُمان" class="w-full h-full">
+                        <div class="why-chatoman-card why-chatoman-card-ar">
+                            <div class="why-chatoman-icon">
+                                <img src="https://img.icons8.com/ios/50/12bfb4/artificial-intelligence.png" alt="أيقونة الذكاء الاصطناعي المدرب محليًا">
                             </div>
-                            <h3 class="font-semibold text-lg mb-2">ذكاء اصطناعي مدرّب محليًا</h3>
-                            <p class="text-sm text-stone-600">روبوتاتنا مدرّبة لفهم احتياجات السوق المحلي، وتتحدث العربية والإنجليزية بطلاقة</p>
+                            <h3 class="why-chatoman-card-title">ذكاء اصطناعي مدرّب محليًا</h3>
+                            <p class="why-chatoman-card-description">روبوتاتنا مدرّبة لفهم احتياجات السوق المحلي، وتتحدث العربية والإنجليزية بطلاقة</p>
                         </div>
                         <!-- Card 2: Human Touch Setup -->
-                        <div class="why-chatoman-card bg-white p-6 rounded-2xl shadow-md flex flex-col items-center text-center">
-                            <div class="w-16 h-16 mb-4">
-                                <img src="https://img.icons8.com/ios-filled/50/12bfb4/handshake--v1.png" alt="أيقونة اللمسة البشرية" class="w-full h-full">
+                        <div class="why-chatoman-card why-chatoman-card-ar">
+                            <div class="why-chatoman-icon">
+                                <img src="https://img.icons8.com/ios-filled/50/12bfb4/handshake--v1.png" alt="أيقونة الإعداد باللمسة البشرية">
                             </div>
-                            <h3 class="font-semibold text-lg mb-2">إعداد باللمسة البشرية</h3>
-                            <p class="text-sm text-stone-600">نقوم بتدريب كل روبوت يدويًا باستخدام معلومات عملك – بدون قوالب جاهزة</p>
+                            <h3 class="why-chatoman-card-title">إعداد باللمسة البشرية</h3>
+                            <p class="why-chatoman-card-description">نقوم بتدريب كل روبوت يدويًا باستخدام معلومات عملك – بدون قوالب جاهزة</p>
                         </div>
                         <!-- Card 3: Mobile-Friendly + Easy to Use -->
-                        <div class="why-chatoman-card bg-white p-6 rounded-2xl shadow-md flex flex-col items-center text-center">
-                            <div class="w-16 h-16 mb-4">
-                                <img src="https://img.icons8.com/ios/50/12bfb4/smartphone.png" alt="أيقونة الجهاز المحمول" class="w-full h-full">
+                        <div class="why-chatoman-card why-chatoman-card-ar">
+                            <div class="why-chatoman-icon">
+                                <img src="https://img.icons8.com/ios/50/12bfb4/smartphone.png" alt="أيقونة متوافق مع الجوال">
                             </div>
-                            <h3 class="font-semibold text-lg mb-2">متوافق مع الجوال + سهل الاستخدام</h3>
-                            <p class="text-sm text-stone-600">يعمل بسلاسة على المواقع والهواتف، بدون الحاجة لتطبيق</p>
+                            <h3 class="why-chatoman-card-title">متوافق مع الجوال + سهل الاستخدام</h3>
+                            <p class="why-chatoman-card-description">يعمل بسلاسة على المواقع والهواتف، بدون الحاجة لتطبيق</p>
                         </div>
                         <!-- Card 4: Performance Tracking & Updates -->
-                        <div class="why-chatoman-card bg-white p-6 rounded-2xl shadow-md flex flex-col items-center text-center">
-                            <div class="w-16 h-16 mb-4">
-                                <img src="https://img.icons8.com/ios/50/12bfb4/combo-chart--v1.png" alt="أيقونة مخطط الأداء" class="w-full h-full">
+                        <div class="why-chatoman-card why-chatoman-card-ar">
+                            <div class="why-chatoman-icon">
+                                <img src="https://img.icons8.com/ios/50/12bfb4/combo-chart--v1.png" alt="أيقونة تتبع الأداء">
                             </div>
-                            <h3 class="font-semibold text-lg mb-2">تتبع الأداء والتحديثات</h3>
-                            <p class="text-sm text-stone-600">نراقب أداء الروبوت ونقوم بتحديثه باستمرار ليبقى فعّالًا وحديثًا</p>
+                            <h3 class="why-chatoman-card-title">تتبع الأداء والتحديثات</h3>
+                            <p class="why-chatoman-card-description">نراقب أداء الروبوت ونقوم بتحديثه باستمرار ليبقى فعّالًا وحديثًا</p>
                         </div>
                     </div>
                 </div>
@@ -838,6 +1443,24 @@
         </div>
     </div>
 
+    <!-- YouTube Video Modal -->
+    <div id="video-modal" class="video-modal-overlay">
+        <div class="video-modal-content">
+            <!-- Close button for the video modal -->
+            <button id="video-modal-close" class="video-modal-close" aria-label="Close video">×</button>
+            
+            <!-- YouTube video container with responsive aspect ratio -->
+            <div class="youtube-container">
+                <iframe id="youtube-iframe" 
+                        src="" 
+                        title="ChatOman Demo Video" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Google Form URL - moved to global scope
         const googleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSdH72A9D2bouVJwVk09PEQrVM4B15pW4kcoN3gB6scBCEQ6LA/viewform?usp=header";
@@ -1075,7 +1698,12 @@
                     </div>
                 </div>
                 <button class="plan-cta w-full bg-teal-600 text-white font-bold py-3 px-4 rounded-lg mt-6 hover:bg-teal-700 transition-colors">
-                    ${lang === 'ar' ? 'ابدأ الآن' : 'Start Now'}
+                    ${lang === 'ar' ? 
+                        (plan.id === 'starter' ? 'اختر المبتدئ' : 
+                         plan.id === 'pro' ? 'اختر المحترف' : 'اختر النخبة') :
+                        (plan.id === 'starter' ? 'Choose Starter' : 
+                         plan.id === 'pro' ? 'Choose Pro' : 'Choose Elite')
+                    }
                 </button>
             `;
 
@@ -1122,8 +1750,29 @@
             wrapper.querySelectorAll('.plan-cta').forEach(button => {
                 button.addEventListener('click', (e) => {
                     e.stopPropagation(); // Prevent plan selection when clicking CTA
-                    if (googleFormURL) {
-                        window.open(googleFormURL, '_blank');
+                    
+                    // Get the plan ID from the parent card
+                    const planCard = button.closest('.plan-card');
+                    const planId = planCard.dataset.planId;
+                    
+                    // Select the plan
+                    handlePlanSelection(planId);
+                    
+                    // Scroll to the add-on summary section
+                    const summarySection = document.querySelector('.bg-teal-50');
+                    if (summarySection) {
+                        summarySection.scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'center' 
+                        });
+                        
+                        // Add highlight animation
+                        summarySection.style.boxShadow = '0 0 0 3px rgba(13, 148, 136, 0.5)';
+                        summarySection.style.transition = 'box-shadow 0.3s ease';
+                        
+                        setTimeout(() => {
+                            summarySection.style.boxShadow = '';
+                        }, 1000);
                     }
                 });
             });
@@ -1801,8 +2450,10 @@
                 window.open(googleFormURL, '_blank');
             });
 
-            // Link "Get Started" button under "How It Works" to Google Form
-            document.getElementById('how-it-works-get-started-btn').addEventListener('click', () => {
+            
+
+            // Link "Get Free Setup" buttons to Google Form
+            document.getElementById('get-free-setup-btn').addEventListener('click', () => {
                 if (!googleFormURL) { 
                     console.error("Google Form URL is not set. Please provide a valid Google Form URL.");
                     return;
@@ -1810,7 +2461,7 @@
                 window.open(googleFormURL, '_blank');
             });
 
-            document.getElementById('how-it-works-get-started-btn-ar').addEventListener('click', () => {
+            document.getElementById('get-free-setup-btn-ar').addEventListener('click', () => {
                 if (!googleFormURL) { 
                     console.error("Google Form URL is not set. Please provide a valid Google Form URL.");
                     return;
@@ -1818,20 +2469,63 @@
                 window.open(googleFormURL, '_blank');
             });
 
-            // Link "See How It Works" button to "How It Works" section
+            // YouTube Video Modal Functionality
+            const videoModal = document.getElementById('video-modal');
+            const videoModalClose = document.getElementById('video-modal-close');
+            const youtubeIframe = document.getElementById('youtube-iframe');
+            
+            // YouTube video URL - converts the shorts URL to embeddable format
+            const youtubeVideoUrl = 'https://www.youtube.com/embed/t5KQpJSK3yM?autoplay=1&rel=0';
+            
+            // Function to open video modal
+            function openVideoModal() {
+                // Set the YouTube video source
+                youtubeIframe.src = youtubeVideoUrl;
+                
+                // Show the modal with animation
+                videoModal.classList.add('show');
+                
+                // Prevent body scrolling when modal is open
+                document.body.style.overflow = 'hidden';
+            }
+            
+            // Function to close video modal
+            function closeVideoModal() {
+                // Hide the modal
+                videoModal.classList.remove('show');
+                
+                // Stop the video by clearing the src
+                youtubeIframe.src = '';
+                
+                // Restore body scrolling
+                document.body.style.overflow = 'auto';
+            }
+            
+            // Link "See Demo" buttons to open video modal instead of scrolling
             document.getElementById('hero-get-started-btn').addEventListener('click', (event) => {
-                event.preventDefault(); // Prevent default anchor behavior
-                const howItWorksSection = document.getElementById('how-it-works');
-                if (howItWorksSection) {
-                    howItWorksSection.scrollIntoView({ behavior: 'smooth' });
-                }
+                event.preventDefault();
+                openVideoModal();
             });
 
             document.getElementById('hero-get-started-btn-ar').addEventListener('click', (event) => {
-                event.preventDefault(); // Prevent default anchor behavior
-                const howItWorksSection = document.getElementById('how-it-works');
-                if (howItWorksSection) {
-                    howItWorksSection.scrollIntoView({ behavior: 'smooth' });
+                event.preventDefault();
+                openVideoModal();
+            });
+            
+            // Close modal when clicking the close button
+            videoModalClose.addEventListener('click', closeVideoModal);
+            
+            // Close modal when clicking outside the video content
+            videoModal.addEventListener('click', (event) => {
+                if (event.target === videoModal) {
+                    closeVideoModal();
+                }
+            });
+            
+            // Close modal with Escape key
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && videoModal.classList.contains('show')) {
+                    closeVideoModal();
                 }
             });
         });
