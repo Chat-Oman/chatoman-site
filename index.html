@@ -282,6 +282,90 @@
         .table-auto th, .table-auto td { padding: 0.75rem; text-align: left; border-bottom: 1px solid #e2e8f0; } /* stone-200 */
         .table-auto th { background-color: #f8fafc; font-weight: 600; text-transform: uppercase; font-size: 0.875rem; } /* slate-50 */
         .table-auto tbody tr:last-child td { border-bottom: none; }
+        /* Arabic RTL styling for pricing feature items */
+        .lang-ar .plan-card .flex.items-center {
+            direction: rtl;
+            text-align: right;
+            flex-direction: row-reverse;
+        }
+        
+        .lang-ar .plan-card .flex.items-center.justify-end {
+            justify-content: flex-start;
+        }
+
+        /* Pricing cards - consistent layout and alignment for both languages */
+        .plan-card {
+            display: flex;
+            flex-direction: column;
+            min-height: 500px;
+        }
+
+        .plan-card .space-y-2 {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Arabic pricing cards - consistent layout and alignment */
+        .lang-ar .plan-card {
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        /* Arabic pricing feature items - consistent alignment */
+        .lang-ar .plan-card .flex.items-center {
+            display: flex;
+            align-items: center;
+            direction: rtl;
+            text-align: right;
+            padding: 0.5rem 0;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            font-family: 'Tajawal', sans-serif;
+            min-height: 2.5rem;
+            justify-content: flex-start;
+        }
+
+        /* Icons positioned directly next to text */
+        .lang-ar .plan-card .flex.items-center span:first-child {
+            min-width: 1rem;
+            text-align: center;
+            margin-right: 0.5rem;
+            margin-left: 0;
+            font-size: 1rem;
+            flex-shrink: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Text content aligned properly with flex-grow for extra space on left */
+        .lang-ar .plan-card .flex.items-center span:last-child {
+            text-align: right;
+            flex-grow: 1;
+            margin-right: 0;
+            margin-left: 0;
+        }
+
+        /* Button alignment at bottom */
+        .lang-ar .plan-card .plan-cta {
+            margin-top: auto;
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 600;
+        }
+
+        /* Ensure equal height cards on mobile for both languages */
+        @media (max-width: 768px) {
+            .plan-card {
+                min-height: auto;
+            }
+            
+            .plan-card .space-y-2 {
+                margin-bottom: 1rem;
+            }
+        }
+
         /* Language toggle positioning */
         #language-toggle {
             position: fixed;
@@ -878,10 +962,10 @@
             <div class="lang-en">
                 <div class="hero-content">
                     <h1 class="hero-title">
-                        Smart Bilingual Chatbots for Omani Businesses
+                        Get More Bookings, Sales & Leads — Automatically.
                     </h1>
                     <p class="hero-subtitle">
-                        Instantly answer customer questions, showcase your services, and handle bookings in Arabic and English — 24/7 automated support that grows your business.
+                        Get a Smart Arabic-English Chatbot that books appointments, answers questions, and grows your revenue — 24/7, without lifting a finger.
                     </p>
                     
                     <div class="hero-buttons">
@@ -892,6 +976,13 @@
                             Get Free Setup
                         </button>
                     </div>
+                    
+                    <!-- Trust message -->
+                    <div class="trust-message text-center text-sm text-stone-600 mt-4 space-y-1">
+                        <div>✓ Built for Omani businesses — from cafés to clinics</div>
+                        <div>✓ 100% done-for-you setup — no tech skills needed</div>
+                        <div>✓ No setup fees. Cancel anytime. Zero risk.</div>
+                    </div>
                 </div>
 
                 <div class="feature-cards">
@@ -899,22 +990,43 @@
                         <div class="feature-icon">
                             <img src="https://img.icons8.com/ios/50/12bfb4/restaurant-menu.png" alt="Restaurant icon">
                         </div>
-                        <h3 class="feature-title">Restaurants & Cafés</h3>
-                        <p class="feature-description">Share menus, guide customers to ordering platforms, and answer common questions about hours, location, and specialties.</p>
+                        <h3 class="feature-title">Never Miss a Hungry Customer Again</h3>
+                        <p class="feature-description">Let your chatbot share menus, answer questions, and direct customers to your order page — 24/7.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">
                             <img src="https://img.icons8.com/ios/50/12bfb4/shop.png" alt="Retail store icon">
                         </div>
-                        <h3 class="feature-title">Retail Stores</h3>
-                        <p class="feature-description">Help customers find products, check availability, get directions to your store, and learn about current promotions.</p>
+                        <h3 class="feature-title">Turn Browsers into Buyers — Fast</h3>
+                        <p class="feature-description">Help shoppers find what they're looking for, check stock, and send them to your store before they forget.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">
-                            <img src="https://img.icons8.com/ios/50/12bfb4/hospital-room.png" alt="Medical clinic icon">
+                            <img src="https://img.icons8.com/ios/50/12bfb4/calendar.png" alt="Calendar booking icon">
                         </div>
-                        <h3 class="feature-title">Clinics & Salons</h3>
-                        <p class="feature-description">Assist with appointment inquiries, explain services and pricing, and provide essential clinic information.</p>
+                        <h3 class="feature-title">Book More Appointments Without Missing a Call</h3>
+                        <p class="feature-description">Let customers ask about services and schedule visits — no receptionist needed. Fewer calls. More bookings.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <img src="https://img.icons8.com/ios/50/12bfb4/home.png" alt="Real estate icon">
+                        </div>
+                        <h3 class="feature-title">Capture Leads from Property Browsers Instantly</h3>
+                        <p class="feature-description">Automatically qualify leads, answer questions about listings, and schedule viewings — even when your agents are offline.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <img src="https://img.icons8.com/ios/50/12bfb4/graduation-cap.png" alt="Education icon">
+                        </div>
+                        <h3 class="feature-title">Enroll More Students Without Extra Staff</h3>
+                        <p class="feature-description">Let your chatbot explain programs, answer parent questions, and collect registration info — 24/7 in Arabic & English.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <img src="https://img.icons8.com/ios/50/12bfb4/medical-doctor.png" alt="Healthcare icon">
+                        </div>
+                        <h3 class="feature-title">Answer Patient Questions Before They Call</h3>
+                        <p class="feature-description">Let patients check services, insurance info, and clinic hours — so your staff can focus on care, not calls.</p>
                     </div>
                 </div>
             </div>
@@ -923,10 +1035,10 @@
             <div class="lang-ar">
                 <div class="hero-content hero-content-ar">
                     <h1 class="hero-title">
-                        روبوتات دردشة ذكية ثنائية اللغة للشركات العُمانية
+                        احصل على المزيد من الحجوزات والمبيعات والعملاء المحتملين — تلقائيًا.
                     </h1>
                     <p class="hero-subtitle">
-                        الرد الفوري على استفسارات العملاء، عرض خدماتك، وإدارة الحجوزات بالعربية والإنجليزية — دعم آلي على مدار الساعة ينمي عملك.
+                        احصل على روبوت دردشة ذكي بالعربية والإنجليزية يحجز المواعيد، يجيب على الأسئلة، ويزيد من أرباحك — طوال اليوم دون أي جهد منك.
                     </p>
                     
                     <div class="hero-buttons">
@@ -937,6 +1049,13 @@
                             احصل على إعداد مجاني
                         </button>
                     </div>
+                    
+                    <!-- Trust message -->
+                    <div class="trust-message text-center text-sm text-stone-600 mt-4 space-y-1" style="direction: rtl;">
+                        <div>✓ مصمم خصيصًا للأعمال العُمانية — من المقاهي إلى العيادات</div>
+                        <div>✓ إعداد كامل نيابة عنك — بدون مهارات تقنية</div>
+                        <div>✓ بدون رسوم إعداد. يمكنك الإلغاء في أي وقت. بدون مخاطرة.</div>
+                    </div>
                 </div>
 
                 <div class="feature-cards feature-cards-ar">
@@ -944,22 +1063,43 @@
                         <div class="feature-icon">
                             <img src="https://img.icons8.com/ios/50/12bfb4/restaurant-menu.png" alt="أيقونة مطعم">
                         </div>
-                        <h3 class="feature-title">المطاعم والمقاهي</h3>
-                        <p class="feature-description">مشاركة القوائم، توجيه العملاء إلى منصات الطلب، والإجابة على الأسئلة الشائعة حول الساعات والموقع والتخصصات.</p>
+                        <h3 class="feature-title">لا تفوّت أي عميل جائع بعد الآن</h3>
+                        <p class="feature-description">دع روبوت الدردشة يشارك قوائم الطعام، يجيب على الأسئلة، ويوجه العملاء لصفحة الطلب — طوال اليوم.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">
                             <img src="https://img.icons8.com/ios/50/12bfb4/shop.png" alt="أيقونة متجر">
                         </div>
-                        <h3 class="feature-title">متاجر التجزئة</h3>
-                        <p class="feature-description">مساعدة العملاء في العثور على المنتجات، والتحقق من التوفر، والحصول على الاتجاهات إلى متجرك، والتعرف على العروض الحالية.</p>
+                        <h3 class="feature-title">حوّل المتصفحين إلى مشترين — بسرعة</h3>
+                        <p class="feature-description">ساعد المتسوقين في العثور على ما يريدون، تحقق من توفر المنتجات، وأرسلهم إلى متجرك قبل أن ينسوا.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">
-                            <img src="https://img.icons8.com/ios/50/12bfb4/hospital-room.png" alt="أيقونة عيادة طبية">
+                            <img src="https://img.icons8.com/ios/50/12bfb4/calendar.png" alt="أيقونة حجز التقويم">
                         </div>
-                        <h3 class="feature-title">العيادات والصالونات</h3>
-                        <p class="feature-description">المساعدة في استفسارات المواعيد، وشرح الخدمات والأسعار، وتقديم معلومات العيادة الأساسية.</p>
+                        <h3 class="feature-title">احجز المزيد من المواعيد بدون مكالمات فائتة</h3>
+                        <p class="feature-description">دع العملاء يسألون عن الخدمات ويحجزون مواعيدهم — بدون موظف استقبال. مكالمات أقل، حجوزات أكثر.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <img src="https://img.icons8.com/ios/50/12bfb4/home.png" alt="أيقونة عقارات">
+                        </div>
+                        <h3 class="feature-title">التقط العملاء المحتملين من زوار العقارات فورًا</h3>
+                        <p class="feature-description">قم بتأهيل العملاء تلقائيًا، أجب عن استفسارات العقارات، وحدد مواعيد المشاهدة — حتى عندما يكون فريقك غير متصل.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <img src="https://img.icons8.com/ios/50/12bfb4/graduation-cap.png" alt="أيقونة تعليمية">
+                        </div>
+                        <h3 class="feature-title">سجّل المزيد من الطلاب بدون موظفين إضافيين</h3>
+                        <p class="feature-description">دع روبوت الدردشة يشرح البرامج، يجيب على أسئلة أولياء الأمور، ويجمع معلومات التسجيل — على مدار الساعة بالعربية والإنجليزية.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <img src="https://img.icons8.com/ios/50/12bfb4/medical-doctor.png" alt="أيقونة رعاية صحية">
+                        </div>
+                        <h3 class="feature-title">أجب عن أسئلة المرضى قبل أن يتصلوا</h3>
+                        <p class="feature-description">دع المرضى يطّلعون على الخدمات، معلومات التأمين، ومواعيد العيادة — حتى يركّز فريقك على الرعاية، لا المكالمات.</p>
                     </div>
                 </div>
             </div>
@@ -972,8 +1112,8 @@
                 <!-- English Version -->
                 <div class="lang-en">
                     <div class="text-center mb-16">
-                        <h2 class="text-3xl font-bold text-stone-800">How It Works</h2>
-                        <p class="mt-3 text-lg text-stone-600 max-w-2xl mx-auto">Get your smart bilingual chatbot up and running in just four simple steps</p>
+                        <h2 class="text-3xl font-bold text-stone-800">From Zero to Fully Automated — in 4 Simple Steps</h2>
+                        <p class="mt-3 text-lg text-stone-600 max-w-2xl mx-auto">Launch your Arabic-English chatbot in under 48 hours — no tech skills, no templates, no stress.</p>
                     </div>
 
                     <div class="timeline-container">
@@ -981,8 +1121,8 @@
                         <div class="timeline-item">
                             <div class="timeline-number">1</div>
                             <div class="timeline-card">
-                                <h3 class="timeline-title">Submit Your Business Details</h3>
-                                <p class="timeline-description">Complete our simple onboarding form with your business information, services, and frequently asked questions.</p>
+                                <h3 class="timeline-title">Tell Us About Your Business</h3>
+                                <p class="timeline-description">Fill out a quick onboarding form with your services, FAQs, and brand info. Takes less than 5 minutes.</p>
                             </div>
                         </div>
                         
@@ -990,8 +1130,8 @@
                         <div class="timeline-item">
                             <div class="timeline-number">2</div>
                             <div class="timeline-card">
-                                <h3 class="timeline-title">We Build Your Custom Chatbot</h3>
-                                <p class="timeline-description">Our team creates a tailored chatbot using your content, trained to communicate naturally in both Arabic and English.</p>
+                                <h3 class="timeline-title">We Build It For You</h3>
+                                <p class="timeline-description">Our team creates a fully trained chatbot — personalized to your business, fluent in Arabic & English, and ready to serve your customers.</p>
                             </div>
                         </div>
                         
@@ -999,8 +1139,8 @@
                         <div class="timeline-item">
                             <div class="timeline-number">3</div>
                             <div class="timeline-card">
-                                <h3 class="timeline-title">Test & Perfect</h3>
-                                <p class="timeline-description">Preview your chatbot, provide feedback, and request any adjustments to ensure it works exactly how you want.</p>
+                                <h3 class="timeline-title">You Preview, We Perfect</h3>
+                                <p class="timeline-description">You test your chatbot. We handle tweaks, adjustments, and improvements until it's just right.</p>
                             </div>
                         </div>
                         
@@ -1008,10 +1148,17 @@
                         <div class="timeline-item timeline-item-last">
                             <div class="timeline-number">4</div>
                             <div class="timeline-card">
-                                <h3 class="timeline-title">Go Live on Your Website</h3>
-                                <p class="timeline-description">We'll connect the chatbot to your site — you're ready to go live!</p>
+                                <h3 class="timeline-title">Go Live — and Start Getting Results</h3>
+                                <p class="timeline-description">We connect the chatbot to your website or socials. You're live and ready to capture leads, answer questions, and book appointments 24/7.</p>
                             </div>
                         </div>
+                    </div>
+                    
+                    <!-- CTA Button after timeline -->
+                    <div class="text-center mt-12">
+                        <button class="btn btn-primary how-it-works-cta">
+                            Start Building My Chatbot
+                        </button>
                     </div>
 
                     </div>
@@ -1019,8 +1166,8 @@
                 <!-- Arabic Version -->
                 <div class="lang-ar">
                     <div class="text-center mb-16">
-                        <h2 class="text-3xl font-bold text-stone-800">طريقة العمل</h2>
-                        <p class="mt-3 text-lg text-stone-600 max-w-2xl mx-auto">احصل على روبوت الدردشة الذكي ثنائي اللغة وقم بتشغيله في أربع خطوات بسيطة فقط</p>
+                        <h2 class="text-3xl font-bold text-stone-800">من الصفر إلى التشغيل الآلي الكامل — في ٤ خطوات بسيطة</h2>
+                        <p class="mt-3 text-lg text-stone-600 max-w-2xl mx-auto">أطلق روبوت الدردشة الثنائي اللغة خلال ٤٨ ساعة فقط — بدون مهارات تقنية، بدون قوالب، بدون توتر.</p>
                     </div>
 
                     <div class="timeline-container timeline-container-ar">
@@ -1028,8 +1175,8 @@
                         <div class="timeline-item timeline-item-ar">
                             <div class="timeline-number">١</div>
                             <div class="timeline-card timeline-card-ar">
-                                <h3 class="timeline-title">أرسل تفاصيل عملك</h3>
-                                <p class="timeline-description">أكمل نموذج الانضمام البسيط بمعلومات عملك وخدماتك والأسئلة الشائعة.</p>
+                                <h3 class="timeline-title">أخبرنا عن عملك</h3>
+                                <p class="timeline-description">املأ نموذجًا سريعًا يتضمن خدماتك، الأسئلة الشائعة، ومعلومات علامتك التجارية. يستغرق أقل من ٥ دقائق.</p>
                             </div>
                         </div>
                         
@@ -1037,8 +1184,8 @@
                         <div class="timeline-item timeline-item-ar">
                             <div class="timeline-number">٢</div>
                             <div class="timeline-card timeline-card-ar">
-                                <h3 class="timeline-title">نقوم ببناء روبوت الدردشة المخصص</h3>
-                                <p class="timeline-description">يقوم فريقنا بإنشاء روبوت دردشة مخصص باستخدام محتواك، مدرب للتواصل بطبيعية بالعربية والإنجليزية.</p>
+                                <h3 class="timeline-title">نقوم ببنائه لأجلك</h3>
+                                <p class="timeline-description">يقوم فريقنا بإنشاء روبوت دردشة مدرّب بالكامل — مخصص لنشاطك التجاري، يتحدث العربية والإنجليزية، وجاهز لخدمة عملائك.</p>
                             </div>
                         </div>
                         
@@ -1046,8 +1193,8 @@
                         <div class="timeline-item timeline-item-ar">
                             <div class="timeline-number">٣</div>
                             <div class="timeline-card timeline-card-ar">
-                                <h3 class="timeline-title">اختبر وأتقن</h3>
-                                <p class="timeline-description">اطلع على روبوت الدردشة، وقدم الملاحظات، واطلب أي تعديلات لضمان عمله بالطريقة التي تريدها تماماً.</p>
+                                <h3 class="timeline-title">أنت تجرّب، ونحن نحسّن</h3>
+                                <p class="timeline-description">جرّب روبوتك، وسنتولى جميع التعديلات والتحسينات حتى يصبح مثاليًا.</p>
                             </div>
                         </div>
                         
@@ -1055,10 +1202,17 @@
                         <div class="timeline-item timeline-item-last timeline-item-ar">
                             <div class="timeline-number">٤</div>
                             <div class="timeline-card timeline-card-ar">
-                                <h3 class="timeline-title">انطلق على موقعك الإلكتروني</h3>
-                                <p class="timeline-description">سنقوم بربط روبوت الدردشة بموقعك — أنت جاهز للانطلاق!</p>
+                                <h3 class="timeline-title">انطلق مباشرة — وابدأ بجني النتائج</h3>
+                                <p class="timeline-description">نقوم بربط روبوت الدردشة بموقعك أو حساباتك. أنت جاهز الآن لجذب العملاء، والإجابة عن الأسئلة، وحجز المواعيد على مدار الساعة.</p>
                             </div>
                         </div>
+                    </div>
+                    
+                    <!-- CTA Button after timeline -->
+                    <div class="text-center mt-12">
+                        <button class="btn btn-primary how-it-works-cta-ar">
+                            ابدأ ببناء روبوت الدردشة الخاص بي
+                        </button>
                     </div>
                 </div>
             </section>
@@ -1082,21 +1236,21 @@
                             <h3 class="why-chatoman-card-title">Locally Trained AI</h3>
                             <p class="why-chatoman-card-description">Our chatbots understand local business needs and speak Arabic and English fluently</p>
                         </div>
-                        <!-- Card 2: Human Touch Setup -->
+                        <!-- Card 2: Ongoing Support — Always There When You Need Us -->
                         <div class="why-chatoman-card">
                             <div class="why-chatoman-icon">
-                                <img src="https://img.icons8.com/ios-filled/50/12bfb4/handshake--v1.png" alt="Human touch setup icon">
+                                <img src="https://img.icons8.com/ios-filled/50/12bfb4/headset.png" alt="Ongoing support icon">
                             </div>
-                            <h3 class="why-chatoman-card-title">Human Touch Setup</h3>
-                            <p class="why-chatoman-card-description">We personally train every chatbot based on your info – no templates</p>
+                            <h3 class="why-chatoman-card-title">Ongoing Support — Always There When You Need Us</h3>
+                            <p class="why-chatoman-card-description">If anything needs fixing or updating, we handle it promptly — no delays, no hassle.</p>
                         </div>
-                        <!-- Card 3: Mobile-Friendly + Easy to Use -->
+                        <!-- Card 3: Arabic That Sounds Human — Not Google Translate -->
                         <div class="why-chatoman-card">
                             <div class="why-chatoman-icon">
-                                <img src="https://img.icons8.com/ios/50/12bfb4/smartphone.png" alt="Mobile friendly icon">
+                                <img src="https://img.icons8.com/ios/50/12bfb4/topic.png" alt="Human-like Arabic icon">
                             </div>
-                            <h3 class="why-chatoman-card-title">Mobile-Friendly + Easy to Use</h3>
-                            <p class="why-chatoman-card-description">Works great on websites and phones, no app needed</p>
+                            <h3 class="why-chatoman-card-title">Arabic That Sounds Human — Not Google Translate</h3>
+                            <p class="why-chatoman-card-description">ChatOman bots are trained in Modern Standard Arabic and local Omani phrasing — no robotic replies, no awkward grammar.</p>
                         </div>
                         <!-- Card 4: Performance Tracking & Updates -->
                         <div class="why-chatoman-card">
@@ -1125,21 +1279,21 @@
                             <h3 class="why-chatoman-card-title">ذكاء اصطناعي مدرّب محليًا</h3>
                             <p class="why-chatoman-card-description">روبوتاتنا مدرّبة لفهم احتياجات السوق المحلي، وتتحدث العربية والإنجليزية بطلاقة</p>
                         </div>
-                        <!-- Card 2: Human Touch Setup -->
+                        <!-- Card 2: دعم دائم — متى ما احتجت إلينا -->
                         <div class="why-chatoman-card why-chatoman-card-ar">
                             <div class="why-chatoman-icon">
-                                <img src="https://img.icons8.com/ios-filled/50/12bfb4/handshake--v1.png" alt="أيقونة الإعداد باللمسة البشرية">
+                                <img src="https://img.icons8.com/ios-filled/50/12bfb4/headset.png" alt="أيقونة الدعم الدائم">
                             </div>
-                            <h3 class="why-chatoman-card-title">إعداد باللمسة البشرية</h3>
-                            <p class="why-chatoman-card-description">نقوم بتدريب كل روبوت يدويًا باستخدام معلومات عملك – بدون قوالب جاهزة</p>
+                            <h3 class="why-chatoman-card-title">دعم دائم — متى ما احتجت إلينا</h3>
+                            <p class="why-chatoman-card-description">إذا حدث أي خلل أو تطلب تحديث، سنتولى الأمر بسرعة — بدون تأخير أو تعقيد.</p>
                         </div>
-                        <!-- Card 3: Mobile-Friendly + Easy to Use -->
+                        <!-- Card 3: عبارات عربية طبيعية — بدون ترجمة حرفية -->
                         <div class="why-chatoman-card why-chatoman-card-ar">
                             <div class="why-chatoman-icon">
-                                <img src="https://img.icons8.com/ios/50/12bfb4/smartphone.png" alt="أيقونة متوافق مع الجوال">
+                                <img src="https://img.icons8.com/ios/50/12bfb4/topic.png" alt="أيقونة عربية طبيعية">
                             </div>
-                            <h3 class="why-chatoman-card-title">متوافق مع الجوال + سهل الاستخدام</h3>
-                            <p class="why-chatoman-card-description">يعمل بسلاسة على المواقع والهواتف، بدون الحاجة لتطبيق</p>
+                            <h3 class="why-chatoman-card-title">عبارات عربية طبيعية — بدون ترجمة حرفية</h3>
+                            <p class="why-chatoman-card-description">روبوتات ChatOman مدرّبة على العربية الفصحى والعبارات العُمانية المحلية — بدون ردود آلية أو تراكيب غريبة.</p>
                         </div>
                         <!-- Card 4: Performance Tracking & Updates -->
                         <div class="why-chatoman-card why-chatoman-card-ar">
@@ -1193,14 +1347,14 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
                     <!-- English Pricing Cards -->
                     <div class="lang-en col-span-full">
-                        <div class="pricing-wrapper-en grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="pricing-wrapper-en grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
                             <!-- English plan cards will be dynamically inserted here -->
                         </div>
                     </div>
 
                     <!-- Arabic Pricing Cards -->
                     <div class="lang-ar col-span-full">
-                        <div class="pricing-wrapper-ar grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="pricing-wrapper-ar grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
                             <!-- Arabic plan cards will be dynamically inserted here -->
                         </div>
                     </div>
@@ -1302,16 +1456,16 @@
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                         <div class="bg-white p-6 rounded-2xl shadow-md">
-                            <h3 class="font-bold text-teal-700 text-lg">Starter</h3>
-                            <p class="text-stone-600 mt-2">Perfect for small Instagram shops and startups who need a simple, automated way to answer common questions</p>
+                            <h3 class="font-bold text-teal-700 text-lg">Lead Booster</h3>
+                            <p class="text-stone-600 mt-2">For small businesses that want to capture leads without lifting a finger</p>
                         </div>
                         <div class="bg-white p-6 rounded-2xl shadow-md">
-                            <h3 class="font-bold text-teal-700 text-lg">Pro</h3>
-                            <p class="text-stone-600 mt-2">Ideal for physical stores like cafes, clinics, and mid-sized retail that handle frequent inquiries about appointments, menus, or services</p>
+                            <h3 class="font-bold text-teal-700 text-lg">Booking Maximiser</h3>
+                            <p class="text-stone-600 mt-2">For busy service brands that want to automate appointments and FAQs</p>
                         </div>
                         <div class="bg-white p-6 rounded-2xl shadow-md">
-                            <h3 class="font-bold text-teal-700 text-lg">Elite</h3>
-                            <p class="text-stone-600 mt-2">The ultimate solution for hotels, medical facilities, and multi-location brands that require professional, branded, high-volume support</p>
+                            <h3 class="font-bold text-teal-700 text-lg">24/7 Sales Engine</h3>
+                            <p class="text-stone-600 mt-2">For growth-focused brands that want full AI automation and insights</p>
                         </div>
                     </div>
                 </div>
@@ -1324,16 +1478,16 @@
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                         <div class="bg-white p-6 rounded-2xl shadow-md">
-                            <h3 class="font-bold text-teal-700 text-lg">المبتدئ</h3>
-                            <p class="text-stone-600 mt-2">مثالي للمتاجر الصغيرة على انستغرام والشركات الناشئة التي تحتاج إلى طريقة بسيطة ومؤتمتة للإجابة على الأسئلة الشائعة</p>
+                            <h3 class="font-bold text-teal-700 text-lg">مضاعف العملاء المحتملين</h3>
+                            <p class="text-stone-600 mt-2">للشركات الصغيرة التي تريد جمع العملاء المحتملين بدون أي مجهود</p>
                         </div>
                         <div class="bg-white p-6 rounded-2xl shadow-md">
-                            <h3 class="font-bold text-teal-700 text-lg">المحترف</h3>
-                            <p class="text-stone-600 mt-2">مثالي للمتاجر الفعلية مثل المقاهي والعيادات ومتاجر التجزئة متوسطة الحجم التي تتعامل مع الاستفسارات المتكررة حول المواعيد أو القوائم أو الخدمات</p>
+                            <h3 class="font-bold text-teal-700 text-lg">مضاعف الحجوزات</h3>
+                            <p class="text-stone-600 mt-2">للعلامات الخدمية المزدحمة التي تريد أتمتة الحجوزات والأسئلة الشائعة</p>
                         </div>
                         <div class="bg-white p-6 rounded-2xl shadow-md">
-                            <h3 class="font-bold text-teal-700 text-lg">النخبة</h3>
-                            <p class="text-stone-600 mt-2">الحل الأمثل للفنادق والمرافق الطبية والعلامات التجارية متعددة المواقع التي تتطلب دعمًا احترافيًا ومخصصًا وذا حجم كبير</p>
+                            <h3 class="font-bold text-teal-700 text-lg">محرك المبيعات على مدار الساعة</h3>
+                            <p class="text-stone-600 mt-2">للعلامات التجارية الطموحة التي تريد أتمتة كاملة وتحليلات ذكية</p>
                         </div>
                     </div>
                 </div>
@@ -1521,14 +1675,17 @@
         const pricingData = [
             { 
                 id: 'starter', 
-                name: { en: 'Starter', ar: 'المبتدئ' },
-                price: { monthly: 25, yearly: 275 },
+                name: { en: 'Lead Booster', ar: 'مضاعف العملاء المحتملين' },
+                price: { monthly: 29, yearly: 319 },
                 credits: 1000, 
-                agents: 1, 
-                setupFee: { monthly: 0, yearly: 0 },
+                agents: 1,
+                aiActions: 1,
+                setupFee: { monthly: 15, yearly: 0 },
                 features: {
                     brandingRemoved: false,
                     customDomain: false,
+                    whatsappIntegration: false,
+                    analyticsEmail: false,
                     basicFaqSupport: true,
                     responseUpdates: '2x/month',
                     chatUpdatesWeekly: false,
@@ -1537,56 +1694,62 @@
                     dedicatedChatbotManager: false
                 },
                 bestFor: { 
-                    en: 'Perfect for small Instagram shops and startups', 
-                    ar: 'للمتاجر الصغيرة على انستغرام، الشركات الناشئة' 
+                    en: 'For small businesses that want to capture leads without lifting a finger.', 
+                    ar: 'للشركات الصغيرة التي تريد جمع العملاء المحتملين بدون أي مجهود.' 
                 },
-                yearlySavings: 25
+                yearlySavings: 29
             },
             { 
                 id: 'pro', 
-                name: { en: 'Pro', ar: 'المحترف' },
-                price: { monthly: 45, yearly: 495 },
-                credits: 2000, 
-                agents: 1, 
-                setupFee: { monthly: 15, yearly: 0 },
+                name: { en: 'Booking Maximiser', ar: 'مضاعف الحجوزات' },
+                price: { monthly: 79, yearly: 869 },
+                credits: 3000, 
+                agents: 1,
+                aiActions: 3,
+                setupFee: { monthly: 25, yearly: 0 },
                 features: {
                     brandingRemoved: false,
                     customDomain: false,
+                    whatsappIntegration: true,
+                    analyticsEmail: true,
                     basicFaqSupport: true,
-                    responseUpdates: '2x/month',
+                    responseUpdates: 'Weekly',
                     chatUpdatesWeekly: true,
                     lightCustomization: true,
                     fullPersonalization: false,
                     dedicatedChatbotManager: false
                 },
                 bestFor: { 
-                    en: 'Ideal for cafes, clinics, and mid-sized retail', 
-                    ar: 'للمقاهي، العيادات، متاجر التجزئة متوسطة الحجم' 
+                    en: 'For busy service brands that want to automate appointments and FAQs.', 
+                    ar: 'للعلامات الخدمية المزدحمة التي تريد أتمتة الحجوزات والأسئلة الشائعة.' 
                 },
-                yearlySavings: 45
+                yearlySavings: 79
             },
             { 
                 id: 'elite', 
-                name: { en: 'Elite', ar: 'النخبة' },
-                price: { monthly: 90, yearly: 1000 },
-                credits: 3000, 
-                agents: 2, 
-                setupFee: { monthly: 25, yearly: 0 },
+                name: { en: '24/7 Sales Engine', ar: 'محرك المبيعات على مدار الساعة' },
+                price: { monthly: 229, yearly: 2519 },
+                credits: 8000, 
+                agents: 2,
+                aiActions: 5,
+                setupFee: { monthly: 49, yearly: 0 },
                 features: {
                     brandingRemoved: true,
                     customDomain: true,
+                    whatsappIntegration: true,
+                    analyticsEmail: 'advanced',
                     basicFaqSupport: true,
-                    responseUpdates: '2x/month',
+                    responseUpdates: 'Unlimited',
                     chatUpdatesWeekly: true,
                     lightCustomization: true,
                     fullPersonalization: true,
                     dedicatedChatbotManager: false
                 },
                 bestFor: { 
-                    en: 'Perfect for hotels, medical facilities, and multi-location brands', 
-                    ar: 'للفنادق، المرافق الطبية، العلامات التجارية متعددة المواقع' 
+                    en: 'For growth-focused brands that want full AI automation and insights.', 
+                    ar: 'للعلامات التجارية الطموحة التي تريد أتمتة كاملة وتحليلات ذكية.' 
                 },
-                yearlySavings: 80
+                yearlySavings: 229
             }
         ];
 
@@ -1645,64 +1808,117 @@
                 </div>
                 ${cycle === 'yearly' ? `<div class="text-sm text-stone-600 mb-4 ${lang === 'ar' ? 'text-right' : ''}">${lang === 'ar' ? `وفر ${arabicDigits(plan.yearlySavings)} ريال عماني/سنويًا` : `Save ${plan.yearlySavings} OMR/year`}</div>` : ''}
                 <div class="space-y-2 text-stone-600 mb-4" style="${lang === 'ar' ? 'direction: rtl; text-align: right;' : ''}">
+                    <!-- ✔ INCLUDED FEATURES FIRST -->
                     <div class="flex items-center ${lang === 'ar' ? 'justify-end' : ''} cursor-pointer hover:bg-stone-50 p-1 rounded feature-item" data-feature="messages">
                         ${lang === 'ar' ? 
-                            `<span>${credits} رسالة/شهريًا</span> <span class="text-teal-500 mr-2">✔</span>` :
-                            `<span class="text-teal-500 mr-2">✔</span> <span>${credits} credits/mo</span>`
+                            `<span>يعالج حتى ${credits} رسالة من العملاء</span> <span class="text-teal-500 mr-2">✔</span>` :
+                            `<span class="text-teal-500 mr-2">✔</span> <span>Handle up to ${credits} Customer Messages</span>`
                         }
                     </div>
                     <div class="flex items-center ${lang === 'ar' ? 'justify-end' : ''} cursor-pointer hover:bg-stone-50 p-1 rounded feature-item" data-feature="agents">
                         ${lang === 'ar' ? 
-                            `<span>${agents} وكيل ذكاء اصطناعي</span> <span class="text-teal-500 mr-2">✔</span>` :
-                            `<span class="text-teal-500 mr-2">✔</span> <span>${agents} AI Agent(s)</span>`
+                            `<span>${agents === 1 ? 'روبوت دردشة ذكي واحد مخصص لك' : 'اثنان من روبوتات الدردشة الذكية المخصصة لك'}</span> <span class="text-teal-500 mr-2">✔</span>` :
+                            `<span class="text-teal-500 mr-2">✔</span> <span>${agents} Personalized AI Chatbot${agents > 1 ? 's' : ''}</span>`
                         }
                     </div>
+                    <div class="flex items-center ${lang === 'ar' ? 'justify-end' : ''} cursor-pointer hover:bg-stone-50 p-1 rounded feature-item" data-feature="ai-actions">
+                        ${lang === 'ar' ? 
+                            `<span>${plan.id === 'starter' ? 'يشمل إجراء ذكاء اصطناعي واحد' : plan.id === 'pro' ? 'يشمل ٣ إجراءات ذكاء اصطناعي' : 'يشمل ٥ إجراءات ذكاء اصطناعي'}</span> <span class="text-teal-500 mr-2">✔</span>` :
+                            `<span class="text-teal-500 mr-2">✔</span> <span>${plan.id === 'starter' ? '1 AI Action' : plan.id === 'pro' ? '3 AI Actions' : '5 AI Actions'}</span>`
+                        }
+                    </div>
+                    ${plan.features.whatsappIntegration ? `
+                        <div class="flex items-center ${lang === 'ar' ? 'justify-end' : ''} cursor-pointer hover:bg-stone-50 p-1 rounded feature-item" data-feature="whatsapp-integration">
+                            ${lang === 'ar' ? 
+                                `<span>تكامل مع واتساب وإنستغرام</span> <span class="text-teal-500 mr-2">✔</span>` :
+                                `<span class="text-teal-500 mr-2">✔</span> <span>WhatsApp / Instagram Integration</span>`
+                            }
+                        </div>
+                    ` : ''}
+                    ${plan.id === 'pro' || plan.id === 'elite' ? `
+                        <div class="flex items-center ${lang === 'ar' ? 'justify-end' : ''} cursor-pointer hover:bg-stone-50 p-1 rounded feature-item" data-feature="analytics">
+                            ${lang === 'ar' ? 
+                                `<span>${plan.id === 'pro' ? 'تقارير أداء عبر البريد الإلكتروني' : 'لوحة تحكم تحليلات متقدمة'}</span> <span class="text-teal-500 mr-2">✔</span>` :
+                                `<span class="text-teal-500 mr-2">✔</span> <span>${plan.id === 'pro' ? 'Email Performance Reports' : 'Advanced Analytics Dashboard'}</span>`
+                            }
+                        </div>
+                    ` : ''}
                     ${plan.id === 'starter' ? `
                         <div class="flex items-center ${lang === 'ar' ? 'justify-end' : ''} cursor-pointer hover:bg-stone-50 p-1 rounded feature-item" data-feature="basic-faq">
-                            ${lang === 'ar' ? '<span>دعم أساسي للأسئلة الشائعة</span> <span class="text-teal-500 mr-2">✔</span>' : '<span class="text-teal-500 mr-2">✔</span> <span>Basic FAQ Support</span>'}
+                            ${lang === 'ar' ? '<span>إجابات جاهزة للأسئلة المتكررة</span> <span class="text-teal-500 mr-2">✔</span>' : '<span class="text-teal-500 mr-2">✔</span> <span>Built-In Answers to Common Questions</span>'}
                         </div>
                         <div class="flex items-center ${lang === 'ar' ? 'justify-end' : ''} cursor-pointer hover:bg-stone-50 p-1 rounded feature-item" data-feature="response-updates">
-                            ${lang === 'ar' ? '<span>تحديثات الردود مرتين شهريًا</span> <span class="text-teal-500 mr-2">✔</span>' : '<span class="text-teal-500 mr-2">✔</span> <span>Response Updates 2x/month</span>'}
+                            ${lang === 'ar' ? '<span>تحسينات أداء نصف شهرية</span> <span class="text-teal-500 mr-2">✔</span>' : '<span class="text-teal-500 mr-2">✔</span> <span>Bimonthly Performance Tweaks</span>'}
                         </div>
                     ` : ''}
                     ${plan.id === 'pro' ? `
                         <div class="flex items-center ${lang === 'ar' ? 'justify-end' : ''} cursor-pointer hover:bg-stone-50 p-1 rounded feature-item" data-feature="chat-updates">
-                            ${lang === 'ar' ? '<span>تحديثات الدردشة أسبوعيًا</span> <span class="text-teal-500 mr-2">✔</span>' : '<span class="text-teal-500 mr-2">✔</span> <span>Chat Updates Weekly</span>'}
+                            ${lang === 'ar' ? '<span>تحسينات أسبوعية وأداء مخصص للردود</span> <span class="text-teal-500 mr-2">✔</span>' : '<span class="text-teal-500 mr-2">✔</span> <span>Weekly Optimization & Response Tuning</span>'}
                         </div>
                         <div class="flex items-center ${lang === 'ar' ? 'justify-end' : ''} cursor-pointer hover:bg-stone-50 p-1 rounded feature-item" data-feature="light-customization">
-                            ${lang === 'ar' ? '<span>تخصيص خفيف، أسئلة شائعة + تدفق</span> <span class="text-teal-500 mr-2">✔</span>' : '<span class="text-teal-500 mr-2">✔</span> <span>Light Customization, FAQ + Flow</span>'}
+                            ${lang === 'ar' ? '<span>إعداد مخصص لأسئلة وأجوبة وتدفق المحادثة</span> <span class="text-teal-500 mr-2">✔</span>' : '<span class="text-teal-500 mr-2">✔</span> <span>Tailored FAQ + Chat Flow Setup</span>'}
                         </div>
                     ` : ''}
                     ${plan.id === 'elite' ? `
                         <div class="flex items-center ${lang === 'ar' ? 'justify-end' : ''} cursor-pointer hover:bg-stone-50 p-1 rounded feature-item" data-feature="dedicated-manager">
-                            ${lang === 'ar' ? '<span>مدير روبوت مخصص</span> <span class="text-teal-500 mr-2">✔</span>' : '<span class="text-teal-500 mr-2">✔</span> <span>Dedicated Chatbot Manager</span>'}
+                            ${lang === 'ar' ? '<span>أخصائي نجاح روبوت دردشة خاص بك</span> <span class="text-teal-500 mr-2">✔</span>' : '<span class="text-teal-500 mr-2">✔</span> <span>Your Own Chatbot Success Specialist</span>'}
                         </div>
                         <div class="flex items-center ${lang === 'ar' ? 'justify-end' : ''} cursor-pointer hover:bg-stone-50 p-1 rounded feature-item" data-feature="full-personalization">
-                            ${lang === 'ar' ? '<span>تخصيص كامل</span> <span class="text-teal-500 mr-2">✔</span>' : '<span class="text-teal-500 mr-2">✔</span> <span>Full Personalization</span>'}
+                            ${lang === 'ar' ? '<span>تخصيص كامل حسب علامتك التجارية وعروضك</span> <span class="text-teal-500 mr-2">✔</span>' : '<span class="text-teal-500 mr-2">✔</span> <span>Fully Tailored to Your Brand & Offers</span>'}
                         </div>
                     ` : ''}
-                    <div class="flex items-center ${lang === 'ar' ? 'justify-end' : ''} cursor-pointer hover:bg-stone-50 p-1 rounded feature-item" data-feature="branding-removed">
-                        ${lang === 'ar' ? 
-                            `<span>إزالة العلامة التجارية</span> <span class="${plan.features.brandingRemoved ? 'text-teal-500' : 'text-stone-400'} mr-2">${plan.features.brandingRemoved ? '✔' : '✖'}</span>` :
-                            `<span class="${plan.features.brandingRemoved ? 'text-teal-500' : 'text-stone-400'} mr-2">${plan.features.brandingRemoved ? '✔' : '✖'}</span> <span>Branding Removed</span>`
-                        }
-                    </div>
-                    <div class="flex items-center ${lang === 'ar' ? 'justify-end' : ''} cursor-pointer hover:bg-stone-50 p-1 rounded feature-item" data-feature="custom-domain">
-                        ${lang === 'ar' ? 
-                            `<span>نطاق مخصص</span> <span class="${plan.features.customDomain ? 'text-teal-500' : 'text-stone-400'} mr-2">${plan.features.customDomain ? '✔' : '✖'}</span>` :
-                            `<span class="${plan.features.customDomain ? 'text-teal-500' : 'text-stone-400'} mr-2">${plan.features.customDomain ? '✔' : '✖'}</span> <span>Custom Domain</span>`
-                        }
-                    </div>
+                    ${plan.features.brandingRemoved ? `
+                        <div class="flex items-center ${lang === 'ar' ? 'justify-end' : ''} cursor-pointer hover:bg-stone-50 p-1 rounded feature-item" data-feature="branding-removed">
+                            ${lang === 'ar' ? 
+                                `<span>بدون شعارات خارجية — علامتك فقط</span> <span class="text-teal-500 mr-2">✔</span>` :
+                                `<span class="text-teal-500 mr-2">✔</span> <span>No External Logos — Your Brand Only</span>`
+                            }
+                        </div>
+                    ` : ''}
+                    ${plan.features.customDomain ? `
+                        <div class="flex items-center ${lang === 'ar' ? 'justify-end' : ''} cursor-pointer hover:bg-stone-50 p-1 rounded feature-item" data-feature="custom-domain">
+                            ${lang === 'ar' ? 
+                                `<span>رابط باسم نشاطك التجاري يعزز ثقة العملاء</span> <span class="text-teal-500 mr-2">✔</span>` :
+                                `<span class="text-teal-500 mr-2">✔</span> <span>Branded Link (chat.yourbusiness.com)</span>`
+                            }
+                        </div>
+                    ` : ''}
+                    
+                    <!-- ✖ EXCLUDED FEATURES LAST -->
+                    ${!plan.features.whatsappIntegration ? `
+                        <div class="flex items-center ${lang === 'ar' ? 'justify-end' : ''} cursor-pointer hover:bg-stone-50 p-1 rounded feature-item" data-feature="whatsapp-integration">
+                            ${lang === 'ar' ? 
+                                `<span>تكامل مع واتساب وإنستغرام</span> <span class="text-stone-400 mr-2">✖</span>` :
+                                `<span class="text-stone-400 mr-2">✖</span> <span>WhatsApp / Instagram Integration</span>`
+                            }
+                        </div>
+                    ` : ''}
+                    ${!plan.features.brandingRemoved ? `
+                        <div class="flex items-center ${lang === 'ar' ? 'justify-end' : ''} cursor-pointer hover:bg-stone-50 p-1 rounded feature-item" data-feature="branding-removed">
+                            ${lang === 'ar' ? 
+                                `<span>بدون شعارات خارجية — علامتك فقط</span> <span class="text-stone-400 mr-2">✖</span>` :
+                                `<span class="text-stone-400 mr-2">✖</span> <span>No External Logos — Your Brand Only</span>`
+                            }
+                        </div>
+                    ` : ''}
+                    ${!plan.features.customDomain ? `
+                        <div class="flex items-center ${lang === 'ar' ? 'justify-end' : ''} cursor-pointer hover:bg-stone-50 p-1 rounded feature-item" data-feature="custom-domain">
+                            ${lang === 'ar' ? 
+                                `<span>رابط باسم نشاطك التجاري يعزز ثقة العملاء</span> <span class="text-stone-400 mr-2">✖</span>` :
+                                `<span class="text-stone-400 mr-2">✖</span> <span>Branded Link (chat.yourbusiness.com)</span>`
+                            }
+                        </div>
+                    ` : ''}
                     <div class="text-sm text-stone-600 mt-2 ${lang === 'ar' ? 'text-right' : ''}">
                         ${lang === 'ar' ? 'رسوم الإعداد:' : 'Setup Fee:'} ${setupFee}
                     </div>
                 </div>
                 <button class="plan-cta w-full bg-teal-600 text-white font-bold py-3 px-4 rounded-lg mt-6 hover:bg-teal-700 transition-colors">
                     ${lang === 'ar' ? 
-                        (plan.id === 'starter' ? 'اختر المبتدئ' : 
-                         plan.id === 'pro' ? 'اختر المحترف' : 'اختر النخبة') :
-                        (plan.id === 'starter' ? 'Choose Starter' : 
-                         plan.id === 'pro' ? 'Choose Pro' : 'Choose Elite')
+                        (plan.id === 'starter' ? 'اختر مضاعف العملاء المحتملين' : 
+                         plan.id === 'pro' ? 'اختر مضاعف الحجوزات' : 'اختر محرك المبيعات على مدار الساعة') :
+                        (plan.id === 'starter' ? 'Choose Lead Booster' : 
+                         plan.id === 'pro' ? 'Choose Booking Maximiser' : 'Choose 24/7 Sales Engine')
                     }
                 </button>
             `;
@@ -1827,102 +2043,172 @@
         }
 
         const addOns = [
-            { id: 'extraCredits', name: 'Extra 1,000 Messages', priceOMR: 8, arabicName: 'ألف رسالة إضافية', featureExplanationTitle: 'Message Credits' },
-            { id: 'brandingRemoval', name: 'Branding Removal', priceOMR: 25, arabicName: 'إزالة العلامة التجارية', featureExplanationTitle: 'Branding Removed' },
+            // Individual Add-Ons
+            { id: 'extraCredits', name: 'Extra 1,000 Messages', priceOMR: 15, arabicName: '١,٠٠٠ رسالة إضافية', featureExplanationTitle: 'Extra Messages' },
+            { id: 'extraAIAction', name: 'Extra AI Action', priceOMR: 15, arabicName: 'إجراء ذكاء اصطناعي إضافي', featureExplanationTitle: 'Extra AI Action' },
+            { id: 'extraAIAgent', name: 'Extra AI Agent', priceOMR: 39, arabicName: 'وكيل ذكاء اصطناعي إضافي', featureExplanationTitle: 'Extra AI Agent' },
+            { id: 'brandingRemoval', name: 'Branding Removal', priceOMR: 29, arabicName: 'إزالة العلامة التجارية', featureExplanationTitle: 'Branding Removal' },
             { id: 'customDomain', name: 'Custom Domain', priceOMR: 35, arabicName: 'نطاق مخصص', featureExplanationTitle: 'Custom Domain' },
-            { id: 'whatsappIntegration', name: 'WhatsApp Integration', priceOMR: 25, arabicName: 'تكامل مع واتساب', featureExplanationTitle: 'WhatsApp Integration' },
-            { id: 'performanceReport', name: 'Performance Report', priceOMR: 10, arabicName: 'تقرير الأداء الشهري', featureExplanationTitle: 'Performance Report' },
-            { id: 'extraAIAgent', name: 'Extra AI Agent', priceOMR: 9, arabicName: 'وكيل ذكاء اصطناعي إضافي', featureExplanationTitle: 'AI Agents' },
-            // New bundle add-ons
-            { id: 'proInsightsPack', name: 'Pro Insights Pack', priceOMR: 30, arabicName: 'حزمة رؤى المحترفين', featureExplanationTitle: 'Pro Insights Pack' },
-            { id: 'eliteBrandScaleKit', name: 'Elite Brand & Scale Kit', priceOMR: 55, arabicName: 'حزمة النخبة للعلامة التجارية والتوسع', featureExplanationTitle: 'Elite Brand & Scale Kit' }
+            { id: 'whatsappIntegration', name: 'WhatsApp / IG Integration', priceOMR: 15, arabicName: 'دمج واتساب / إنستغرام', featureExplanationTitle: 'WhatsApp / IG Integration' },
+            { id: 'performanceReport', name: 'Performance Report', priceOMR: 10, arabicName: 'تقرير الأداء', featureExplanationTitle: 'Performance Report' },
+            { id: 'advancedAnalytics', name: 'Advanced Analytics Dashboard', priceOMR: 19, arabicName: 'لوحة تحكم تحليلات متقدمة', featureExplanationTitle: 'Advanced Analytics Dashboard' },
+            
+            // Bundled Add-Ons
+            { id: 'premiumIdentity', name: 'Premium Identity', priceOMR: 59, arabicName: 'الهوية المميزة', featureExplanationTitle: 'Premium Identity', isBundle: true },
+            { id: 'conversionInsights', name: 'Conversion Insights', priceOMR: 24, arabicName: 'رؤى التحويل', featureExplanationTitle: 'Conversion Insights', isBundle: true },
+            { id: 'scalePack', name: 'Scale Pack', priceOMR: 47, arabicName: 'حزمة التوسع', featureExplanationTitle: 'Scale Pack', isBundle: true },
+            { id: 'engagementBooster', name: 'Engagement Booster', priceOMR: 25, arabicName: 'معزز التفاعل', featureExplanationTitle: 'Engagement Booster', isBundle: true }
         ];
 
         // English feature explanations
         const featureExplanationsEN = [
-            { title: 'Message Credits', content: 'Each time the AI chatbot sends a reply to a user, it consumes one message credit. Our plans come with a monthly allowance, and you can add more if needed. Unused credits do not roll over.' },
-            { title: 'AI Agents', content: 'An AI Agent is like a distinct chatbot with its own unique knowledge base and personality. You might use one agent for customer support and a separate one for sales inquiries, each trained on different information.' },
-            { title: 'Branding Removed', content: 'This removes both the Powered by Chatbase label and any ChatOman branding (e.g., footer logo or name) from your chatbot.' },
-            { title: 'Custom Domain', content: 'Instead of a generic link, your chatbot can live on a subdomain of your website (e.g., bot.yourbusiness.com). This enhances professionalism and trust with your customers.' },
-            { title: 'Basic FAQ Support', content: 'This includes initial setup of fundamental FAQs based on your provided information, ensuring your chatbot can answer common customer questions right away.' },
-            { title: 'Response Updates 2x/month', content: 'We\'ll review and update your chatbot\'s responses twice a month to ensure accuracy and relevance, keeping your bot\'s information fresh.' },
-            { title: 'Chat Updates Weekly', content: 'For businesses with more dynamic needs, we provide weekly reviews and updates to your chatbot\'s chat flows and responses, ensuring it stays current with your offerings.' },
-            { title: 'Light Customization, FAQ + Flow', content: 'Beyond basic FAQs, this includes light customization of your chatbot\'s personality and basic conversational flows to guide users through common interactions.' },
-            { title: 'Full Personalization', content: 'Our Elite plan offers comprehensive personalization, which includes deep customization of your chatbot\'s persona, advanced conversational flows, regular performance reviews, and dedicated updates to ensure it perfectly aligns with your business goals.' },
-            { title: 'WhatsApp Integration', content: 'Seamlessly integrate your AI chatbot with WhatsApp, allowing your customers to interact with your bot directly on the platform they use most. Note: Third-party WhatsApp API costs may apply.' },
-            { title: 'Performance Report', content: 'Receive a monthly report detailing your chatbot\'s performance, including message volume, common queries, and user satisfaction, helping you understand its impact and identify areas for improvement.' },
-            { title: 'Dedicated Chatbot Manager', content: 'A dedicated manager will oversee your chatbot\'s performance, provide tailored recommendations, and ensure it consistently meets your business objectives.' },
-            { title: 'Pro Insights Pack', content: 'This bundle includes a Performance Report and Branding Removal, offering enhanced insights and a white-label experience. You save 5 OMR/month compared to purchasing these separately.' },
-            { title: 'Elite Brand & Scale Kit', content: 'This comprehensive bundle provides an additional 1,000 messages, Branding Removal, and a Custom Domain, designed for businesses looking to scale and fully brand their chatbot. You save 13 OMR/month compared to purchasing these separately.' },
-            {
-                title: 'FAQs',
-                content: `
-                    <ul>
-                        <li><strong>Q:</strong> What is ChatOman?<br><strong>A:</strong> ChatOman builds custom, bilingual AI chatbots for Omani businesses to answer customer questions 24/7 in Arabic and English.</li>
-                        <li><strong>Q:</strong> How does the chatbot work?<br><strong>A:</strong> We train the bot on your FAQs, menus, and service info. When customers type a question, the bot searches that knowledge and replies instantly.</li>
-                        <li><strong>Q:</strong> Is the chatbot really bilingual?<br><strong>A:</strong> Yes. Every bot is set up to understand and reply in Arabic (including Omani dialect) and English.</li>
-                        <li><strong>Q:</strong> How much does it cost?<br><strong>A:</strong> Plans start at 25 OMR/month (Starter), 45 OMR/month (Pro), and 90 OMR/month (Elite). Yearly billing saves up to 80 OMR.</li>
-                        <li><strong>Q:</strong> What is a message credit?<br><strong>A:</strong> One credit = one reply sent by the chatbot. If you receive 1,000 customer questions, that uses 1,000 credits.</li>
-                        <li><strong>Q:</strong> Can I upgrade later?<br><strong>A:</strong> Absolutely. You can switch plans or add credits/agents anytime—just email us.</li>
-                        <li><strong>Q:</strong> How long does setup take?<br><strong>A:</strong> Usually 2–3 business days after we receive your onboarding form.</li>
-                        <li><strong>Q:</strong> Can I update answers later?<br><strong>A:</strong> Yes—send new FAQs or edits, and we'll retrain the bot (included in all plans).</li>
-                        <li><strong>Q:</strong> Does it work on WhatsApp or Instagram?<br><strong>A:</strong> Yes. With our WhatsApp add-on or IG link, customers chat directly in their favorite app.</li>
-                        <li><strong>Q:</strong> Can I remove "Powered by Chatbase"?<br><strong>A:</strong> Yes—the Branding Removal add-on hides third-party labels so the bot looks 100% yours.</li>
-                        <li><strong>Q:</strong> What if I run out of credits?<br><strong>A:</strong> You'll get an email alert. Buy extra credits instantly from the Add-Ons section.</li>
-                        <li><strong>Q:</strong> How do I contact support?<br><strong>A:</strong> Email us at info@chatoman.co — we reply within 24 hours.</li>
-                    </ul>
-                `
-            }
+            { title: 'Messages / mo', content: 'Each time your chatbot replies to a user, it uses one message credit. Your plan includes a monthly allowance — and you can scale easily with add-ons. Unused credits do not roll over.' },
+            { title: 'AI Actions', content: 'These are automated tasks your bot can perform — like booking appointments, capturing leads, checking availability, or processing requests. Each AI Action saves time and reduces manual follow-up.' },
+            { title: 'AI Agents', content: 'Think of an AI Agent as a distinct chatbot with its own knowledge and role. You can have different agents for sales, support, or specific services — each trained separately.' },
+            { title: 'Updates', content: 'We regularly review and fine-tune your chatbot\'s responses — based on real user activity — to keep it accurate, helpful, and aligned with your business.' },
+            { title: 'Advanced Analytics Dashboard', content: 'Gain full visibility into your chatbot\'s performance. See how many users are interacting, where they\'re from, what they\'re asking, and when activity peaks — so you can refine content, increase engagement, and optimize for results.' },
+            { title: 'Add-ons', content: `
+                <div class="space-y-4">
+                    <div><strong>Extra AI Action:</strong> Add another automated task — like booking, order lookup, file upload, or lead qualification — to expand what your chatbot can do.</div>
+                    <div><strong>Extra AI Agent:</strong> Deploy another chatbot for a new department, service, or language. Each agent is trained separately and managed independently.</div>
+                    <div><strong>Branding Removal:</strong> Remove all external logos (Chatbase, ChatOman) so your chatbot looks 100% like it's built in-house. Increases trust, professionalism, and conversion rates.</div>
+                    <div><strong>Custom Domain:</strong> Host your chatbot on a branded subdomain like chat.yourbusiness.com instead of a generic link — adding trust and professionalism to your customer experience.</div>
+                    <div><strong>WhatsApp / IG Integration:</strong> Let users message your chatbot directly through WhatsApp or Instagram — a must-have for mobile-first, DM-heavy businesses.</div>
+                    <div><strong>Performance Report:</strong> A simple monthly report showing top questions, engagement, and conversation volume — ideal for tracking impact at a glance.</div>
+                    <div><strong>Advanced Analytics Dashboard:</strong> Real-time performance data with filters and visualizations — including location, drop-offs, and flow insights.</div>
+                    <div><strong>Premium Identity:</strong> Includes: Branding Removal + Custom Domain. Create a fully white-labeled experience that looks and feels 100% yours.</div>
+                    <div><strong>Conversion Insights:</strong> Includes: Performance Report + Advanced Analytics Dashboard. Understand what's working and what to improve with both overview and deep-dive analytics.</div>
+                    <div><strong>Scale Pack:</strong> Includes: Extra AI Agent + Extra AI Action. Expand capacity and capabilities to support more workflows and departments.</div>
+                    <div><strong>Engagement Booster:</strong> Includes: WhatsApp / IG Integration + Extra 1,000 Messages. Reach more users and handle more conversations — directly in the DMs.</div>
+                </div>
+            ` },
+            { title: 'FAQs', content: `
+                <div class="space-y-4">
+                    <div><strong>Q: What is ChatOman?</strong><br>
+                    A: ChatOman builds smart, bilingual AI chatbots for Omani businesses — designed to answer customer questions 24/7 in Arabic and English, boost bookings, and reduce repetitive staff tasks.</div>
+                    
+                    <div><strong>Q: How does the chatbot actually work?</strong><br>
+                    A: We train your bot using your services, FAQs, pricing, and menus. When a customer asks something, the chatbot instantly finds the most relevant answer and responds — in natural language, not canned replies.</div>
+                    
+                    <div><strong>Q: Is it really bilingual — or just translated?</strong><br>
+                    A: Yes — fully bilingual. Every chatbot is trained in Modern Standard Arabic, Omani dialect, and English. No auto-translations. It understands and responds based on how your customers actually speak.</div>
+                    
+                    <div><strong>Q: How much does it cost?</strong><br>
+                    A: Monthly plans start at:<br>
+                    • Lead Booster: 29 OMR<br>
+                    • Booking Maximiser: 79 OMR<br>
+                    • 24/7 Sales Engine: 229 OMR<br>
+                    You can also save up to 1 month with annual billing (setup is free on yearly plans).</div>
+                    
+                    <div><strong>Q: What is a message credit?</strong><br>
+                    A: Each time your chatbot sends a reply, it uses 1 message credit. So if 1,000 people message you, and the bot replies to each, that uses 1,000 credits.</div>
+                    
+                    <div><strong>Q: Can I upgrade or switch plans later?</strong><br>
+                    A: Yes — anytime. You can add more credits, agents, or switch plans with a quick email. No penalties or lock-ins.</div>
+                    
+                    <div><strong>Q: How long does setup take?</strong><br>
+                    A: Once we receive your onboarding form, setup usually takes 2–3 business days. In most cases, you'll be live within 48 hours.</div>
+                    
+                    <div><strong>Q: Can I update or edit the chatbot later?</strong><br>
+                    A: Absolutely. If your hours, services, or prices change — just email us. We'll retrain the bot with the new info. All plans include regular updates.</div>
+                    
+                    <div><strong>Q: Does it work on WhatsApp or Instagram?</strong><br>
+                    A: Yes. With our WhatsApp & IG Integration add-on, your customers can chat with your bot directly in DMs — no website required.</div>
+                    
+                    <div><strong>Q: Can I remove "Powered by Chatbase"?</strong><br>
+                    A: Yes. The Branding Removal add-on hides all third-party labels — so your chatbot looks 100% custom, like part of your own team.</div>
+                    
+                    <div><strong>Q: What happens if I run out of message credits?</strong><br>
+                    A: You'll get an automatic email alert before that happens. You can instantly top up with our Extra 1,000 Messages add-on — no downtime.</div>
+                    
+                    <div><strong>Q: How do I contact support?</strong><br>
+                    A: Email us anytime at info@chatoman.co — we typically reply within 24 hours (often sooner).</div>
+                </div>
+            ` }
         ];
 
         // Arabic feature explanations
         const featureExplanationsAR = [
-            { title: 'أرصدة الرسائل', content: 'كل مرة يرد فيها روبوت الدردشة على المستخدم، يتم استخدام رصيد واحد. تأتي خططنا مع رصيد شهري، ويمكنك إضافة المزيد إذا لزم الأمر. الأرصدة غير المستخدمة لا ترحل للشهر التالي' },
-            { title: 'الوكلاء الذكيين', content: 'الوكيل الذكي هو روبوت دردشة منفصل بقاعدة معرفة وشخصية فريدة خاصة به. يمكنك استخدام وكيل واحد لدعم العملاء وآخر منفصل لاستفسارات المبيعات، وكل منهما مدرب على معلومات مختلفة' },
-            { title: 'إزالة العلامة التجارية', content: 'يزيل عبارة "مدعوم من شاتبَيس" وأي علامة تجارية لتشات عُمان مثل الشعار أو الاسم.' },
-            { title: 'النطاق المخصص', content: 'بدلاً من الرابط العام، يمكن لروبوت الدردشة الخاص بك أن يتواجد على نطاق فرعي لموقعك الإلكتروني (مثال: bot.yourbusiness.com). هذا يعزز الاحترافية والثقة مع عملائك' },
-            { title: 'دعم الأسئلة الشائعة الأساسية', content: 'يتضمن ذلك الإعداد الأولي للأسئلة الشائعة الأساسية بناءً على المعلومات التي تقدمها، مما يضمن أن روبوت الدردشة الخاص بك يمكنه الإجابة على أسئلة العملاء الشائعة فورًا' },
-            { title: 'تحديثات الردود مرتين شهريًا', content: 'سنقوم بمراجعة وتحديث ردود روبوت الدردشة الخاص بك مرتين شهريًا لضمان الدقة والأهمية، مما يحافظ على تحديث معلومات الروبوت الخاص بك' },
-            { title: 'تحديثات الدردشة أسبوعيًا', content: 'للشركات ذات الاحتياجات الأكثر ديناميكية، نقدم مراجعات وتحديثات أسبوعية لتدفقات الدردشة وردود روبوت الدردشة الخاص بك، مما يضمن بقاءه محدثًا مع عروضك' },
-            { title: 'تخصيص خفيف، أسئلة شائعة + تدفق', content: 'بالإضافة إلى الأسئلة الشائعة الأساسية، يتضمن ذلك تخصيصًا خفيفًا لشخصية روبوت الدردشة الخاص بك وتدفقات محادثة أساسية لتوجيه المستخدمين خلال التفاعلات الشائعة' },
-            { title: 'التخصيص الكامل', content: 'تقدم خطة النخبة لدينا تخصيصًا شاملاً، والذي يتضمن تخصيصًا عميقًا لشخصية روبوت الدردشة الخاص بك، وتدفقات محادثة متقدمة، ومراجعات أداء منتظمة، وتحديثات مخصصة لضمان توافقه التام مع أهداف عملك' },
-            { title: 'تكامل واتساب', content: 'ادمج روبوت الدردشة الخاص بك بسلاسة مع واتساب، مما يسمح لعملائك بالتفاعل مع الروبوت مباشرة على المنصة التي يستخدمونها غالبًا. ملاحظة: قد تنطبق تكاليف واجهة برمجة تطبيقات واتساب على جهات خارجية' },
-            { title: 'تقرير الأداء', content: 'احصل على تقرير شهري يوضح أداء روبوت الدردشة الخاص بك، بما في ذلك حجم الرسائل، والاستفسارات الشائعة، ورضا المستخدمين، مما يساعدك على فهم تأثيره وتحديد مجالات التحسين' },
-            { title: 'مدير روبوت الدردشة المخصص', content: 'سيشرف مدير مخصص على أداء روبوت الدردشة الخاص بك، ويقدم توصيات مخصصة، ويضمن تلبيته المستمرة لأهداف عملك' },
-            { title: 'حزمة رؤى المحترفين', content: 'تتضمن هذه الحزمة تقرير الأداء وإزالة العلامة التجارية، مما يوفر رؤى محسّنة وتجربة بيضاء. توفر ٥ ريال عماني/شهريًا مقارنةً بشرائها بشكل منفصل' },
-            { title: 'حزمة النخبة للعلامة التجارية والتوسع', content: 'توفر هذه الحزمة الشاملة ١,٠٠٠ رسالة إضافية، وإزالة العلامة التجارية، ونطاقًا مخصصًا، وهي مصممة للشركات التي تتطلع إلى التوسع ووضع علامتها التجارية الكاملة على روبوت الدردشة الخاص بها. توفر ١٣ ريال عماني/شهريًا مقارنةً بشرائها بشكل منفصل' },
-            {
-                title: 'الأسئلة الشائعة',
-                content: `
-                    <ul>
-                        <li><strong>س:</strong> ما هو تشات عُمان؟<br><strong>ج:</strong> تشات عُمان يقدّم روبوتات دردشة ذكية ثنائية اللغة مخصّصة للأعمال العُمانية للرد على استفسارات العملاء على مدار الساعة بالعربية والإنجليزية</li>
-                        <li><strong>س:</strong> كيف يعمل روبوت الدردشة؟<br><strong>ج:</strong> نقوم بتدريب الروبوت على الأسئلة الشائعة والقوائم ومعلومات خدماتك. عند طرح العميل سؤالاً، يبحث الروبوت في هذه المعلومات ويجيب فوراً</li>
-                        <li><strong>س:</strong> هل الروبوت ثنائي اللغة فعلاً؟<br><strong>ج:</strong> نعم، كل روبوت مهيأ ليفهم ويجيب بالعربية (يشمل اللهجة العُمانية) والإنجليزية</li>
-                        <li><strong>س:</strong> كم سعر الخدمة؟<br><strong>ج:</strong> تبدأ الخطط من ٢٥ ريال/شهر (المبتدئ)، ٤٥ ريال/شهر (المحترف)، ٩٠ ريال/شهر (النخبة). الدفع السنوي يوفر حتى ٨٠ ريال</li>
-                        <li><strong>س:</strong> ما هو رصيد الرسالة؟<br><strong>ج:</strong> رصيد واحد = رد واحد يرسله الروبوت. إذا استقبلت ١,٠٠٠ سؤال، فهذا يستهلك ١,٠٠٠ رصيد</li>
-                        <li><strong>س:</strong> هل يمكنني الترقية لاحقاً؟<br><strong>ج:</strong> بالطبع. يمكنك تغيير الخطط أو إضافة أرصدة/وكلاء في أي وقت — فقط راسلنا</li>
-                        <li><strong>س:</strong> كم يستغرق الإعداد؟<br><strong>ج:</strong> عادةً يومان إلى ثلاثة أيام عمل بعد استلام نموذج الانضمام</li>
-                        <li><strong>س:</strong> هل يمكنني تعديل الإجابات لاحقاً؟<br><strong>ج:</strong> نعم — أرسل أسئلة جديدة أو تعديلات وسنعيد تدريب الروبوت (مشمول بكل الخطط)</li>
-                        <li><strong>س:</strong> هل يعمل على واتساب أو إنستجرام؟<br><strong>ج:</strong> نعم. عبر إضافة واتساب أو رابط إنستجرام يمكن للعملاء المحادثة من تطبيقهم المفضل</li>
-                        <li><strong>س:</strong> هل يمكن إزالة عبارة "Powered by Chatbase"؟<br><strong>ج:</strong> نعم — إضافة إزالة العلامة التجارية تخفي شعارات الطرف الثالث ليبدو الروبوت ملكك بالكامل</li>
-                        <li><strong>س:</strong> ماذا لو انتهى رصيد الرسائل؟<br><strong>ج:</strong> يصلك تنبيه عبر البريد، ويمكنك شراء أرصدة إضافية فوراً من قسم الإضافات</li>
-                        <li><strong>س:</strong> كيف أتواصل مع الدعم؟<br><strong>ج:</strong> راسلنا على info@chatoman.co — نرد خلال ٢٤ ساعة</li>
-                    </ul>
-                `
-            }
+            { title: 'الرسائل شهريًا', content: 'كل رد ترسله الدردشة الآلية يُحسب كرسالة. كل باقة تحتوي على عدد محدد من الرسائل شهريًا — ويمكنك التوسيع باستخدام الإضافات. الرسائل غير المستخدمة لا تنتقل للشهر التالي.' },
+            { title: 'إجراءات الذكاء الاصطناعي', content: 'هذه مهام مؤتمتة يمكن للروبوت تنفيذها — مثل حجز المواعيد، جمع بيانات العملاء، التحقق من التوفر، أو معالجة الطلبات. كل إجراء يوفر وقت الموظفين ويقلل من المتابعة اليدوية.' },
+            { title: 'وكلاء الذكاء الاصطناعي', content: 'كل وكيل هو روبوت منفصل له معلوماته ودوره الخاص. يمكنك إنشاء وكلاء مختلفين للمبيعات أو الدعم أو لخدمات محددة — كل واحد يتم تدريبه بشكل منفصل.' },
+            { title: 'التحديثات', content: 'نقوم بمراجعة وتحديث إجابات الدردشة الآلية بانتظام بناءً على تفاعل المستخدمين — لضمان الدقة والفاعلية وتوافق الإجابات مع نشاطك التجاري.' },
+            { title: 'لوحة تحكم التحليلات المتقدمة', content: 'احصل على رؤية شاملة لأداء الدردشة الآلية. تعرف على عدد المستخدمين، مواقعهم، الأسئلة الأكثر شيوعًا، وأوقات الذروة — حتى تتمكن من تحسين المحتوى وزيادة التفاعل وتحقيق أفضل النتائج.' },
+            { title: 'الإضافات', content: `
+                <div class="space-y-4" style="direction: rtl; text-align: right;">
+                    <div><strong>إجراء إضافي:</strong> أضف إجراء آلي إضافي — مثل الحجز، تحميل الملفات، أو جمع بيانات العملاء — لتوسيع قدرات روبوتك.</div>
+                    <div><strong>وكيل إضافي:</strong> أنشئ روبوت جديد لقسم آخر، لغة أخرى، أو خدمة مختلفة. كل وكيل يتم تدريبه وإدارته بشكل مستقل.</div>
+                    <div><strong>إزالة العلامة التجارية:</strong> احذف جميع الشعارات الخارجية واجعل روبوتك يبدو وكأنه مدمج بالكامل ضمن نظامك — مما يزيد من الاحترافية ومعدلات التحويل.</div>
+                    <div><strong>نطاق مخصص:</strong> استضف روبوت الدردشة على نطاق مخصص مثل: chat.yourbusiness.com بدلًا من رابط عام — مما يزيد من الثقة والمصداقية ويعزز تجربة المستخدم.</div>
+                    <div><strong>تكامل واتساب / إنستغرام:</strong> اجعل العملاء يتواصلون معك بسهولة عبر الرسائل المباشرة — مثالي للأعمال التي تعتمد على الدردشة في توليد الحجوزات أو الطلبات.</div>
+                    <div><strong>تقرير الأداء:</strong> تقرير شهري مبسط يوضح عدد المحادثات، التفاعل، والأسئلة المتكررة — لمتابعة تأثير الروبوت بسرعة.</div>
+                    <div><strong>لوحة تحكم التحليلات المتقدمة:</strong> بيانات تفصيلية مباشرة تشمل المواقع الجغرافية، نقاط التسرب، ومسارات المحادثات — لمساعدتك في تحسين الأداء وقياس العائد.</div>
+                    <div><strong>هوية احترافية:</strong> تتضمن: إزالة العلامات التجارية + نطاق مخصص → روبوت يظهر بشكل متكامل تحت علامتك فقط، دون أي جهات خارجية.</div>
+                    <div><strong>تحليلات التحويل:</strong> تتضمن: تقرير الأداء + لوحة تحكم التحليلات → رؤية واضحة لكل ما يعمل وما يحتاج تحسين — من التقارير السريعة إلى البيانات المتعمقة.</div>
+                    <div><strong>باقة التوسعة:</strong> تتضمن: وكيل إضافي + إجراء إضافي → مثالية للشركات التي تحتاج تغطية أقسام متعددة أو مزيدًا من الإجراءات الآلية.</div>
+                    <div><strong>مُعزز التفاعل:</strong> تتضمن: تكامل واتساب / إنستغرام + 1,000 رسالة إضافية → التعامل مع حجم أكبر من المحادثات مباشرة داخل الرسائل الخاصة.</div>
+                </div>
+            ` },
+            { title: 'الأسئلة الشائعة', content: `
+                <div class="space-y-4" style="direction: rtl; text-align: right;">
+                    <div><strong>س: ما هو ChatOman؟</strong><br>
+                    ج: ChatOman يبني روبوتات دردشة ذكية ثنائية اللغة مخصصة للأعمال العمانية — مصممة للرد على أسئلة العملاء على مدار الساعة باللغتين العربية والإنجليزية، وزيادة الحجوزات، وتقليل المهام المتكررة على الموظفين.</div>
+                    
+                    <div><strong>س: كيف يعمل روبوت الدردشة؟</strong><br>
+                    ج: نقوم بتدريب روبوتك باستخدام معلومات خدماتك، الأسئلة الشائعة، الأسعار، والقوائم. عندما يسأل العميل شيئًا، يجد الروبوت الإجابة الأنسب ويستجيب فورًا — بلغة طبيعية، دون ردود مبرمجة مسبقًا.</div>
+                    
+                    <div><strong>س: هل هو فعلاً ثنائي اللغة أم مجرد ترجمة؟</strong><br>
+                    ج: نعم — ثنائي اللغة بالكامل. كل روبوت يتم تدريبه بالعربية الفصحى، اللهجة العمانية، والإنجليزية. لا نستخدم ترجمات تلقائية. يفهم ويجيب بناءً على أسلوب كلام عملائك الحقيقي.</div>
+                    
+                    <div><strong>س: كم تبلغ التكلفة؟</strong><br>
+                    ج: تبدأ الخطط الشهرية من:<br>
+                    • Lead Booster: ‏29 ريال عماني<br>
+                    • Booking Maximiser: ‏79 ريال عماني<br>
+                    • 24/7 Sales Engine: ‏229 ريال عماني<br>
+                    ويمكنك التوفير حتى شهر كامل عبر الدفع السنوي (يشمل الإعداد مجانًا في الخطط السنوية).</div>
+                    
+                    <div><strong>س: ما هو رصيد الرسائل؟</strong><br>
+                    ج: كل مرة يرد فيها روبوت الدردشة على رسالة، يتم استخدام رصيد واحد. إذا تواصل معك 1000 شخص، ورد عليهم الروبوت، يتم استخدام 1000 رصيد.</div>
+                    
+                    <div><strong>س: هل يمكنني ترقية أو تغيير الخطة لاحقًا؟</strong><br>
+                    ج: نعم — في أي وقت. يمكنك إضافة المزيد من الرسائل أو الوكلاء، أو تغيير الخطة ببساطة عبر إرسال بريد إلكتروني. لا توجد غرامات أو التزامات.</div>
+                    
+                    <div><strong>س: كم يستغرق الإعداد؟</strong><br>
+                    ج: بعد استلام نموذج البيانات الخاص بك، يتم الإعداد خلال 2–3 أيام عمل. في معظم الحالات، يتم تشغيل الروبوت خلال 48 ساعة.</div>
+                    
+                    <div><strong>س: هل يمكنني تعديل الروبوت لاحقًا؟</strong><br>
+                    ج: بالتأكيد. إذا تغيرت ساعات العمل أو الأسعار أو الخدمات، فقط أرسل لنا بريداً إلكترونياً، وسنقوم بتحديث وتدريب الروبوت. جميع الخطط تشمل التحديثات المنتظمة.</div>
+                    
+                    <div><strong>س: هل يعمل على واتساب أو إنستغرام؟</strong><br>
+                    ج: نعم. مع إضافة التكامل مع واتساب/إنستغرام، يمكن لعملائك التحدث مع الروبوت مباشرة من الرسائل الخاصة — دون الحاجة لزيارة موقعك.</div>
+                    
+                    <div><strong>س: هل يمكن إزالة عبارة "Powered by Chatbase"؟</strong><br>
+                    ج: نعم. إضافة إزالة العلامات التجارية تحذف جميع شعارات الأطراف الثالثة — ليظهر الروبوت وكأنه جزء من فريقك الداخلي.</div>
+                    
+                    <div><strong>س: ماذا يحدث إذا نفد رصيد الرسائل؟</strong><br>
+                    ج: ستتلقى تنبيهًا تلقائيًا عبر البريد قبل انتهاء الرصيد. ويمكنك تعبئة الرصيد فورًا عبر إضافة "1000 رسالة إضافية" — دون أي توقف في الخدمة.</div>
+                    
+                    <div><strong>س: كيف أتواصل مع الدعم؟</strong><br>
+                    ج: راسلنا في أي وقت على البريد الإلكتروني: info@chatoman.co — نرد عادة خلال 24 ساعة (وغالبًا أسرع).</div>
+                </div>
+            ` }
         ];
 
         // Helper function to map addon IDs to feature keys
         function getAddonFeatureKey(addonId) {
             const mapping = {
                 'extraCredits': 'extra-credits',
-                'brandingRemoval': 'branding-removed',
+                'extraAIAction': 'extra-ai-action',
+                'extraAIAgent': 'extra-ai-agent',
+                'brandingRemoval': 'branding-removal',
                 'customDomain': 'custom-domain',
-                'whatsappIntegration': 'whatsapp-integration',
+                'whatsappIntegration': 'whatsapp-ig-integration',
                 'performanceReport': 'performance-report',
-                'extraAIAgent': 'extra-agent',
-                'proInsightsPack': 'pro-insights-pack',
-                'eliteBrandScaleKit': 'elite-brand-scale'
+                'advancedAnalytics': 'advanced-analytics',
+                'premiumIdentity': 'premium-identity',
+                'conversionInsights': 'conversion-insights',
+                'scalePack': 'scale-pack',
+                'engagementBooster': 'engagement-booster'
             };
             return mapping[addonId] || addonId;
         }
@@ -1938,29 +2224,40 @@
             const isArabicMode = currentLang === 'ar';
             
             if (isArabicMode) {
-                // Arabic-specific add-ons with provided text
+                // Arabic-specific add-ons with updated list
                 const arabicAddOns = [
-                    { id: 'extraCredits', name: '١,٠٠٠ رسالة إضافية', price: '٨' },
-                    { id: 'brandingRemoval', name: 'إزالة العلامة التجارية', price: '٢٥' },
+                    // Individual Add-ons
+                    { id: 'extraCredits', name: '١,٠٠٠ رسالة إضافية', price: '١٥' },
+                    { id: 'extraAIAction', name: 'إجراء ذكاء اصطناعي إضافي', price: '١٥' },
+                    { id: 'extraAIAgent', name: 'وكيل ذكاء اصطناعي إضافي', price: '٣٩' },
+                    { id: 'brandingRemoval', name: 'إزالة العلامة التجارية', price: '٢٩' },
                     { id: 'customDomain', name: 'نطاق مخصص', price: '٣٥' },
-                    { id: 'whatsappIntegration', name: 'دمج واتساب', price: '٢٥' },
-                    { id: 'performanceReport', name: 'تقرير أداء', price: '١٠' },
-                    { id: 'extraAIAgent', name: 'وكيل ذكاء اصطناعي إضافي', price: '٩' },
-                    { id: 'proInsightsPack', name: 'حزمة رؤى احترافية', price: '٣٠' },
-                    { id: 'eliteBrandScaleKit', name: 'حزمة النخبة للعلامة التجارية والتوسّع', price: '٥٥' }
+                    { id: 'whatsappIntegration', name: 'دمج واتساب / إنستغرام', price: '١٥' },
+                    { id: 'performanceReport', name: 'تقرير الأداء', price: '١٠' },
+                    { id: 'advancedAnalytics', name: 'لوحة تحكم تحليلات متقدمة', price: '١٩' },
+                    
+                    // Bundled Add-ons
+                    { id: 'premiumIdentity', name: 'الهوية المميزة', price: '٥٩', isBundle: true },
+                    { id: 'conversionInsights', name: 'رؤى التحويل', price: '٢٤', isBundle: true },
+                    { id: 'scalePack', name: 'حزمة التوسع', price: '٤٧', isBundle: true },
+                    { id: 'engagementBooster', name: 'معزز التفاعل', price: '٢٥', isBundle: true }
                 ];
                 
                 arabicAddOns.forEach(addOn => {
                     const addOnElement = document.createElement('label');
-                    addOnElement.className = 'flex items-center bg-stone-100 p-4 rounded-lg cursor-pointer hover:bg-stone-200 transition-colors';
+                    const bundleClass = addOn.isBundle ? 'bg-teal-50 border-2 border-teal-200' : 'bg-stone-100';
+                    addOnElement.className = `flex items-center ${bundleClass} p-4 rounded-lg cursor-pointer hover:bg-stone-200 transition-colors`;
                     addOnElement.style.direction = 'rtl';
                     addOnElement.style.textAlign = 'right';
+                    
+                    const bundleLabel = addOn.isBundle ? '<span class="text-xs bg-teal-600 text-white px-2 py-1 rounded-full mr-2">حزمة</span>' : '';
                     
                     addOnElement.innerHTML = `
                         <div class="flex-1 text-right">
                             <div class="flex items-center justify-start cursor-pointer feature-item" data-feature="${getAddonFeatureKey(addOn.id)}">
                                 <span class="text-teal-500 ml-2">✔</span>
                                 <span class="font-semibold text-stone-700">${addOn.name}</span>
+                                ${bundleLabel}
                             </div>
                             <div class="text-sm text-stone-500 mt-1">
                                 +${addOn.price} ريال/شهريًا
@@ -1976,15 +2273,19 @@
                     addonsSelectionContainer.appendChild(addOnElement);
                 });
             } else {
-                // English add-ons (original logic)
+                // English add-ons with bundle styling
                 addOns.forEach(addOn => {
                     const addOnElement = document.createElement('label');
-                    addOnElement.className = `flex items-center bg-stone-100 p-4 rounded-lg cursor-pointer hover:bg-stone-200 transition-colors justify-between`;
+                    const bundleClass = addOn.isBundle ? 'bg-teal-50 border-2 border-teal-200' : 'bg-stone-100';
+                    addOnElement.className = `flex items-center ${bundleClass} p-4 rounded-lg cursor-pointer hover:bg-stone-200 transition-colors justify-between`;
+                    
+                    const bundleLabel = addOn.isBundle ? '<span class="text-xs bg-teal-600 text-white px-2 py-1 rounded-full ml-2">Bundle</span>' : '';
                     
                     addOnElement.innerHTML = `
                         <div class="text-left">
                             <div class="addon-feature-link text-stone-700 hover:underline cursor-pointer feature-item" data-feature="${getAddonFeatureKey(addOn.id)}">
                                 <span class="font-semibold">${addOn.name}</span>
+                                ${bundleLabel}
                             </div>
                             <div class="text-sm text-stone-500">
                                 +${addOn.priceOMR} OMR/mo
@@ -2113,87 +2414,164 @@
         // Feature popup data - bilingual descriptions
         const featurePopupData = {
             'messages': {
-                title: { en: 'Message Credits', ar: 'أرصدة الرسائل' },
+                title: { en: 'Handle up to 1,000 Customer Messages', ar: 'يعالج حتى ١٬٠٠٠ رسالة من العملاء' },
                 description: { 
-                    en: 'Each time your AI chatbot replies to a customer, it uses one message credit. Plans include monthly credits that reset each billing cycle.',
+                    en: 'Each time your chatbot replies to a user, it uses 1 message credit. 1,000 messages = 1,000 conversations handled automatically — without staff, without delay, and without missing a single customer.',
                     ar: 'كل مرة يرد فيها روبوت الدردشة على العميل، يستخدم رصيد رسالة واحد. تتضمن الخطط أرصدة شهرية تتجدد كل دورة فوترة.'
                 }
             },
             'agents': {
-                title: { en: 'AI Agents', ar: 'الوكلاء الذكيين' },
+                title: { en: '1 Personalized AI Chatbot', ar: 'روبوت دردشة ذكي مخصص' },
                 description: { 
-                    en: 'An AI Agent is a distinct chatbot with its own knowledge base. Use separate agents for different purposes like sales, support, or bookings.',
+                    en: 'A fully trained AI assistant customized to your business — not generic scripts. It understands your services, tone, and FAQs, and responds naturally in Arabic and English.',
                     ar: 'الوكيل الذكي هو روبوت دردشة منفصل بقاعدة معرفة خاصة به. استخدم وكلاء منفصلين لأغراض مختلفة كالمبيعات أو الدعم أو الحجوزات.'
                 }
             },
             'basic-faq': {
-                title: { en: 'Basic FAQ Support', ar: 'دعم الأسئلة الشائعة الأساسية' },
+                title: { en: 'Built-In Answers to Common Questions', ar: 'إجابات مدمجة للأسئلة الشائعة' },
                 description: { 
-                    en: 'Initial setup of fundamental FAQs based on your business information, ensuring your chatbot can answer common customer questions.',
+                    en: 'We pre-load your chatbot with smart responses to your most frequent questions (about hours, prices, services, locations, etc.). Done-for-you — so your team doesn\'t have to repeat themselves.',
                     ar: 'إعداد أولي للأسئلة الشائعة الأساسية بناءً على معلومات عملك، مما يضمن قدرة روبوت الدردشة على الإجابة على أسئلة العملاء الشائعة.'
                 }
             },
             'response-updates': {
-                title: { en: 'Response Updates', ar: 'تحديثات الردود' },
+                title: { en: 'Biweekly Performance Tweaks', ar: 'تحسينات أداء نصف شهرية' },
                 description: { 
-                    en: 'Regular reviews and updates to your chatbot responses to ensure accuracy and keep information fresh and relevant.',
+                    en: 'Twice a month, we review how your chatbot is performing and refine its answers to reduce confusion, increase bookings, and make replies sound more natural. You get smarter results with zero extra work.',
                     ar: 'مراجعات وتحديثات منتظمة لردود روبوت الدردشة لضمان الدقة والحفاظ على المعلومات طازجة ومتصلة بالواقع.'
                 }
             },
             'chat-updates': {
-                title: { en: 'Chat Updates Weekly', ar: 'تحديثات الدردشة أسبوعيًا' },
+                title: { en: 'Weekly Optimization & Response Tuning', ar: 'تحسينات أسبوعية وضبط الردود' },
                 description: { 
-                    en: 'Weekly reviews and updates to your chatbot flows and responses for businesses with dynamic needs.',
+                    en: 'Your chatbot gets improved weekly — based on real user conversations. We tweak answers, fix misunderstandings, and boost clarity to help your bot convert better over time.',
                     ar: 'مراجعات وتحديثات أسبوعية لتدفقات وردود روبوت الدردشة للشركات ذات الاحتياجات الديناميكية.'
                 }
             },
             'light-customization': {
-                title: { en: 'Light Customization', ar: 'تخصيص خفيف' },
+                title: { en: 'Tailored FAQ + Chat Flow Setup', ar: 'إعداد مخصص للأسئلة وتدفق المحادثة' },
                 description: { 
-                    en: 'Basic customization of your chatbot personality and conversational flows to guide users through common interactions.',
+                    en: 'We don\'t just give you a chatbot — we build the logic. We map your services, lead capture flows, and customer journey into a clean, effective conversation design that drives action.',
                     ar: 'تخصيص أساسي لشخصية روبوت الدردشة وتدفقات المحادثة لتوجيه المستخدمين خلال التفاعلات الشائعة.'
                 }
             },
             'full-personalization': {
-                title: { en: 'Full Personalization', ar: 'التخصيص الكامل' },
+                title: { en: 'Fully Tailored to Your Brand & Offers', ar: 'مخصص بالكامل لعلامتك التجارية وعروضك' },
                 description: { 
-                    en: 'Comprehensive customization including deep persona customization, advanced flows, and performance reviews.',
+                    en: 'Your chatbot looks, speaks, and acts like part of your business — not like a generic AI assistant. We match your tone of voice, priorities, and services exactly. It\'s a digital team member, not a template.',
                     ar: 'تخصيص شامل يتضمن تخصيص عميق للشخصية، وتدفقات متقدمة، ومراجعات أداء.'
                 }
             },
             'branding-removed': {
-                title: { en: 'Branding Removed', ar: 'إزالة العلامة التجارية' },
+                title: { en: 'No External Logos — Your Brand Only', ar: 'بدون شعارات خارجية — علامتك فقط' },
                 description: { 
-                    en: 'Removes "Powered by" labels and third-party branding, making your chatbot look completely yours.',
+                    en: 'We remove all ChatOman or Chatbase logos from your chatbot. Customers only see your brand — no third-party distractions. This builds trust and makes your business look more professional.',
                     ar: 'يزيل عبارات "مدعوم من" والعلامات التجارية للطرف الثالث، مما يجعل روبوت الدردشة يبدو ملكك بالكامل.'
+                }
+            },
+            'custom-domain': {
+                title: { en: 'Branded Link (chat.yourbusiness.com)', ar: 'رابط مخصص يحمل اسم نشاطك التجاري ويعزز احترافيتك' },
+                description: { 
+                    en: 'Instead of a generic chatbot link, your bot lives on a branded subdomain of your own website (like chat.yoursalon.com). This keeps the customer inside your ecosystem and reinforces brand trust.',
+                    ar: 'استضف روبوت الدردشة على نطاقك الفرعي (مثل bot.yourbusiness.com) لمزيد من الاحترافية.'
+                }
+            },
+            'dedicated-manager': {
+                title: { en: 'Your Own Chatbot Success Specialist', ar: 'أخصائي نجاح روبوت الدردشة الخاص بك' },
+                description: { 
+                    en: 'A real person on our team who manages your bot\'s setup, training, and performance. They\'re your single point of contact — available whenever you want updates, changes, or advice.',
+                    ar: 'مدير مخصص يشرف على أداء روبوت الدردشة ويقدم توصيات مخصصة.'
+                }
+            },
+            'extra-credits': {
+                title: { en: 'Extra 1,000 Messages', ar: '١,٠٠٠ رسالة إضافية' },
+                description: { 
+                    en: 'Handle 1,000 more conversations every month — ideal when your chatbot starts engaging more leads than expected. Scale without limits and never miss a reply.',
+                    ar: 'تعامل مع ١,٠٠٠ محادثة إضافية شهريًا — مثالي عندما يبدأ روبوت الدردشة في جذب عملاء أكثر من المتوقع.'
+                }
+            },
+            'extra-ai-action': {
+                title: { en: 'Extra AI Action', ar: 'إجراء ذكاء اصطناعي إضافي' },
+                description: { 
+                    en: 'Add another automated task — like booking, order lookup, file upload, or lead qualification. Each AI Action is a time-saving tool that replaces staff tasks with instant replies.',
+                    ar: 'أضف مهمة آلية أخرى — مثل الحجز، البحث عن الطلبات، رفع الملفات، أو تأهيل العملاء المحتملين.'
+                }
+            },
+            'extra-ai-agent': {
+                title: { en: 'Extra AI Agent', ar: 'وكيل ذكاء اصطناعي إضافي' },
+                description: { 
+                    en: 'Get another fully trained chatbot — ideal if you want separate bots for different services, languages, or departments (e.g., Sales vs. Support, Real Estate vs. Rentals).',
+                    ar: 'احصل على روبوت دردشة مدرب بالكامل — مثالي إذا كنت تريد روبوتات منفصلة لخدمات أو أقسام مختلفة.'
+                }
+            },
+            'branding-removal': {
+                title: { en: 'Branding Removal', ar: 'إزالة العلامة التجارية' },
+                description: { 
+                    en: 'Remove all external logos (Chatbase, ChatOman) so your chatbot looks 100% like it\'s built in-house. Increases trust, professionalism, and conversion rates.',
+                    ar: 'إزالة جميع الشعارات الخارجية لتبدو الخدمة كأنها مبنية داخليًا بالكامل.'
                 }
             },
             'custom-domain': {
                 title: { en: 'Custom Domain', ar: 'نطاق مخصص' },
                 description: { 
-                    en: 'Host your chatbot on your own subdomain (e.g., bot.yourbusiness.com) for enhanced professionalism.',
-                    ar: 'استضف روبوت الدردشة على نطاقك الفرعي (مثل bot.yourbusiness.com) لمزيد من الاحترافية.'
+                    en: 'Host your chatbot on a branded link like chat.yourbusiness.com. Increases customer trust and brand authority while keeping users inside your digital ecosystem.',
+                    ar: 'استضف روبوت الدردشة على رابط مخصص مثل chat.yourbusiness.com لزيادة الثقة والمصداقية.'
                 }
             },
-            'dedicated-manager': {
-                title: { en: 'Dedicated Manager', ar: 'مدير مخصص' },
+            'whatsapp-ig-integration': {
+                title: { en: 'WhatsApp / IG Integration', ar: 'دمج واتساب / إنستغرام' },
                 description: { 
-                    en: 'A dedicated manager oversees your chatbot performance and provides tailored recommendations.',
-                    ar: 'مدير مخصص يشرف على أداء روبوت الدردشة ويقدم توصيات مخصصة.'
+                    en: 'Let customers chat with your AI directly inside WhatsApp or Instagram DMs. This add-on turns conversations into bookings right where your customers already are.',
+                    ar: 'دع العملاء يتحدثون مع الذكاء الاصطناعي مباشرة في واتساب أو رسائل إنستغرام.'
                 }
             },
-            'extra-credits': {
-                title: { en: 'Extra Messages', ar: 'رسائل إضافية' },
+            'performance-report': {
+                title: { en: 'Performance Report', ar: 'تقرير الأداء' },
                 description: { 
-                    en: 'Additional 1,000 message credits per month for high-volume customer interactions.',
-                    ar: 'ألف رصيد رسالة إضافي شهريًا للتفاعلات عالية الحجم مع العملاء.'
+                    en: 'Receive a simple, clear weekly email showing how your chatbot is performing — messages handled, top questions, and improvements made. Know what\'s working at a glance.',
+                    ar: 'استلم تقريرًا أسبوعيًا واضحًا يُظهر أداء روبوت الدردشة والرسائل المُعالجة والأسئلة الأكثر شيوعًا.'
+                }
+            },
+            'advanced-analytics': {
+                title: { en: 'Advanced Analytics Dashboard', ar: 'لوحة تحكم تحليلات متقدمة' },
+                description: { 
+                    en: 'See detailed insights into user behavior, message flows, and conversion drop-offs. This dashboard helps you optimize performance, spot issues, and measure ROI over time.',
+                    ar: 'شاهد رؤى مفصلة حول سلوك المستخدمين وتدفقات الرسائل ونقاط انخفاض التحويل.'
+                }
+            },
+            'premium-identity': {
+                title: { en: 'Premium Identity', ar: 'الهوية المميزة' },
+                description: { 
+                    en: 'Includes Branding Removal + Custom Domain. Your chatbot looks and feels 100% yours — no outside logos, hosted on your own branded subdomain. Maximum trust and brand consistency.',
+                    ar: 'تتضمن إزالة العلامة التجارية + النطاق المخصص. روبوت الدردشة يبدو ملكك بنسبة ١٠٠٪.'
+                }
+            },
+            'conversion-insights': {
+                title: { en: 'Conversion Insights', ar: 'رؤى التحويل' },
+                description: { 
+                    en: 'Includes Performance Report + Advanced Analytics Dashboard. Get a full view of what\'s happening behind the scenes. Know what converts, what doesn\'t, and where to improve.',
+                    ar: 'تتضمن تقرير الأداء + لوحة التحكم المتقدمة. احصل على رؤية كاملة لما يحدث خلف الكواليس.'
+                }
+            },
+            'scale-pack': {
+                title: { en: 'Scale Pack', ar: 'حزمة التوسع' },
+                description: { 
+                    en: 'Includes Extra AI Agent + Extra AI Action. Expand your chatbot\'s capabilities and coverage — perfect for businesses with multiple departments, complex flows, or growing demand.',
+                    ar: 'تتضمن وكيل ذكاء اصطناعي إضافي + إجراء ذكاء اصطناعي إضافي. وسّع قدرات روبوت الدردشة.'
+                }
+            },
+            'engagement-booster': {
+                title: { en: 'Engagement Booster', ar: 'معزز التفاعل' },
+                description: { 
+                    en: 'Includes WhatsApp/IG Integration + Extra 1,000 Messages. Handle more volume and reach customers where they actually chat. Great for DMs-heavy businesses.',
+                    ar: 'تتضمن دمج واتساب/إنستغرام + ١,٠٠٠ رسالة إضافية. تعامل مع حجم أكبر واصل العملاء حيث يتواصلون فعلاً.'
                 }
             },
             'whatsapp-integration': {
-                title: { en: 'WhatsApp Integration', ar: 'تكامل واتساب' },
+                title: { en: 'WhatsApp / IG Integration', ar: 'تكامل مع واتساب وإنستغرام' },
                 description: { 
-                    en: 'Connect your chatbot directly to WhatsApp so customers can chat on their preferred platform.',
-                    ar: 'اربط روبوت الدردشة مباشرة بواتساب ليتمكن العملاء من الدردشة على منصتهم المفضلة.'
+                    en: 'This allows your chatbot to work inside WhatsApp and Instagram DMs — so customers can message your business where they already are, without visiting your website. Perfect for any Omani business that lives in the DMs.',
+                    ar: 'يعمل روبوت المحادثة الخاص بك داخل رسائل واتساب وإنستغرام مباشرة — ليتواصل العملاء معك دون الحاجة لزيارة موقعك. مثالي للأنشطة العمانية التي تعتمد على الرسائل المباشرة.'
                 }
             },
             'performance-report': {
@@ -2222,6 +2600,27 @@
                 description: { 
                     en: 'Comprehensive bundle with extra messages, branding removal, and custom domain for scaling businesses.',
                     ar: 'حزمة شاملة مع رسائل إضافية، وإزالة العلامة التجارية، ونطاق مخصص للشركات المتنامية.'
+                }
+            },
+            'ai-actions': {
+                title: { en: 'AI Actions', ar: 'إجراءات الذكاء الاصطناعي' },
+                description: { 
+                    en: 'AI Actions are smart workflows that your chatbot can perform automatically, like booking appointments, sending emails, or updating databases. More actions mean more automation for your business.',
+                    ar: 'إجراءات الذكاء الاصطناعي هي مهام ذكية يمكن لروبوت الدردشة تنفيذها تلقائيًا، مثل حجز المواعيد أو إرسال الإيميلات أو تحديث قواعد البيانات.'
+                }
+            },
+            'analytics': {
+                title: { en: 'Analytics & Reports', ar: 'التحليلات والتقارير' },
+                description: { 
+                    en: 'Gain full visibility into your chatbot\'s performance. See how many users are interacting, where they\'re from, what they\'re asking, and when activity peaks — so you can refine content, increase engagement, and optimize for results.',
+                    ar: 'شاهد تحليلات شاملة لأداء روبوت المحادثة الخاص بك. اعرف عدد المستخدمين، مواقعهم، أسئلتهم، وأوقات النشاط — لتتمكن من تحسين المحتوى وزيادة التفاعل وتحقيق أفضل النتائج.'
+                }
+            },
+            'performance-report': {
+                title: { en: 'Analytics Email', ar: 'تقارير الأداء عبر البريد الإلكتروني' },
+                description: { 
+                    en: 'Stay informed with a weekly performance snapshot delivered straight to your inbox. See how many conversations your chatbot handled, how many users engaged, and what customers asked most — so you know it\'s working.',
+                    ar: 'استلم ملخصاً أسبوعياً لأداء روبوت المحادثة في بريدك الإلكتروني. اعرف عدد المحادثات، تفاعل المستخدمين، وأكثر الأسئلة شيوعاً — لتتأكد من فعالية الأداة.'
                 }
             }
         };
@@ -2313,7 +2712,7 @@
                 accordionItem.style.textAlign = 'right';
                 accordionItem.innerHTML = `
                     <button class="accordion-toggle flex justify-between items-center w-full p-5 font-semibold text-right font-tajawal" style="direction: rtl; text-align: right;">
-                        <span class="transform transition-transform duration-300">▼</span>
+                        <span class="transform transition-transform duration-300">⌄</span>
                         <span>${item.title}</span>
                     </button>
                     <div class="accordion-content px-5 pb-5 text-stone-600 font-tajawal" style="direction: rtl; text-align: right;">
@@ -2469,6 +2868,28 @@
                 window.open(googleFormURL, '_blank');
             });
 
+            // How It Works CTA buttons - scroll to pricing section
+            const howItWorksCTA = document.querySelector('.how-it-works-cta');
+            const howItWorksCTAAr = document.querySelector('.how-it-works-cta-ar');
+            
+            if (howItWorksCTA) {
+                howItWorksCTA.addEventListener('click', () => {
+                    const pricingSection = document.getElementById('calculator');
+                    if (pricingSection) {
+                        pricingSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            }
+            
+            if (howItWorksCTAAr) {
+                howItWorksCTAAr.addEventListener('click', () => {
+                    const pricingSection = document.getElementById('calculator');
+                    if (pricingSection) {
+                        pricingSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            }
+
             // YouTube Video Modal Functionality
             const videoModal = document.getElementById('video-modal');
             const videoModalClose = document.getElementById('video-modal-close');
@@ -2599,7 +3020,16 @@
     </script>
     <!-- Chatbase chatbot integration script -->
     <script>
-        (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="Qnz7C2BIzWuvbfBOx_maY";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+        window.embeddedChatbotConfig = {
+            chatbotId: "Qnz7C2BIzWuvbfBOx_maY",
+            domain: "www.chatbase.co"
+        }
+    </script>
+    <script
+        src="https://www.chatbase.co/embed.min.js"
+        chatbotId="Qnz7C2BIzWuvbfBOx_maY"
+        domain="www.chatbase.co"
+        defer>
     </script>
 </body>
 </html>
