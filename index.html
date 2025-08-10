@@ -973,14 +973,14 @@
                             <span>▶</span> See Demo
                         </button>
                         <button id="get-free-setup-btn" class="btn btn-secondary">
-                            Get Free Setup
+                            Claim Free Setup — 4 Spots Left This Month
                         </button>
                     </div>
                     
                     <!-- Trust message -->
                     <div class="trust-message text-center text-sm text-stone-600 mt-4 space-y-1">
                         <div>✓ Built for Omani businesses — from cafés to clinics</div>
-                        <div>✓ 100% done-for-you setup — no tech skills needed</div>
+                        <div>✓ Free setup ends August 31st or when spots run out</div>
                         <div>✓ No setup fees. Cancel anytime. Zero risk.</div>
                     </div>
                 </div>
@@ -1046,14 +1046,14 @@
                             <span>▶</span> شاهد العرض التوضيحي
                         </button>
                         <button id="get-free-setup-btn-ar" class="btn btn-secondary">
-                            احصل على إعداد مجاني
+                            احجز الإعداد المجاني — ٤ مقاعد متبقية هذا الشهر
                         </button>
                     </div>
                     
                     <!-- Trust message -->
                     <div class="trust-message text-center text-sm text-stone-600 mt-4 space-y-1" style="direction: rtl;">
                         <div>✓ مصمم خصيصًا للأعمال العُمانية — من المقاهي إلى العيادات</div>
-                        <div>✓ إعداد كامل نيابة عنك — بدون مهارات تقنية</div>
+                        <div>✓ الإعداد المجاني ينتهي في ٣١ أغسطس أو عند نفاد المقاعد</div>
                         <div>✓ بدون رسوم إعداد. يمكنك الإلغاء في أي وقت. بدون مخاطرة.</div>
                     </div>
                 </div>
@@ -1566,6 +1566,104 @@
         </div>
     </div>
 
+    <!-- Lead Booster Form Modal -->
+    <div id="lead-booster-form-modal" class="modal-overlay" style="z-index: 2000;">
+        <div class="modal-content" style="max-width: 95vw; width: 95vw; max-height: 95vh; height: 95vh; padding: 0; border-radius: 8px; overflow: hidden;">
+            <button class="modal-close-button" id="lead-booster-form-close-button" style="position: absolute; top: 10px; right: 10px; z-index: 10; background: rgba(0,0,0,0.7); color: white; border: none; border-radius: 50%; width: 30px; height: 30px; font-size: 16px; cursor: pointer;">&times;</button>
+            <iframe id="lead-booster-iframe" allowtransparency="true" allowfullscreen="true" allow="geolocation; microphone; camera" src="" frameborder="0" style="width: 100%; height: 100%; border: none;"></iframe>
+        </div>
+    </div>
+
+    <!-- Free Setup Modal -->
+    <div id="free-setup-modal" class="modal-overlay">
+        <div class="modal-content max-w-md">
+            <!-- English Version -->
+            <div class="lang-en">
+                <button class="modal-close-button" id="free-setup-close-button">&times;</button>
+                <h3 class="text-xl font-bold mb-6 text-center">Choose a plan</h3>
+                <div class="space-y-3">
+                    <button class="free-setup-option w-full bg-white border-2 border-teal-600 text-teal-600 font-bold py-3 px-4 rounded-lg hover:bg-teal-50 transition-colors" data-url="https://9kkd846w.forms.app/form/689838dcd8483487c5c76aa4">
+                        Lead Booster
+                    </button>
+                    <button class="free-setup-option w-full bg-white border-2 border-teal-600 text-teal-600 font-bold py-3 px-4 rounded-lg hover:bg-teal-50 transition-colors" data-url="https://9kkd846w.forms.app/form/6898350ccb6bbdd2360e13b1">
+                        Booking Maximiser
+                    </button>
+                    <button class="free-setup-option w-full bg-white border-2 border-teal-600 text-teal-600 font-bold py-3 px-4 rounded-lg hover:bg-teal-50 transition-colors" data-url="https://9kkd846w.forms.app/form/689711b37e179dafb5549723">
+                        24/7 Sales Agent
+                    </button>
+                </div>
+                <button class="w-full mt-4 bg-stone-200 text-stone-600 font-bold py-2 px-4 rounded-lg hover:bg-stone-300 transition-colors" id="free-setup-close-en">
+                    Close
+                </button>
+            </div>
+
+            <!-- Arabic Version -->
+            <div class="lang-ar">
+                <button class="modal-close-button" id="free-setup-close-button-ar">&times;</button>
+                <h3 class="text-xl font-bold mb-6 text-center" style="direction: rtl;">اختر الخطة</h3>
+                <div class="space-y-3" style="direction: rtl;">
+                    <button class="free-setup-option w-full bg-white border-2 border-teal-600 text-teal-600 font-bold py-3 px-4 rounded-lg hover:bg-teal-50 transition-colors" data-url="https://9kkd846w.forms.app/form/689838dcd8483487c5c76aa4" style="direction: rtl;">
+                        معزز العملاء المحتملين
+                    </button>
+                    <button class="free-setup-option w-full bg-white border-2 border-teal-600 text-teal-600 font-bold py-3 px-4 rounded-lg hover:bg-teal-50 transition-colors" data-url="https://9kkd846w.forms.app/form/6898350ccb6bbdd2360e13b1" style="direction: rtl;">
+                        مُعظّم الحجوزات
+                    </button>
+                    <button class="free-setup-option w-full bg-white border-2 border-teal-600 text-teal-600 font-bold py-3 px-4 rounded-lg hover:bg-teal-50 transition-colors" data-url="https://9kkd846w.forms.app/form/689711b37e179dafb5549723" style="direction: rtl;">
+                        وكيل المبيعات على مدار الساعة
+                    </button>
+                </div>
+                <button class="w-full mt-4 bg-stone-200 text-stone-600 font-bold py-2 px-4 rounded-lg hover:bg-stone-300 transition-colors" id="free-setup-close-ar" style="direction: rtl;">
+                    إغلاق
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Plan Selection Modal -->
+    <div id="plan-selection-modal" class="modal-overlay">
+        <div class="modal-content max-w-md">
+            <!-- English Version -->
+            <div class="lang-en">
+                <button class="modal-close-button" id="plan-selection-close-button">&times;</button>
+                <h3 class="text-xl font-bold mb-6 text-center">Choose a plan</h3>
+                <div class="space-y-3">
+                    <button class="plan-selection-option w-full bg-white border-2 border-teal-600 text-teal-600 font-bold py-3 px-4 rounded-lg hover:bg-teal-50 transition-colors" data-url="https://9kkd846w.forms.app/form/689838dcd8483487c5c76aa4">
+                        Lead Booster
+                    </button>
+                    <button class="plan-selection-option w-full bg-white border-2 border-teal-600 text-teal-600 font-bold py-3 px-4 rounded-lg hover:bg-teal-50 transition-colors" data-url="https://9kkd846w.forms.app/form/6898350ccb6bbdd2360e13b1">
+                        Booking Maximiser
+                    </button>
+                    <button class="plan-selection-option w-full bg-white border-2 border-teal-600 text-teal-600 font-bold py-3 px-4 rounded-lg hover:bg-teal-50 transition-colors" data-url="https://9kkd846w.forms.app/form/689711b37e179dafb5549723">
+                        24/7 Sales Agent
+                    </button>
+                </div>
+                <button class="w-full mt-4 bg-stone-200 text-stone-600 font-bold py-2 px-4 rounded-lg hover:bg-stone-300 transition-colors" id="plan-selection-close-en">
+                    Close
+                </button>
+            </div>
+
+            <!-- Arabic Version -->
+            <div class="lang-ar">
+                <button class="modal-close-button" id="plan-selection-close-button-ar">&times;</button>
+                <h3 class="text-xl font-bold mb-6 text-center" style="direction: rtl;">اختر الخطة</h3>
+                <div class="space-y-3" style="direction: rtl;">
+                    <button class="plan-selection-option w-full bg-white border-2 border-teal-600 text-teal-600 font-bold py-3 px-4 rounded-lg hover:bg-teal-50 transition-colors" data-url="https://9kkd846w.forms.app/form/689838dcd8483487c5c76aa4" style="direction: rtl;">
+                        معزز العملاء المحتملين
+                    </button>
+                    <button class="plan-selection-option w-full bg-white border-2 border-teal-600 text-teal-600 font-bold py-3 px-4 rounded-lg hover:bg-teal-50 transition-colors" data-url="https://9kkd846w.forms.app/form/6898350ccb6bbdd2360e13b1" style="direction: rtl;">
+                        مُعظّم الحجوزات
+                    </button>
+                    <button class="plan-selection-option w-full bg-white border-2 border-teal-600 text-teal-600 font-bold py-3 px-4 rounded-lg hover:bg-teal-50 transition-colors" data-url="https://9kkd846w.forms.app/form/689711b37e179dafb5549723" style="direction: rtl;">
+                        وكيل المبيعات على مدار الساعة
+                    </button>
+                </div>
+                <button class="w-full mt-4 bg-stone-200 text-stone-600 font-bold py-2 px-4 rounded-lg hover:bg-stone-300 transition-colors" id="plan-selection-close-ar" style="direction: rtl;">
+                    إغلاق
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Language Toggle Button -->
     <div id="language-toggle" class="fixed top-4 right-4 md:top-4 md:right-4 bottom-4 left-4 md:bottom-auto md:left-auto z-50">
         <button id="lang-button" class="w-12 h-12 bg-white border-2 border-teal-600 rounded-full shadow-lg flex items-center justify-center text-teal-600 font-bold text-sm hover:bg-teal-50 transition-colors">
@@ -1676,7 +1774,7 @@
             { 
                 id: 'starter', 
                 name: { en: 'Lead Booster', ar: 'مضاعف العملاء المحتملين' },
-                price: { monthly: 29, yearly: 319 },
+                price: { monthly: 32, yearly: 352 },
                 credits: 1000, 
                 agents: 1,
                 aiActions: 1,
@@ -1697,12 +1795,12 @@
                     en: 'For small businesses that want to capture leads without lifting a finger.', 
                     ar: 'للشركات الصغيرة التي تريد جمع العملاء المحتملين بدون أي مجهود.' 
                 },
-                yearlySavings: 29
+                yearlySavings: 32
             },
             { 
                 id: 'pro', 
                 name: { en: 'Booking Maximiser', ar: 'مضاعف الحجوزات' },
-                price: { monthly: 79, yearly: 869 },
+                price: { monthly: 89, yearly: 979 },
                 credits: 3000, 
                 agents: 1,
                 aiActions: 3,
@@ -1723,12 +1821,12 @@
                     en: 'For busy service brands that want to automate appointments and FAQs.', 
                     ar: 'للعلامات الخدمية المزدحمة التي تريد أتمتة الحجوزات والأسئلة الشائعة.' 
                 },
-                yearlySavings: 79
+                yearlySavings: 89
             },
             { 
                 id: 'elite', 
                 name: { en: '24/7 Sales Engine', ar: 'محرك المبيعات على مدار الساعة' },
-                price: { monthly: 229, yearly: 2519 },
+                price: { monthly: 249, yearly: 2739 },
                 credits: 8000, 
                 agents: 2,
                 aiActions: 5,
@@ -1749,7 +1847,7 @@
                     en: 'For growth-focused brands that want full AI automation and insights.', 
                     ar: 'للعلامات التجارية الطموحة التي تريد أتمتة كاملة وتحليلات ذكية.' 
                 },
-                yearlySavings: 229
+                yearlySavings: 249
             }
         ];
 
@@ -1965,11 +2063,42 @@
 
             wrapper.querySelectorAll('.plan-cta').forEach(button => {
                 button.addEventListener('click', (e) => {
-                    e.stopPropagation(); // Prevent plan selection when clicking CTA
-                    
                     // Get the plan ID from the parent card
                     const planCard = button.closest('.plan-card');
                     const planId = planCard.dataset.planId;
+                    
+                    // Check if this is the Lead Booster button
+                    if (planId === 'starter') {
+                        // Prevent any default behavior including scrolling
+                        e.preventDefault();
+                        e.stopPropagation();
+                        // Open the Lead Booster form directly in browser
+                        window.open('https://9kkd846w.forms.app/form/689838dcd8483487c5c76aa4', '_blank');
+                        return;
+                    }
+                    
+                    // Check if this is the Booking Maximiser button
+                    if (planId === 'pro') {
+                        // Prevent any default behavior including scrolling
+                        e.preventDefault();
+                        e.stopPropagation();
+                        // Open the Booking Maximiser form directly in browser
+                        window.open('https://9kkd846w.forms.app/form/6898350ccb6bbdd2360e13b1', '_blank');
+                        return;
+                    }
+                    
+                    // Check if this is the 24/7 Sales Engine button
+                    if (planId === 'elite') {
+                        // Prevent any default behavior including scrolling
+                        e.preventDefault();
+                        e.stopPropagation();
+                        // Open the 24/7 Sales Engine form directly in browser
+                        window.open('https://9kkd846w.forms.app/form/689711b37e179dafb5549723', '_blank');
+                        return;
+                    }
+                    
+                    // For other plans, proceed with normal behavior
+                    e.stopPropagation(); // Prevent plan selection when clicking CTA
                     
                     // Select the plan
                     handlePlanSelection(planId);
@@ -2095,9 +2224,9 @@
                     
                     <div><strong>Q: How much does it cost?</strong><br>
                     A: Monthly plans start at:<br>
-                    • Lead Booster: 29 OMR<br>
-                    • Booking Maximiser: 79 OMR<br>
-                    • 24/7 Sales Engine: 229 OMR<br>
+                    • Lead Booster: 32 OMR<br>
+                    • Booking Maximiser: 89 OMR<br>
+                    • 24/7 Sales Engine: 249 OMR<br>
                     You can also save up to 1 month with annual billing (setup is free on yearly plans).</div>
                     
                     <div><strong>Q: What is a message credit?</strong><br>
@@ -2162,9 +2291,9 @@
                     
                     <div><strong>س: كم تبلغ التكلفة؟</strong><br>
                     ج: تبدأ الخطط الشهرية من:<br>
-                    • Lead Booster: ‏29 ريال عماني<br>
-                    • Booking Maximiser: ‏79 ريال عماني<br>
-                    • 24/7 Sales Engine: ‏229 ريال عماني<br>
+                    • مضاعف العملاء المحتملين: ‏32 ريال عماني<br>
+                    • مضاعف الحجوزات: ‏89 ريال عماني<br>
+                    • محرك المبيعات على مدار الساعة: ‏249 ريال عماني<br>
                     ويمكنك التوفير حتى شهر كامل عبر الدفع السنوي (يشمل الإعداد مجانًا في الخطط السنوية).</div>
                     
                     <div><strong>س: ما هو رصيد الرسائل؟</strong><br>
@@ -2753,6 +2882,28 @@
                 }
             });
 
+            // Forms.app fullscreen embed for Lead Booster
+            function openLeadBoosterFormsApp() {
+                // Check if forms.app embed is available
+                if (typeof window.FormsApp !== 'undefined' && window.FormsApp.embed) {
+                    try {
+                        // Use forms.app fullscreen embed
+                        window.FormsApp.embed({
+                            formId: '6895a50d68a8d00002bfbda2',
+                            host: 'https://9kkd846w.forms.app',
+                            fullscreen: true
+                        });
+                    } catch (error) {
+                        console.error('Forms.app fullscreen embed failed:', error);
+                        // Fallback to direct form URL
+                        window.open('https://9kkd846w.forms.app/my-new-form', '_blank');
+                    }
+                } else {
+                    // Fallback if forms.app embed is not loaded
+                    window.open('https://9kkd846w.forms.app/my-new-form', '_blank');
+                }
+            }
+
             // Add feature popup listeners to add-ons after rendering
             document.addEventListener('click', (e) => {
                 if (e.target.closest('.feature-item')) {
@@ -2824,48 +2975,106 @@
 
             
 
-            // Link "Get Started" buttons to Google Form
+            // Free Setup Modal functionality
+            const freeSetupModal = document.getElementById('free-setup-modal');
+            const freeSetupCloseButton = document.getElementById('free-setup-close-button');
+            const freeSetupCloseButtonAr = document.getElementById('free-setup-close-button-ar');
+            const freeSetupCloseEn = document.getElementById('free-setup-close-en');
+            const freeSetupCloseAr = document.getElementById('free-setup-close-ar');
+
+            function openFreeSetupModal() {
+                freeSetupModal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeFreeSetupModal() {
+                freeSetupModal.classList.remove('show');
+                document.body.style.overflow = 'auto';
+            }
+
+            // Plan Selection Modal functionality
+            const planSelectionModal = document.getElementById('plan-selection-modal');
+            const planSelectionCloseButton = document.getElementById('plan-selection-close-button');
+            const planSelectionCloseButtonAr = document.getElementById('plan-selection-close-button-ar');
+            const planSelectionCloseEn = document.getElementById('plan-selection-close-en');
+            const planSelectionCloseAr = document.getElementById('plan-selection-close-ar');
+
+            function openPlanSelectionModal() {
+                planSelectionModal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closePlanSelectionModal() {
+                planSelectionModal.classList.remove('show');
+                document.body.style.overflow = 'auto';
+            }
+
+            // Link "Get Started" buttons to open plan selection modal
             document.getElementById('get-started-btn-static').addEventListener('click', () => {
-                if (!googleFormURL) { 
-                    console.error("Google Form URL is not set. Please provide a valid Google Form URL.");
-                    return;
-                }
-                window.open(googleFormURL, '_blank');
+                openPlanSelectionModal();
             });
 
             document.getElementById('get-started-btn-static-ar').addEventListener('click', () => {
-                if (!googleFormURL) { 
-                    console.error("Google Form URL is not set. Please provide a valid Google Form URL.");
-                    return;
-                }
-                window.open(googleFormURL, '_blank');
+                openPlanSelectionModal();
             });
 
             document.getElementById('sticky-get-started').addEventListener('click', () => {
-                if (!googleFormURL) { 
-                    console.error("Google Form URL is not set. Please provide a valid Google Form URL.");
-                    return;
+                openPlanSelectionModal();
+            });
+
+            // Close modal events for plan selection
+            planSelectionCloseButton.addEventListener('click', closePlanSelectionModal);
+            planSelectionCloseButtonAr.addEventListener('click', closePlanSelectionModal);
+            planSelectionCloseEn.addEventListener('click', closePlanSelectionModal);
+            planSelectionCloseAr.addEventListener('click', closePlanSelectionModal);
+
+            // Close modal when clicking outside for plan selection
+            planSelectionModal.addEventListener('click', (event) => {
+                if (event.target === planSelectionModal) {
+                    closePlanSelectionModal();
                 }
-                window.open(googleFormURL, '_blank');
+            });
+
+            // Handle plan selection clicks
+            document.querySelectorAll('.plan-selection-option').forEach(button => {
+                button.addEventListener('click', () => {
+                    const url = button.getAttribute('data-url');
+                    window.open(url, '_blank');
+                    closePlanSelectionModal();
+                });
+            });
+
+            // Close modal events for free setup
+            freeSetupCloseButton.addEventListener('click', closeFreeSetupModal);
+            freeSetupCloseButtonAr.addEventListener('click', closeFreeSetupModal);
+            freeSetupCloseEn.addEventListener('click', closeFreeSetupModal);
+            freeSetupCloseAr.addEventListener('click', closeFreeSetupModal);
+
+            // Close modal when clicking outside for free setup
+            freeSetupModal.addEventListener('click', (event) => {
+                if (event.target === freeSetupModal) {
+                    closeFreeSetupModal();
+                }
+            });
+
+            // Handle free setup option clicks
+            document.querySelectorAll('.free-setup-option').forEach(button => {
+                button.addEventListener('click', () => {
+                    const url = button.getAttribute('data-url');
+                    window.open(url, '_blank');
+                    closeFreeSetupModal();
+                });
             });
 
             
 
-            // Link "Get Free Setup" buttons to Google Form
+            // Link "Get Free Setup" buttons to open free setup modal
             document.getElementById('get-free-setup-btn').addEventListener('click', () => {
-                if (!googleFormURL) { 
-                    console.error("Google Form URL is not set. Please provide a valid Google Form URL.");
-                    return;
-                }
-                window.open(googleFormURL, '_blank');
+                openFreeSetupModal();
             });
 
             document.getElementById('get-free-setup-btn-ar').addEventListener('click', () => {
-                if (!googleFormURL) { 
-                    console.error("Google Form URL is not set. Please provide a valid Google Form URL.");
-                    return;
-                }
-                window.open(googleFormURL, '_blank');
+                openFreeSetupModal();
             });
 
             // How It Works CTA buttons - scroll to pricing section
@@ -3018,6 +3227,9 @@
             if (totalLabelAr) totalLabelAr.textContent = calculations.ar.isYearly ? 'الإجمالي السنوي:' : 'الإجمالي الشهري:';
         }
     </script>
+    <!-- Forms.app embed script -->
+    <script src="https://forms.app/cdn/embed.js" defer></script>
+
     <!-- Chatbase chatbot integration script -->
     <script>
         window.embeddedChatbotConfig = {
