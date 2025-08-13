@@ -3230,18 +3230,99 @@
     <!-- Forms.app embed script -->
     <script src="https://forms.app/cdn/embed.js" defer></script>
 
-    <!-- Chatbase chatbot integration script -->
+    <!-- ChatOman / Chatbase: script embed -->
     <script>
-        window.embeddedChatbotConfig = {
-            chatbotId: "Qnz7C2BIzWuvbfBOx_maY",
-            domain: "www.chatbase.co"
-        }
+    (function(){
+      if(!window.chatbase||window.chatbase("getState")!=="initialized"){
+        window.chatbase=(...arguments)=>{
+          if(!window.chatbase.q){window.chatbase.q=[]}
+          window.chatbase.q.push(arguments)
+        };
+        window.chatbase=new Proxy(window.chatbase,{
+          get(target,prop){
+            if(prop==="q"){return target.q}
+            return(...args)=>target(prop,...args)
+          }
+        })
+      }
+      const onLoad=function(){
+        const s=document.createElement("script");
+        s.src="https://www.chatbase.co/embed.min.js";
+        s.id="Qnz7C2BIzWuvbfBOx_maY";           // <-- your Chatbot ID (keep as is)
+        s.domain="www.chatbase.co";
+        document.body.appendChild(s);
+      };
+      if(document.readyState==="complete"){onLoad()} else {window.addEventListener("load",onLoad)}
+    })();
     </script>
-    <script
-        src="https://www.chatbase.co/embed.min.js"
-        chatbotId="Qnz7C2BIzWuvbfBOx_maY"
-        domain="www.chatbase.co"
-        defer>
+
+    <!-- ChatOman / Chatbase: register client-side form schema -->
+    <script>
+    (function waitForRegister(){
+      // If registerFormSchema is available, register your form; otherwise, retry briefly.
+      if (window.chatbase && typeof window.chatbase.registerFormSchema === "function") {
+        window.chatbase.registerFormSchema({
+          // IMPORTANT: This name must match the "Form name" in Chatbase > Actions > Custom form.
+          // If your form there is named differently, change "ContactSupportForm" to match exactly.
+          ContactSupportForm: async (args, user) => {
+            return {
+              fields: [
+                {
+                  name: "name",
+                  label: "Full Name | الاسم الكامل",
+                  type: "text",
+                  validation: { required: { value: true, message: "Name is required" } }
+                },
+                {
+                  name: "email",
+                  label: "Email | البريد الإلكتروني",
+                  type: "email",
+                  validation: {
+                    required: { value: true, message: "Email is required" },
+                    pattern: { value: ".+@.+\\..+", message: "Invalid email" }
+                  }
+                },
+                {
+                  name: "phone",
+                  label: "Phone (+ country code) | رقم الهاتف",
+                  type: "phone",
+                  // E.164 format; ex: +9689XXXXXXX
+                  validation: {
+                    pattern: { value: "^\\+[1-9]\\d{1,14}$", message: "Use intl format like +9689XXXXXXX" }
+                  }
+                },
+                {
+                  name: "service",
+                  label: "Service/Topic | الخدمة",
+                  type: "select",
+                  options: [
+                    { label: "Pricing", value: "pricing" },
+                    { label: "Technical Support", value: "support" },
+                    { label: "Sales/Booking", value: "sales" },
+                    { label: "Other", value: "other" }
+                  ],
+                  validation: { required: { value: true, message: "Please choose one" } }
+                },
+                {
+                  name: "message",
+                  label: "How can we help? | كيف نساعدك؟",
+                  type: "textarea",
+                  validation: {
+                    required: { value: true, message: "Please add a short message" },
+                    minLength: { value: 5, message: "A bit more detail, please" }
+                  }
+                }
+              ],
+              submitButtonText: "Send | إرسال",
+              successMessage: "Thanks! Our team will contact you shortly.",
+              errorMessage: "Submission failed. Please try again."
+            };
+          }
+        });
+      } else {
+        setTimeout(waitForRegister, 120);  // try again shortly until the chatbase script is ready
+      }
+    })();
     </script>
 </body>
 </html>
